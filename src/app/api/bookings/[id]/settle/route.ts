@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { logAudit } from "@/lib/audit";
+import { formatRupiah } from "@/lib/format";
 
 // Tandai pelunasan booking selesai → catat sisa sebagai income Rental.
 export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -39,5 +41,6 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
     prisma.booking.update({ where: { id }, data: { sisaPelunasan: 0, status: "lunas" } }),
   ]);
 
+  await logAudit(session, "settle", "booking", `Pelunasan ${booking.namaEntitas} · ${formatRupiah(sisa)}`);
   return NextResponse.json({ ok: true });
 }

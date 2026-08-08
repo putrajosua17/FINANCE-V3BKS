@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { logAudit } from "@/lib/audit";
+import { formatRupiah } from "@/lib/format";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
@@ -74,8 +76,9 @@ export async function POST(req: Request) {
             }),
       },
     });
+    await logAudit(session, "create", "transaction", `${tipe} ${formatRupiah(jumlah)} · ${cat?.nama ?? ""}`);
     return NextResponse.json({ ok: true, id: tx.id });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Gagal menyimpan transaksi" }, { status: 500 });
   }
 }

@@ -189,3 +189,18 @@ model Setting {
   key   String @id
   value String
 }
+
+// ---------------------------------------------------------------------------
+// AuditLog  (jejak aktivitas pengguna)
+// ---------------------------------------------------------------------------
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  userName  String
+  aksi      String // create | update | delete | import | pay | settle
+  entitas   String // transaction | bill | booking | budget | user | ...
+  detail    String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

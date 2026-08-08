@@ -15,6 +15,7 @@ const TITLES: Record<string, string> = {
   "/laporan": "Laporan Keuangan",
   "/budgeting": "Budgeting & Prediksi",
   "/flowai": "FlowAI Insight",
+  "/audit": "Log Aktivitas",
   "/panduan": "Panduan",
   "/pengaturan": "Pengaturan",
 };

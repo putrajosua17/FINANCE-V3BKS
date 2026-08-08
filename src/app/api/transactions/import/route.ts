@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { logAudit } from "@/lib/audit";
 
 type InRow = {
   tanggal?: string;
@@ -77,6 +78,7 @@ export async function POST(req: Request) {
       created = result.length;
     }
 
+    if (created > 0) await logAudit(session, "import", "transaction", `${created} transaksi diimpor (${errors.length} gagal)`);
     return NextResponse.json({ ok: true, created, gagal: errors.length, errors });
   } catch {
     return NextResponse.json({ error: "Gagal memproses impor" }, { status: 500 });

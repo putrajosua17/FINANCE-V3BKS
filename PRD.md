@@ -369,8 +369,12 @@ Dua tab: **Pemasukan** dan **Pengeluaran**.
 - Navigasi mobile (drawer/hamburger) — aplikasi responsif penuh di HP.
 - Impor transaksi massal dari CSV (paste/unggah, pratinjau, validasi per-baris, template).
 
-**Fase 6 — Penyempurnaan (opsional)**
-- Audit log, narasi insight LLM, backup otomatis, deploy produksi (PostgreSQL + Vercel).
+**Fase 6 — Audit & Deploy** ✅
+- Audit log (jejak aktivitas pengguna) + halaman Log Aktivitas (owner/admin).
+- Kesiapan deploy produksi: `DEPLOY.md`, `.env.production.example`, `docker-compose.yml` (PostgreSQL + Vercel).
+
+**Fase 7 — Penyempurnaan (opsional)**
+- Narasi insight berbasis LLM, backup otomatis terjadwal, notifikasi.
 
 ---
 

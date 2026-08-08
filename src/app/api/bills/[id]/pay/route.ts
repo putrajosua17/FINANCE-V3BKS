@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
+import { logAudit } from "@/lib/audit";
+import { formatRupiah } from "@/lib/format";
 
 export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await getSession();
@@ -26,5 +28,6 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
     prisma.bill.update({ where: { id }, data: { status: "paid" } }),
   ]);
 
+  await logAudit(session, "pay", "bill", `${bill.nama} · ${formatRupiah(bill.nominalEstimasi)}`);
   return NextResponse.json({ ok: true });
 }

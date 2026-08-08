@@ -25,6 +25,7 @@ export const NAV_GROUPS: NavGroup[] = [
     title: "Bantuan",
     items: [
       { href: "/flowai", label: "FlowAI Insight", icon: "🤖" },
+      { href: "/audit", label: "Log Aktivitas", icon: "🕓" },
       { href: "/panduan", label: "Panduan", icon: "📖" },
       { href: "/pengaturan", label: "Pengaturan", icon: "⚙️" },
     ],
