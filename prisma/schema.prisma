@@ -53,6 +53,7 @@ model Category {
   urutan       Int           @default(0)
   transactions Transaction[]
   bills        Bill[]
+  budgets      Budget[]
 
   @@unique([nama, tipe])
 }
@@ -166,6 +167,19 @@ model Target {
   nilai    Float
 
   @@unique([periode, tanggal])
+}
+
+// ---------------------------------------------------------------------------
+// Budget  (anggaran per kategori per periode bulanan, mis. "2026-08")
+// ---------------------------------------------------------------------------
+model Budget {
+  id         String   @id @default(cuid())
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+  periode    String // format "YYYY-MM"
+  nominal    Float    @default(0)
+
+  @@unique([categoryId, periode])
 }
 
 // ---------------------------------------------------------------------------

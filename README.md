@@ -17,8 +17,8 @@ Dashboard keuangan **web penuh** untuk bisnis rental **V3BKS Mini Soccer** — t
 - **Daftar Rekening** — saldo & mutasi Cash/BCA/Mandiri/BNI.
 - **Target & Tagihan** — target harian/bulanan, tandai tagihan rutin lunas, lunasi piutang penyewa.
 - **Booking & Jadwal** — daftar booking + status + analisa jam main.
-- **Laporan Keuangan** — laba rugi bulanan, kategori, estimasi pajak.
-- **Budgeting & Prediksi** — proyeksi run-rate akhir bulan.
+- **Laporan Keuangan** — laba rugi bulanan, kategori, estimasi pajak + **ekspor Excel (.xlsx)** & **Cetak/PDF**.
+- **Budgeting & Prediksi** — proyeksi run-rate + **anggaran per kategori (editable)** & alert over-budget.
 - **FlowAI Insight** — insight otomatis berbasis rule.
 - **Panduan** & **Pengaturan** (master data).
 
@@ -61,4 +61,4 @@ npm run dev               # http://localhost:3000
 | `npm run db:reset` | Reset DB + seed ulang |
 
 ## Status
-Fase 0–2 (MVP inti) selesai. Ekspor PDF/Excel, budget per kategori, dan narasi insight LLM direncanakan pada Fase 3+.
+Fase 0–3 selesai: MVP inti + laporan (ekspor Excel & Cetak/PDF) + budgeting per kategori dengan alert over-budget. Narasi insight berbasis LLM & CRUD master data lanjutan direncanakan pada fase berikutnya.

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getDashboardData } from "@/lib/dashboard";
 import { formatRupiah, namaBulan } from "@/lib/format";
 
@@ -16,9 +17,15 @@ export default async function LaporanPage() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h2 className="text-base font-semibold text-white">Laporan Keuangan</h2>
-        <p className="text-xs text-slate-500">Laba rugi, kategori, & pajak — tahun {d.tahun}.</p>
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div>
+          <h2 className="text-base font-semibold text-white">Laporan Keuangan</h2>
+          <p className="text-xs text-slate-500">Laba rugi, kategori, & pajak — tahun {d.tahun}.</p>
+        </div>
+        <div className="flex gap-2">
+          <a href="/api/laporan/export?periode=ini" className="btn-ghost text-xs">⬇️ Ekspor Excel</a>
+          <Link href="/cetak/laporan?periode=ini" className="btn-primary text-xs">🖨️ Cetak / PDF</Link>
+        </div>
       </div>
 
       {/* P&L per bulan */}

@@ -356,10 +356,10 @@ Dua tab: **Pemasukan** dan **Pengeluaran**.
 - Booking & Jadwal + deteksi bentrok + analisa jam main.
 - Widget Progres Target, Tagihan Mendatang, Total Tagihan.
 
-**Fase 3 — Laporan, Budgeting & Insight**
-- Laporan Keuangan (P&L, kategori, pajak, metode bayar) + ekspor PDF/Excel.
-- Budgeting & Prediksi.
-- FlowAI Insight (rule-based) + Panduan + Pengaturan lanjutan.
+**Fase 3 — Laporan, Budgeting & Insight** ✅
+- Laporan Keuangan (P&L, kategori, pajak) + ekspor **Excel (.xlsx)** & **Cetak/PDF**.
+- Budgeting & Prediksi: anggaran per kategori (editable) + alert over-budget + proyeksi run-rate.
+- FlowAI Insight (rule-based) + Panduan + Pengaturan.
 
 **Fase 4 — Penyempurnaan (opsional)**
 - Multi-user/RBAC, audit log, mobile polish, narasi insight LLM, backup otomatis.
@@ -403,7 +403,7 @@ Dua tab: **Pemasukan** dan **Pengeluaran**.
 4. ⏳ **Fee Samkot 65% / Fee Academy 35%** — dicatat sebagai kategori tersendiri; perlakuan bagi hasil detail menyusul.
 5. ✅ **Web penuh** (Next.js + database server).
 6. ✅ **Data mulai Agustus 2026** (mulai relatif bersih; rekap bulan sebelumnya hanya sebagai referensi laporan, opsional).
-7. ⏳ **Ekspor laporan** — target PDF & Excel (dikerjakan pada Fase 3).
+7. ✅ **Ekspor laporan** — Excel (.xlsx) & Cetak/PDF sudah tersedia (Fase 3).
 
 ---
 

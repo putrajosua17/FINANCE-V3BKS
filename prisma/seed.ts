@@ -13,6 +13,7 @@ async function main() {
   await prisma.transaction.deleteMany();
   await prisma.booking.deleteMany();
   await prisma.bill.deleteMany();
+  await prisma.budget.deleteMany();
   await prisma.target.deleteMany();
   await prisma.rateCard.deleteMany();
   await prisma.category.deleteMany();
@@ -260,6 +261,28 @@ async function main() {
       },
     });
   }
+
+  // ---- Budget per kategori (periode Agustus 2026) ----
+  const budgetRows = [
+    { kategori: "Gaji Karyawan", nominal: 34000000 },
+    { kategori: "Listrik", nominal: 16000000 },
+    { kategori: "PT. LA JALI (Cleaning)", nominal: 4800000 },
+    { kategori: "WiFi", nominal: 1200000 },
+    { kategori: "Telkomsel", nominal: 150000 },
+    { kategori: "Maintenance", nominal: 1000000 },
+    { kategori: "Stock Bola", nominal: 1000000 },
+    { kategori: "Alat Kebersihan", nominal: 700000 },
+    { kategori: "Marketing", nominal: 500000 },
+    { kategori: "Other Expenses - 1", nominal: 2500000 },
+    { kategori: "Other Expenses - 2", nominal: 2000000 },
+  ];
+  await prisma.budget.createMany({
+    data: budgetRows.map((b) => ({
+      categoryId: cat(b.kategori, "expense"),
+      periode: "2026-08",
+      nominal: b.nominal,
+    })),
+  });
 
   // ---- Settings ----
   await prisma.setting.createMany({

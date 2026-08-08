@@ -1,10 +1,12 @@
 import { getDashboardData, rangeBulan } from "@/lib/dashboard";
+import { getBudgetComparison } from "@/lib/budget";
 import { formatRupiah, formatPercent } from "@/lib/format";
+import BudgetTable from "@/components/BudgetTable";
 
 export const dynamic = "force-dynamic";
 
 export default async function BudgetingPage() {
-  const d = await getDashboardData("ini");
+  const [d, budget] = await Promise.all([getDashboardData("ini"), getBudgetComparison("ini")]);
   const { tahun, bulan } = rangeBulan("ini");
   const hariDalamBulan = new Date(tahun, bulan + 1, 0).getDate();
   const hariBerjalan = d.progresTarget.harian.hari || 1;
@@ -44,24 +46,29 @@ export default async function BudgetingPage() {
         </div>
       </div>
 
-      <div className="card">
-        <p className="card-title mb-3">Realisasi Pengeluaran per Kategori (bulan ini)</p>
-        <ul className="space-y-3">
-          {d.rincianPengeluaran.map((r) => (
-            <li key={r.nama}>
-              <div className="flex justify-between text-sm mb-1">
-                <span className="text-slate-300">{r.nama}</span>
-                <span className="tabular-nums text-slate-200">{formatRupiah(r.nilai)}</span>
-              </div>
-              <div className="w-full h-1.5 rounded-full bg-ink-700 overflow-hidden">
-                <div className="h-full bg-brand-amber" style={{ width: `${Math.min(100, r.persen)}%` }} />
-              </div>
-            </li>
-          ))}
-          {d.rincianPengeluaran.length === 0 && <li className="text-sm text-slate-500">Belum ada pengeluaran.</li>}
-        </ul>
-        <p className="text-[11px] text-slate-600 mt-4">* Penetapan budget per kategori & alert overspend menyusul (Fase 3).</p>
+      {/* Ringkasan anggaran */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="card">
+          <p className="card-title">Total Anggaran</p>
+          <p className="mt-2 text-lg font-bold text-white tabular-nums">{formatRupiah(budget.totalBudget)}</p>
+        </div>
+        <div className="card">
+          <p className="card-title">Total Realisasi</p>
+          <p className="mt-2 text-lg font-bold text-brand-amber tabular-nums">{formatRupiah(budget.totalRealisasi)}</p>
+          <p className="text-[11px] text-slate-500">
+            {budget.totalBudget > 0 ? formatPercent((budget.totalRealisasi / budget.totalBudget) * 100) : "-"} terpakai
+          </p>
+        </div>
+        <div className="card">
+          <p className="card-title">Over-Budget</p>
+          <p className={`mt-2 text-lg font-bold tabular-nums ${budget.overCount > 0 ? "text-brand-red" : "text-brand-green"}`}>
+            {budget.overCount} kategori
+          </p>
+        </div>
       </div>
+
+      {/* Tabel anggaran vs realisasi (editable) */}
+      <BudgetTable rows={budget.rows} periode={budget.periode} />
     </div>
   );
 }
