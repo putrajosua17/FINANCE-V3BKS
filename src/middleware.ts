@@ -7,7 +7,7 @@ const secret = new TextEncoder().encode(
   process.env.AUTH_SECRET || "insecure-dev-secret-change-me"
 );
 
-const PUBLIC_PATHS = ["/login", "/api/auth/login"];
+const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/setup"];
 
 async function isValid(token: string | undefined): Promise<boolean> {
   if (!token) return false;
