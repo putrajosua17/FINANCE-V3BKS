@@ -14,6 +14,7 @@ Dashboard keuangan **web penuh** untuk bisnis rental **V3BKS Mini Soccer** — t
 - **Dashboard** — 6 KPI (Total Saldo, Pemasukan, Pengeluaran, Rasio Laba, Nilai Kekayaan, Status) + widget: Arus Kas, Rincian Pengeluaran, Tagihan Mendatang, Progres Target, FlowAI Insight, Tren Bulanan, Total Tagihan, Saldo Rekening.
 - **Tambah Transaksi** — pemasukan (booking/jasa, auto-isi harga dari kode tarif, pajak daerah 10% otomatis) & pengeluaran + Quick Spend.
 - **Riwayat Transaksi** — cari, filter, hapus.
+- **Impor Data** — impor transaksi massal dari CSV (paste atau unggah file) dengan pratinjau, validasi per-baris, template unduhan.
 - **Daftar Rekening** — saldo & mutasi Cash/BCA/Mandiri/BNI.
 - **Target & Tagihan** — target harian/bulanan, tandai tagihan rutin lunas, lunasi piutang penyewa.
 - **Booking & Jadwal** — daftar booking + status + analisa jam main.
@@ -61,7 +62,7 @@ npm run dev               # http://localhost:3000
 | `npm run db:reset` | Reset DB + seed ulang |
 
 ## Status
-Fase 0–4 selesai: MVP inti + laporan (ekspor Excel & Cetak/PDF) + budgeting per kategori dengan alert over-budget + CRUD master data lengkap & manajemen pengguna role-based. Narasi insight berbasis LLM direncanakan pada fase berikutnya.
+Fase 0–5 selesai: MVP inti + laporan (ekspor Excel & Cetak/PDF) + budgeting dengan alert over-budget + CRUD master data & manajemen pengguna role-based + **navigasi mobile (drawer)** + **impor massal CSV**. Aplikasi responsif di desktop & mobile. Narasi insight berbasis LLM direncanakan pada fase berikutnya.
 
 ## Peran & Akses
 | Role | Akses |

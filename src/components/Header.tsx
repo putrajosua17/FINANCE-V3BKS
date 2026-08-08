@@ -2,11 +2,13 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import MobileNav from "@/components/MobileNav";
 
 const TITLES: Record<string, string> = {
   "/dashboard": "Dashboard",
   "/transaksi/tambah": "Tambah Transaksi",
   "/transaksi/riwayat": "Riwayat Transaksi",
+  "/transaksi/impor": "Impor Data",
   "/rekening": "Daftar Rekening",
   "/target-tagihan": "Target & Tagihan",
   "/booking": "Booking & Jadwal",
@@ -40,9 +42,12 @@ export default function Header({ userName, showPeriod = false }: { userName: str
 
   return (
     <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-5 py-3 flex items-center justify-between gap-4">
-      <div>
-        <h1 className="text-lg font-semibold text-white leading-tight">{title}</h1>
-        <p className="text-[11px] text-slate-500">V3BKS Mini Soccer</p>
+      <div className="flex items-center gap-3">
+        <MobileNav />
+        <div>
+          <h1 className="text-lg font-semibold text-white leading-tight">{title}</h1>
+          <p className="text-[11px] text-slate-500">V3BKS Mini Soccer</p>
+        </div>
       </div>
 
       <div className="flex items-center gap-2">

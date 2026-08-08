@@ -2,38 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-type Item = { href: string; label: string; icon: string };
-type Group = { title: string; items: Item[] };
-
-const groups: Group[] = [
-  {
-    title: "Menu Utama",
-    items: [
-      { href: "/dashboard", label: "Dashboard", icon: "▦" },
-      { href: "/transaksi/tambah", label: "Tambah Transaksi", icon: "＋" },
-      { href: "/transaksi/riwayat", label: "Riwayat Transaksi", icon: "🧾" },
-    ],
-  },
-  {
-    title: "Modul",
-    items: [
-      { href: "/rekening", label: "Daftar Rekening", icon: "🏦" },
-      { href: "/target-tagihan", label: "Target & Tagihan", icon: "🎯" },
-      { href: "/booking", label: "Booking & Jadwal", icon: "📅" },
-      { href: "/laporan", label: "Laporan Keuangan", icon: "📈" },
-      { href: "/budgeting", label: "Budgeting & Prediksi", icon: "🧮" },
-    ],
-  },
-  {
-    title: "Bantuan",
-    items: [
-      { href: "/flowai", label: "FlowAI Insight", icon: "🤖" },
-      { href: "/panduan", label: "Panduan", icon: "📖" },
-      { href: "/pengaturan", label: "Pengaturan", icon: "⚙️" },
-    ],
-  },
-];
+import { NAV_GROUPS } from "@/components/navItems";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -50,7 +19,7 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
-        {groups.map((g) => (
+        {NAV_GROUPS.map((g) => (
           <div key={g.title}>
             <p className="px-3 text-[10px] font-semibold text-slate-600 uppercase tracking-wider mb-2">
               {g.title}

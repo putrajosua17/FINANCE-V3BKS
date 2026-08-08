@@ -365,8 +365,12 @@ Dua tab: **Pemasukan** dan **Pengeluaran**.
 - CRUD master data lewat UI (Tarif, Kategori, Rekening) + parameter aplikasi editable.
 - Manajemen pengguna dengan kontrol akses berbasis role (owner/admin mengelola; finance dibatasi).
 
-**Fase 5 — Penyempurnaan (opsional)**
-- Audit log, mobile polish, narasi insight LLM, backup otomatis, impor Excel/CSV.
+**Fase 5 — Mobile & Impor** ✅
+- Navigasi mobile (drawer/hamburger) — aplikasi responsif penuh di HP.
+- Impor transaksi massal dari CSV (paste/unggah, pratinjau, validasi per-baris, template).
+
+**Fase 6 — Penyempurnaan (opsional)**
+- Audit log, narasi insight LLM, backup otomatis, deploy produksi (PostgreSQL + Vercel).
 
 ---
 
