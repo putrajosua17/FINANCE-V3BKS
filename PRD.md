@@ -361,8 +361,12 @@ Dua tab: **Pemasukan** dan **Pengeluaran**.
 - Budgeting & Prediksi: anggaran per kategori (editable) + alert over-budget + proyeksi run-rate.
 - FlowAI Insight (rule-based) + Panduan + Pengaturan.
 
-**Fase 4 — Penyempurnaan (opsional)**
-- Multi-user/RBAC, audit log, mobile polish, narasi insight LLM, backup otomatis.
+**Fase 4 — Master Data & RBAC** ✅
+- CRUD master data lewat UI (Tarif, Kategori, Rekening) + parameter aplikasi editable.
+- Manajemen pengguna dengan kontrol akses berbasis role (owner/admin mengelola; finance dibatasi).
+
+**Fase 5 — Penyempurnaan (opsional)**
+- Audit log, mobile polish, narasi insight LLM, backup otomatis, impor Excel/CSV.
 
 ---
 

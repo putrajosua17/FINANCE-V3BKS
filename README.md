@@ -20,7 +20,7 @@ Dashboard keuangan **web penuh** untuk bisnis rental **V3BKS Mini Soccer** — t
 - **Laporan Keuangan** — laba rugi bulanan, kategori, estimasi pajak + **ekspor Excel (.xlsx)** & **Cetak/PDF**.
 - **Budgeting & Prediksi** — proyeksi run-rate + **anggaran per kategori (editable)** & alert over-budget.
 - **FlowAI Insight** — insight otomatis berbasis rule.
-- **Panduan** & **Pengaturan** (master data).
+- **Panduan** & **Pengaturan** — **CRUD master data lengkap** (tarif, kategori, rekening), **manajemen pengguna** (role-gated owner/admin) & parameter aplikasi yang dapat diedit.
 
 ## Menjalankan (development)
 
@@ -61,4 +61,11 @@ npm run dev               # http://localhost:3000
 | `npm run db:reset` | Reset DB + seed ulang |
 
 ## Status
-Fase 0–3 selesai: MVP inti + laporan (ekspor Excel & Cetak/PDF) + budgeting per kategori dengan alert over-budget. Narasi insight berbasis LLM & CRUD master data lanjutan direncanakan pada fase berikutnya.
+Fase 0–4 selesai: MVP inti + laporan (ekspor Excel & Cetak/PDF) + budgeting per kategori dengan alert over-budget + CRUD master data lengkap & manajemen pengguna role-based. Narasi insight berbasis LLM direncanakan pada fase berikutnya.
+
+## Peran & Akses
+| Role | Akses |
+|---|---|
+| **Owner** | Semua fitur + kelola pengguna (termasuk membuat owner) |
+| **Admin** | Semua fitur + kelola pengguna (admin/finance) & parameter |
+| **Finance** | Transaksi, laporan, budgeting (tidak bisa kelola pengguna) |

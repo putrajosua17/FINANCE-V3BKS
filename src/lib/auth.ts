@@ -77,3 +77,10 @@ export async function getSessionFromToken(token: string | undefined): Promise<Se
 }
 
 export const SESSION_COOKIE = COOKIE_NAME;
+
+// Guard: kembalikan session bila role termasuk yang diizinkan, else null.
+export async function requireRole(roles: string[]): Promise<SessionUser | null> {
+  const s = await getSession();
+  if (!s || !roles.includes(s.role)) return null;
+  return s;
+}
