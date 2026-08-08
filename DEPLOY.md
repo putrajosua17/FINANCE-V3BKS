@@ -1,97 +1,87 @@
-# Panduan Deploy Produksi — V3BKS FinanceFlow
+# Panduan Deploy — V3BKS FinanceFlow (Vercel + Neon)
 
-Aplikasi ini dikembangkan dengan **SQLite** untuk kemudahan pengembangan lokal, dan siap dipindah ke **PostgreSQL** untuk produksi. Berikut langkah lengkapnya.
+Aplikasi sudah dikonfigurasi untuk **PostgreSQL** + **Vercel**:
+- `prisma/schema.prisma` → `provider = "postgresql"`
+- Migrasi awal tersedia di `prisma/migrations/` (dijalankan otomatis saat build).
+- `vercel.json` menjalankan `prisma generate && prisma migrate deploy && next build`.
+- Seed produksi idempotent: `npm run seed:prod` (master data + owner, tanpa data contoh).
+
+Ikuti langkah berikut (± 10 menit).
 
 ---
 
-## 1. Siapkan Database PostgreSQL
+## Langkah 1 — Buat Database di Neon
+1. Daftar/masuk ke https://neon.tech (gratis).
+2. **Create Project** → beri nama `v3bks`. Region terdekat (mis. Singapore).
+3. Setelah dibuat, buka **Connection Details** → salin **connection string** (pooled), bentuknya:
+   ```
+   postgresql://USER:PASSWORD@ep-xxxx.ap-southeast-1.aws.neon.tech/v3bks?sslmode=require
+   ```
+   Simpan sementara — akan dipakai di Vercel (jangan commit ke Git).
 
-Pilih salah satu penyedia (gratis untuk memulai):
-- **Neon** — https://neon.tech (serverless Postgres, cocok untuk Vercel)
-- **Supabase** — https://supabase.com
-- **Railway** / VPS sendiri
+---
 
-Catat connection string-nya, contoh:
-```
-postgresql://user:password@host:5432/v3bks?sslmode=require
-```
+## Langkah 2 — Deploy ke Vercel
+1. Masuk ke https://vercel.com dengan akun GitHub Anda.
+2. **Add New → Project** → pilih repo **`putrajosua17/FINANCE-V3BKS`**.
+3. Pastikan **Branch** = `claude/prd-aplikasi-gambar-pdf-ffqbhy` (atau merge dulu ke `main`, lalu pilih `main`).
+4. Framework otomatis terdeteksi **Next.js**. Build command sudah diatur lewat `vercel.json` — biarkan default.
+5. Buka **Environment Variables**, tambahkan:
 
-### Alternatif: Postgres lokal via Docker
+   | Name | Value |
+   |---|---|
+   | `DATABASE_URL` | (connection string Neon dari Langkah 1) |
+   | `AUTH_SECRET` | hasil `openssl rand -base64 32` (atau string acak panjang) |
+   | `SEED_OWNER_EMAIL` | email login owner, mis. `owner@v3bks.id` |
+   | `SEED_OWNER_PASSWORD` | password owner awal (ganti setelah login) |
+
+6. Klik **Deploy**. Saat build, `prisma migrate deploy` otomatis membuat seluruh tabel di Neon.
+
+---
+
+## Langkah 3 — Isi Master Data (sekali saja)
+Setelah deploy pertama, database sudah bertabel tapi masih kosong (belum ada login). Isi master data + owner:
+
+**Cara A — dari komputer Anda (disarankan):**
 ```bash
-docker compose up -d        # menggunakan docker-compose.yml yang disediakan
-# DATABASE_URL="postgresql://v3bks:v3bks@localhost:5432/v3bks?schema=public"
-```
-
----
-
-## 2. Ubah Provider Prisma ke PostgreSQL
-
-Edit `prisma/schema.prisma`:
-```prisma
-datasource db {
-  provider = "postgresql"   // sebelumnya "sqlite"
-  url      = env("DATABASE_URL")
-}
-```
-
-> Skema tabel identik — tidak ada perubahan lain yang diperlukan.
-
----
-
-## 3. Konfigurasi Environment Variable
-
-Salin `.env.production.example` → `.env` (atau set di dashboard Vercel):
-
-| Variabel | Keterangan |
-|---|---|
-| `DATABASE_URL` | Connection string PostgreSQL |
-| `AUTH_SECRET` | Rahasia JWT — buat dengan `openssl rand -base64 32` |
-| `SEED_OWNER_EMAIL` | Email owner awal (untuk seed) |
-| `SEED_OWNER_PASSWORD` | Password owner awal (ganti setelah login!) |
-
----
-
-## 4. Migrasi Skema & Seed Data
-
-```bash
+# di folder proyek, pakai DATABASE_URL Neon
+export DATABASE_URL="postgresql://...neon.../v3bks?sslmode=require"
+export SEED_OWNER_EMAIL="owner@v3bks.id"
+export SEED_OWNER_PASSWORD="passwordAnda"
 npm install
-npx prisma migrate deploy   # atau: npx prisma db push
-npm run seed                # opsional: isi master data + data Agustus 2026
+npm run seed:prod        # idempotent — aman diulang; tidak menghapus data
 ```
+> Ingin sekaligus memuat data contoh Agustus 2026? Gunakan `npm run seed` (⚠️ ini menghapus data lama — hanya untuk database baru/kosong).
 
-> **Penting:** setelah login pertama, segera ganti password owner & user demo lewat menu **Pengaturan → Pengguna**, atau hapus user demo.
+**Cara B — via Neon SQL Editor:** jalankan migrasi & seed dari lokal seperti di atas (Neon tidak menjalankan skrip Node, jadi seed tetap dari mesin Anda).
 
 ---
 
-## 5. Build & Jalankan
+## Langkah 4 — Login & Amankan
+1. Buka URL Vercel Anda → halaman login.
+2. Masuk dengan `SEED_OWNER_EMAIL` / `SEED_OWNER_PASSWORD`.
+3. **Pengaturan → Pengguna**: ganti password owner, tambah user admin/finance, hapus user demo bila ada.
 
-### A. Deploy ke Vercel (disarankan)
-1. Push repo ke GitHub (sudah).
-2. Import project di https://vercel.com/new.
-3. Set Environment Variables (langkah 3) di **Project Settings → Environment Variables**.
-4. Build Command: `npm run build` (sudah menjalankan `prisma generate`).
-5. Deploy. Vercel otomatis menjalankan `next build`.
+---
 
-> Jalankan `npx prisma migrate deploy` sekali dari lokal (dengan `DATABASE_URL` produksi) atau tambahkan sebagai build step, karena Vercel tidak menjalankan migrasi otomatis.
+## Checklist Keamanan Produksi
+- [ ] `AUTH_SECRET` acak & panjang (bukan nilai dev).
+- [ ] Password owner sudah diganti setelah login pertama.
+- [ ] `DATABASE_URL` memakai `sslmode=require` (default Neon).
+- [ ] Cookie session otomatis `Secure` di produksi (sudah di kode).
+- [ ] Backup: Neon punya point-in-time restore bawaan.
 
-### B. Deploy ke VPS / server sendiri
+---
+
+## Pengembangan Lokal (opsional)
 ```bash
-npm run build
-npm start                   # default port 3000, atur dengan PORT=xxxx
+docker compose up -d                # Postgres lokal
+cp .env.example .env
+npx prisma migrate deploy
+npm run seed                        # data contoh
+npm run dev
 ```
-Gunakan process manager (PM2/systemd) + reverse proxy (Nginx) untuk HTTPS.
-
----
-
-## 6. Checklist Keamanan Produksi
-- [ ] `AUTH_SECRET` acak & panjang (bukan nilai default dev).
-- [ ] Password owner & semua user demo sudah diganti/dihapus.
-- [ ] `DATABASE_URL` memakai SSL (`sslmode=require`).
-- [ ] Cookie session otomatis `Secure` di produksi (sudah diatur di kode).
-- [ ] Backup database dijadwalkan (fitur bawaan penyedia Postgres).
-
----
 
 ## Catatan
-- Data awal seed adalah periode **Agustus 2026** sesuai kesepakatan. Untuk mulai bersih, jalankan seed lalu hapus transaksi contoh, atau kosongkan array `incomes`/`expenses` di `prisma/seed.ts`.
-- Semua perhitungan (KPI, pajak, target, saldo) dihitung dari transaksi — tidak ada angka hardcode.
+- Semua angka (KPI, pajak, target, saldo) dihitung dari transaksi — tidak ada nilai hardcode.
+- Perubahan skema di masa depan: buat migrasi baru dengan `npx prisma migrate dev --name <nama>`, commit folder `prisma/migrations/`, dan Vercel akan menerapkannya otomatis saat build berikutnya.

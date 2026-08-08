@@ -26,20 +26,28 @@ Dashboard keuangan **web penuh** untuk bisnis rental **V3BKS Mini Soccer** — t
 
 ## Menjalankan (development)
 
+Aplikasi memakai **PostgreSQL**. Cara tercepat untuk lokal: Postgres via Docker.
+
 ```bash
 # 1. Install dependency
 npm install
 
-# 2. Siapkan env
-cp .env.example .env      # sesuaikan bila perlu
+# 2. Jalankan PostgreSQL lokal
+docker compose up -d       # Postgres di localhost:5432 (user/pass/db: v3bks / dari compose)
 
-# 3. Buat database + isi data awal (Agustus 2026)
-npx prisma db push
-npm run seed
+# 3. Siapkan env
+cp .env.example .env       # DATABASE_URL sudah mengarah ke Postgres lokal
 
-# 4. Jalankan
-npm run dev               # http://localhost:3000
+# 4. Migrasi skema + isi data contoh (Agustus 2026)
+npx prisma migrate deploy  # buat tabel dari migrations/
+npm run seed               # data contoh lengkap (untuk dev)
+# atau: npm run seed:prod  # hanya master data, tanpa transaksi contoh
+
+# 5. Jalankan
+npm run dev                # http://localhost:3000
 ```
+
+> Tanpa Docker? Arahkan `DATABASE_URL` ke Postgres apa pun (mis. Neon) lalu jalankan langkah 4–5.
 
 **Login demo:**
 | Role | Email | Password |
