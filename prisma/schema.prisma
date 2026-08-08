@@ -1,0 +1,177 @@
+// V3BKS FinanceFlow — Prisma schema
+// Dev: SQLite. Production: ganti provider ke "postgresql" + set DATABASE_URL.
+// Enum ditulis sebagai String (kompatibel SQLite); nilai valid didokumentasikan di komentar.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Users & Auth  (multi-user, role: owner | admin | finance)
+// ---------------------------------------------------------------------------
+model User {
+  id           String        @id @default(cuid())
+  nama         String
+  email        String        @unique
+  passwordHash String
+  role         String        @default("admin") // owner | admin | finance
+  isActive     Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  transactions Transaction[] @relation("CreatedBy")
+}
+
+// ---------------------------------------------------------------------------
+// Accounts / Rekening  (Cash, BCA, Mandiri, BNI)
+// ---------------------------------------------------------------------------
+model Account {
+  id           String        @id @default(cuid())
+  nama         String        @unique
+  tipe         String        @default("bank") // cash | bank
+  saldoAwal    Float         @default(0)
+  isActive     Boolean       @default(true)
+  urutan       Int           @default(0)
+  transactions Transaction[]
+  bookings     Booking[]
+  bills        Bill[]
+  createdAt    DateTime      @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// Categories  (income | expense)
+// ---------------------------------------------------------------------------
+model Category {
+  id           String        @id @default(cuid())
+  nama         String
+  tipe         String // income | expense
+  isRecurring  Boolean       @default(false)
+  isActive     Boolean       @default(true)
+  urutan       Int           @default(0)
+  transactions Transaction[]
+  bills        Bill[]
+
+  @@unique([nama, tipe])
+}
+
+// ---------------------------------------------------------------------------
+// RateCard  (master tarif rental & jasa)
+// ---------------------------------------------------------------------------
+model RateCard {
+  id         String   @id @default(cuid())
+  kode       String   @unique
+  nama       String
+  kelompok   String // RENTAL | PHOTOGRAPHER | WASIT | ROMPI | VIDEO | MEMBER
+  hari       String? // weekday | weekend | all
+  jamMulai   String?
+  jamSelesai String?
+  durasi     Int? // jam
+  harga      Float
+  isActive   Boolean  @default(true)
+}
+
+// ---------------------------------------------------------------------------
+// Transactions  (income & expense)
+// ---------------------------------------------------------------------------
+model Transaction {
+  id         String   @id @default(cuid())
+  tanggal    DateTime
+  tipe       String // income | expense
+  jumlah     Float
+  catatan    String?
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  accountId  String
+  account    Account  @relation(fields: [accountId], references: [id])
+
+  // Income-specific
+  rateCode    String?
+  jam         String?
+  durasi      Int?
+  tanggalMain DateTime?
+  namaEntitas String?
+  noHp        String?
+  dp          Float?
+  pelunasan   Float?
+  statusBayar String? // dp | lunas
+  pajakDaerah Float?  @default(0) // Pajak Daerah 10%
+
+  // Expense-specific
+  tempatBeli String?
+
+  createdById String?
+  createdBy   User?    @relation("CreatedBy", fields: [createdById], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@index([tanggal])
+  @@index([tipe])
+}
+
+// ---------------------------------------------------------------------------
+// Bookings / Jadwal
+// ---------------------------------------------------------------------------
+model Booking {
+  id            String   @id @default(cuid())
+  kode          String
+  tanggalMain   DateTime
+  jamMulai      String?
+  jamSelesai    String?
+  durasi        Int?
+  namaEntitas   String
+  noHp          String?
+  harga         Float    @default(0)
+  dp            Float    @default(0)
+  sisaPelunasan Float    @default(0)
+  status        String   @default("booked") // booked | dp | lunas | selesai | batal
+  accountId     String?
+  account       Account? @relation(fields: [accountId], references: [id])
+  catatan       String?
+  createdAt     DateTime @default(now())
+
+  @@index([tanggalMain])
+}
+
+// ---------------------------------------------------------------------------
+// Bills / Tagihan rutin
+// ---------------------------------------------------------------------------
+model Bill {
+  id             String    @id @default(cuid())
+  nama           String
+  categoryId     String?
+  category       Category? @relation(fields: [categoryId], references: [id])
+  nominalEstimasi Float    @default(0)
+  siklus         String    @default("bulanan") // bulanan | tahunan | sekali
+  jatuhTempo     DateTime
+  status         String    @default("pending") // pending | paid
+  accountId      String?
+  account        Account?  @relation(fields: [accountId], references: [id])
+  catatan        String?
+  createdAt      DateTime  @default(now())
+
+  @@index([jatuhTempo])
+}
+
+// ---------------------------------------------------------------------------
+// Targets  (harian | bulanan)
+// ---------------------------------------------------------------------------
+model Target {
+  id       String   @id @default(cuid())
+  periode  String // harian | bulanan
+  tanggal  DateTime // untuk harian: tanggal; untuk bulanan: tanggal 1 bulan tsb
+  nilai    Float
+
+  @@unique([periode, tanggal])
+}
+
+// ---------------------------------------------------------------------------
+// Settings  (key-value)
+// ---------------------------------------------------------------------------
+model Setting {
+  key   String @id
+  value String
+}

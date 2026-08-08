@@ -8,7 +8,7 @@
 | **Versi Dokumen** | 1.0 |
 | **Tanggal** | 8 Agustus 2026 |
 | **Pemilik** | V3BKS Mini Soccer |
-| **Status** | Draft — menunggu review sebelum pembangunan |
+| **Status** | Disetujui — pembangunan dimulai (web penuh, multi-user, data mulai Agustus 2026) |
 | **Sumber Referensi** | Mockup dashboard "FinanceFlow" + data `2026_V3BKS_Mini_Soccer_Revenue_&_Expenses_Tracker.pdf` |
 
 ---
@@ -73,7 +73,7 @@ Masalah yang muncul:
 | **Kasir / Admin Operasional** | Staf yang mencatat booking & pembayaran harian | Input transaksi cepat, catat DP/pelunasan, tutup kas harian |
 | **Finance / Akuntan** | Menyiapkan laporan & pajak | Rekap kategori, pajak, ekspor laporan |
 
-> Catatan: role-based access (RBAC) opsional untuk fase awal; minimal single-user (Owner) di MVP, multi-user pada fase berikutnya.
+> Keputusan: aplikasi **multi-user** dengan login & role (Owner/Admin/Finance) sejak awal.
 
 ---
 
@@ -104,18 +104,25 @@ Masalah yang muncul:
 
 ### 6.1 Tarif Rental & Jasa (Rental Code)
 
-**Rental Lapangan**
+**Rental Lapangan (per slot, harga include tax)**
 
-| Kode | Waktu | Hari | Harga Normal | Harga Member (+10%*) |
-|---|---|---|---|---|
-| WD1 | 07.00–16.00 | Weekday | Rp600.000 | WDM1 Rp660.000 |
-| WD2 | 16.00–18.00 | Weekday | Rp800.000 | WDM2 Rp880.000 |
-| WD3 | 18.00–23.00 | Weekday | Rp960.000 | WDM3 Rp1.056.000 |
-| WE1 | 07.00–16.00 | Weekend | Rp720.000 | WEM1 Rp792.000 |
-| WE2 | 16.00–18.00 | Weekend | Rp960.000 | WEM2 Rp1.056.000 |
-| WE3 | 18.00–23.00 | Weekend | Rp1.040.000 | WEM3 Rp1.144.000 |
+| Kode | Waktu | Hari | Harga |
+|---|---|---|---|
+| WD1 | 07.00–16.00 | Weekday | Rp600.000 |
+| WD2 | 16.00–18.00 | Weekday | Rp800.000 |
+| WD3 | 18.00–23.00 | Weekday | Rp960.000 |
+| WE1 | 07.00–16.00 | Weekend | Rp720.000 |
+| WE2 | 16.00–18.00 | Weekend | Rp960.000 |
+| WE3 | 18.00–23.00 | Weekend | Rp1.040.000 |
 
-> *Catatan: harga sudah include tax. "Diskon Membership 10%" & "New Member Rp399.000" dicatat sebagai master promo. Kode WDM/WEM adalah tarif untuk slot tertentu (harga baru include tax). Nilai final akan dikonfirmasi ke Owner saat setup master data.*
+**Paket Membership (final — menggantikan tarif member lama)**
+
+| Paket | Berlaku | Harga |
+|---|---|---|
+| **Member Weekday** | Senin–Jumat | **Rp3.000.000** |
+| **Member Weekend** | Sabtu & Minggu | **Rp3.500.000** |
+
+> Catatan: tarif member per-slot lama (WDM/WEM +10%) **sudah tidak dipakai** dan dihapus dari master data. Membership kini berupa paket flat: Weekday Rp3.000.000 & Weekend Rp3.500.000.
 
 **Jasa Tambahan**
 
@@ -137,7 +144,7 @@ Gaji Karyawan, PT. LA JALI (Cleaning Service), Fee Photographer, Listrik, Air, S
 Cash, BCA, Mandiri, BNI.
 
 ### 6.5 Parameter Pajak
-- **PPh Final 0,5%** dari omzet/profit (sesuai rumus pada sheet).
+- **PPh Final 0,5%** = 0,5% × omzet kotor (final, standar UMKM PP 23/2018).
 - **Pajak Daerah 10%** dari rental sales.
 - Field pajak per bulan dicatat & dijumlah otomatis.
 
@@ -321,17 +328,15 @@ Dua tab: **Pemasukan** dan **Pengeluaran**.
 
 ## 12. Rekomendasi Arsitektur & Teknologi
 
-> Rekomendasi; final menunggu persetujuan.
+> **Keputusan: web penuh (server + database).**
 
-- **Frontend:** Next.js (React) + TypeScript + Tailwind CSS + komponen UI (shadcn/ui) + **Recharts** untuk grafik. Tema gelap sesuai mockup.
-- **Backend/API:** Next.js API routes (atau Node/Express) — REST.
-- **Database:** PostgreSQL (produksi) atau SQLite (lokal/MVP) via Prisma ORM.
-- **Auth:** NextAuth / email-password sederhana untuk MVP.
-- **Ekspor:** library PDF (mis. `react-pdf`/server) & Excel (`exceljs`).
-- **Deploy:** Vercel / VPS (sesuai preferensi Owner).
-- **Seed data:** skrip impor dari file Excel/PDF eksisting.
-
-Alternatif ringan (jika ingin cepat & tanpa server): **Vite + React + Tailwind + Recharts** dengan penyimpanan lokal (IndexedDB) + ekspor/impor JSON. Cocok untuk MVP single-user.
+- **Frontend:** Next.js (App Router, React) + TypeScript + Tailwind CSS + **Recharts** untuk grafik. Tema gelap sesuai mockup.
+- **Backend/API:** Next.js Route Handlers (REST) — satu codebase.
+- **Database:** **PostgreSQL** (produksi) via **Prisma ORM**. Untuk pengembangan lokal digunakan SQLite (provider Prisma) agar cepat dijalankan; skema identik & mudah dipindah ke Postgres (ganti `provider` + `DATABASE_URL`).
+- **Auth:** login email + password (hash bcrypt), session cookie, **multi-user role** (Owner/Admin/Finance).
+- **Ekspor:** PDF & Excel (`exceljs`) — Fase 3.
+- **Deploy:** Vercel / VPS + Postgres (Neon/Supabase/self-host).
+- **Seed data:** skrip seeding master data (RateCard, Kategori, Rekening, Pajak, Target) + user awal, mulai periode Agustus 2026.
 
 ---
 
@@ -390,15 +395,15 @@ Alternatif ringan (jika ingin cepat & tanpa server): **Vite + React + Tailwind +
 
 ---
 
-## 15. Pertanyaan Terbuka (perlu konfirmasi Owner)
+## 15. Keputusan Owner (terkonfirmasi)
 
-1. **PPh Final 0,5%** dihitung dari omzet kotor atau dasar lain? (nilai di sheet perlu dipastikan rumusnya)
-2. **Tarif Member (WDM/WEM)** — apakah benar 10% di atas tarif normal, atau tarif slot berbeda? Serta apakah "New Member Rp399.000" adalah biaya pendaftaran?
-3. **Single-user (Owner)** cukup untuk MVP, atau perlu multi-user (kasir/finance) sejak awal?
-4. **Fee Samkot 65% / Fee Academy 35%** — bagaimana perlakuan bagi hasil ini dicatat?
-5. **Preferensi teknologi & hosting** — web dengan server/DB, atau MVP ringan lokal dulu?
-6. **Data awal** — impor penuh transaksi historis Jan–Ags, atau mulai bersih dari Agustus?
-7. **Ekspor laporan** — format wajib PDF, Excel, atau keduanya?
+1. ✅ **PPh Final 0,5%** = 0,5% × omzet kotor (final).
+2. ✅ **Tarif member lama (WDM/WEM) dihapus.** Membership = paket flat: **Weekday Rp3.000.000**, **Weekend (Sabtu & Minggu) Rp3.500.000**.
+3. ✅ **Multi-user** dengan role (Owner/Admin/Finance) sejak awal.
+4. ⏳ **Fee Samkot 65% / Fee Academy 35%** — dicatat sebagai kategori tersendiri; perlakuan bagi hasil detail menyusul.
+5. ✅ **Web penuh** (Next.js + database server).
+6. ✅ **Data mulai Agustus 2026** (mulai relatif bersih; rekap bulan sebelumnya hanya sebagai referensi laporan, opsional).
+7. ⏳ **Ekspor laporan** — target PDF & Excel (dikerjakan pada Fase 3).
 
 ---
 
