@@ -7,17 +7,25 @@ type Category = { id: string; nama: string; tipe: string };
 type Account = { id: string; nama: string };
 type RateCard = { id: string; kode: string; nama: string; kelompok: string; harga: number };
 
+export type TxInitial = {
+  id: string; tipe: "income" | "expense"; tanggal: string; categoryId: string; accountId: string;
+  jumlah: string; catatan?: string; rateCode?: string; jam?: string; durasi?: string;
+  namaEntitas?: string; noHp?: string; statusBayar?: string; tempatBeli?: string;
+};
+
 export default function TransactionForm({
-  categories, accounts, rateCards, defaultTipe = "income", quick = false,
+  categories, accounts, rateCards, defaultTipe = "income", quick = false, initial,
 }: {
   categories: Category[];
   accounts: Account[];
   rateCards: RateCard[];
   defaultTipe?: "income" | "expense";
   quick?: boolean;
+  initial?: TxInitial;
 }) {
   const router = useRouter();
-  const [tipe, setTipe] = useState<"income" | "expense">(quick ? "expense" : defaultTipe);
+  const isEdit = !!initial;
+  const [tipe, setTipe] = useState<"income" | "expense">(initial?.tipe ?? (quick ? "expense" : defaultTipe));
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
 
@@ -26,21 +34,21 @@ export default function TransactionForm({
   const expenseCats = categories.filter((c) => c.tipe === "expense");
 
   const [form, setForm] = useState<Record<string, string>>({
-    tanggal: today,
-    categoryId: "",
-    accountId: accounts[0]?.id ?? "",
-    jumlah: "",
-    catatan: "",
-    rateCode: "",
-    jam: "",
-    durasi: "1",
+    tanggal: initial?.tanggal ?? today,
+    categoryId: initial?.categoryId ?? "",
+    accountId: initial?.accountId ?? accounts[0]?.id ?? "",
+    jumlah: initial?.jumlah ?? "",
+    catatan: initial?.catatan ?? "",
+    rateCode: initial?.rateCode ?? "",
+    jam: initial?.jam ?? "",
+    durasi: initial?.durasi ?? "1",
     tanggalMain: today,
-    namaEntitas: "",
-    noHp: "",
+    namaEntitas: initial?.namaEntitas ?? "",
+    noHp: initial?.noHp ?? "",
     dp: "",
     pelunasan: "",
-    statusBayar: "lunas",
-    tempatBeli: "",
+    statusBayar: initial?.statusBayar ?? "lunas",
+    tempatBeli: initial?.tempatBeli ?? "",
   });
 
   function set(k: string, v: string) {
@@ -61,14 +69,18 @@ export default function TransactionForm({
     setMsg(null);
     setSaving(true);
     try {
-      const res = await fetch("/api/transactions", {
-        method: "POST",
+      const res = await fetch(isEdit ? `/api/transactions/${initial!.id}` : "/api/transactions", {
+        method: isEdit ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...form, tipe }),
       });
       const data = await res.json();
       if (!res.ok) {
         setMsg({ type: "err", text: data.error || "Gagal menyimpan" });
+      } else if (isEdit) {
+        setMsg({ type: "ok", text: "Perubahan tersimpan ✓" });
+        router.push("/transaksi/riwayat");
+        router.refresh();
       } else {
         setMsg({ type: "ok", text: "Transaksi tersimpan ✓" });
         setForm((f) => ({ ...f, jumlah: "", catatan: "", namaEntitas: "", noHp: "", dp: "", pelunasan: "", rateCode: "", tempatBeli: "" }));
@@ -86,12 +98,12 @@ export default function TransactionForm({
     <form onSubmit={submit} className="card max-w-2xl space-y-4">
       {/* Tab tipe */}
       <div className="flex rounded-lg bg-ink-800 p-1 text-sm">
-        <button type="button" onClick={() => setTipe("income")}
-          className={`flex-1 py-2 rounded-md ${tipe === "income" ? "bg-brand-green text-black font-medium" : "text-slate-400"}`}>
+        <button type="button" disabled={isEdit} onClick={() => setTipe("income")}
+          className={`flex-1 py-2 rounded-md disabled:opacity-60 ${tipe === "income" ? "bg-brand-green text-black font-medium" : "text-slate-400"}`}>
           Pemasukan
         </button>
-        <button type="button" onClick={() => setTipe("expense")}
-          className={`flex-1 py-2 rounded-md ${tipe === "expense" ? "bg-brand-red text-white font-medium" : "text-slate-400"}`}>
+        <button type="button" disabled={isEdit} onClick={() => setTipe("expense")}
+          className={`flex-1 py-2 rounded-md disabled:opacity-60 ${tipe === "expense" ? "bg-brand-red text-white font-medium" : "text-slate-400"}`}>
           Pengeluaran
         </button>
       </div>
@@ -191,7 +203,7 @@ export default function TransactionForm({
       </div>
 
       <button className={tipe === "income" ? "btn-primary w-full" : "btn w-full bg-brand-red text-white hover:bg-red-600"} disabled={saving}>
-        {saving ? "Menyimpan..." : `Simpan ${tipe === "income" ? "Pemasukan" : "Pengeluaran"}`}
+        {saving ? "Menyimpan..." : isEdit ? "Simpan Perubahan" : `Simpan ${tipe === "income" ? "Pemasukan" : "Pengeluaran"}`}
       </button>
     </form>
   );

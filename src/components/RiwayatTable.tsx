@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import { formatRupiah, formatTanggal } from "@/lib/format";
 
 type Tx = {
@@ -99,7 +100,8 @@ export default function RiwayatTable() {
                 <td className={`px-4 py-3 text-right tabular-nums font-medium ${t.tipe === "income" ? "text-brand-green" : "text-brand-red"}`}>
                   {t.tipe === "income" ? "+" : "−"}{formatRupiah(t.jumlah)}
                 </td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-4 py-3 text-right whitespace-nowrap">
+                  <Link href={`/transaksi/${t.id}/edit`} className="text-slate-500 hover:text-brand-green text-xs mr-3">Edit</Link>
                   <button onClick={() => del(t.id)} className="text-slate-500 hover:text-brand-red text-xs">Hapus</button>
                 </td>
               </tr>

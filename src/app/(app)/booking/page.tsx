@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { formatRupiah, formatTanggal } from "@/lib/format";
 import { rangeBulan } from "@/lib/dashboard";
+import BookingForm from "@/components/BookingForm";
+import BookingRowActions from "@/components/BookingRowActions";
 
 export const dynamic = "force-dynamic";
 
@@ -14,12 +16,14 @@ const STATUS_STYLE: Record<string, string> = {
 
 export default async function BookingPage() {
   const { start, end } = rangeBulan("ini");
-  const [bookings, incomeTx] = await Promise.all([
+  const [bookings, incomeTx, rateCards, accounts] = await Promise.all([
     prisma.booking.findMany({ orderBy: { tanggalMain: "asc" }, include: { account: true } }),
     prisma.transaction.findMany({
       where: { tipe: "income", tanggal: { gte: start, lt: end }, category: { nama: "Rental" } },
       select: { durasi: true },
     }),
+    prisma.rateCard.findMany({ where: { isActive: true, kelompok: "RENTAL" }, orderBy: { kode: "asc" } }),
+    prisma.account.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
   ]);
 
   // Analisa jam main (bucket durasi)
@@ -33,9 +37,12 @@ export default async function BookingPage() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <h2 className="text-base font-semibold text-white">Booking & Jadwal</h2>
-        <p className="text-xs text-slate-500">Daftar booking, status pembayaran, & analisa jam main.</p>
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div>
+          <h2 className="text-base font-semibold text-white">Booking & Jadwal</h2>
+          <p className="text-xs text-slate-500">Daftar booking, status pembayaran, & analisa jam main.</p>
+        </div>
+        <BookingForm rateCards={rateCards} accounts={accounts} />
       </div>
 
       {/* Analisa jam main */}
@@ -67,12 +74,13 @@ export default async function BookingPage() {
               <th className="px-4 py-3 font-semibold">Kontak</th>
               <th className="px-4 py-3 font-semibold text-right">Harga</th>
               <th className="px-4 py-3 font-semibold text-right">Sisa</th>
-              <th className="px-4 py-3 font-semibold text-right">Status</th>
+              <th className="px-4 py-3 font-semibold text-center">Status</th>
+              <th className="px-4 py-3 font-semibold text-right">Aksi</th>
             </tr>
           </thead>
           <tbody>
             {bookings.length === 0 && (
-              <tr><td colSpan={7} className="px-4 py-8 text-center text-slate-500">Belum ada booking.</td></tr>
+              <tr><td colSpan={8} className="px-4 py-8 text-center text-slate-500">Belum ada booking.</td></tr>
             )}
             {bookings.map((b) => (
               <tr key={b.id} className="border-b border-white/5 hover:bg-ink-800/50">
@@ -82,8 +90,11 @@ export default async function BookingPage() {
                 <td className="px-4 py-3 text-slate-500 text-xs">{b.noHp || "-"}</td>
                 <td className="px-4 py-3 text-right tabular-nums text-slate-300">{formatRupiah(b.harga)}</td>
                 <td className="px-4 py-3 text-right tabular-nums text-brand-amber">{b.sisaPelunasan > 0 ? formatRupiah(b.sisaPelunasan) : "-"}</td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-4 py-3 text-center">
                   <span className={`badge ${STATUS_STYLE[b.status] ?? "bg-slate-500/15 text-slate-300"}`}>{b.status}</span>
+                </td>
+                <td className="px-4 py-3 text-right">
+                  <BookingRowActions id={b.id} status={b.status} />
                 </td>
               </tr>
             ))}

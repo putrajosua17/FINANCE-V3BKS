@@ -13,11 +13,11 @@ Dashboard keuangan **web penuh** untuk bisnis rental **V3BKS Mini Soccer** — t
 ## Fitur (MVP → Fase 2)
 - **Dashboard** — 6 KPI (Total Saldo, Pemasukan, Pengeluaran, Rasio Laba, Nilai Kekayaan, Status) + widget: Arus Kas, Rincian Pengeluaran, Tagihan Mendatang, Progres Target, FlowAI Insight, Tren Bulanan, Total Tagihan, Saldo Rekening.
 - **Tambah Transaksi** — pemasukan (booking/jasa, auto-isi harga dari kode tarif, pajak daerah 10% otomatis) & pengeluaran + Quick Spend.
-- **Riwayat Transaksi** — cari, filter, hapus.
+- **Riwayat Transaksi** — cari, filter, **edit**, hapus.
 - **Impor Data** — impor transaksi massal dari CSV (paste atau unggah file) dengan pratinjau, validasi per-baris, template unduhan.
 - **Daftar Rekening** — saldo & mutasi Cash/BCA/Mandiri/BNI.
 - **Target & Tagihan** — target harian/bulanan, tandai tagihan rutin lunas, lunasi piutang penyewa.
-- **Booking & Jadwal** — daftar booking + status + analisa jam main.
+- **Booking & Jadwal** — **buat/ubah status/hapus booking** + analisa jam main (booking mendorong alur piutang di Target & Tagihan).
 - **Laporan Keuangan** — laba rugi bulanan, kategori, estimasi pajak + **ekspor Excel (.xlsx)** & **Cetak/PDF**.
 - **Budgeting & Prediksi** — proyeksi run-rate + **anggaran per kategori (editable)** & alert over-budget.
 - **FlowAI Insight** — insight otomatis berbasis rule.
