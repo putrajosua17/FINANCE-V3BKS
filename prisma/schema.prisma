@@ -141,6 +141,10 @@ model Transaction {
   @@index([tipe])
   @@index([businessUnitId])
   @@index([deletedAt])
+  // FK tidak otomatis ter-index di PostgreSQL — tambah manual untuk query panas
+  // (saldo per rekening, kandidat rekonsiliasi, realisasi budget per kategori).
+  @@index([accountId])
+  @@index([categoryId])
 }
 
 // ---------------------------------------------------------------------------
@@ -430,6 +434,7 @@ model PurchaseInvoice {
 
   @@index([jatuhTempo])
   @@index([status])
+  @@index([vendorId])
 }
 
 // ---------------------------------------------------------------------------
