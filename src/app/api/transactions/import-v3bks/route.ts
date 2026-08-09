@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
-    const { csv } = await req.json();
+    const { csv, replace } = await req.json();
     if (!csv || typeof csv !== "string") {
       return NextResponse.json({ error: "CSV kosong" }, { status: 400 });
     }
@@ -19,6 +19,20 @@ export async function POST(req: Request) {
     const parsed = parseV3bksCsv(csv);
     if (parsed.rows.length === 0) {
       return NextResponse.json({ error: "Tidak ada baris valid terbaca dari CSV" }, { status: 400 });
+    }
+
+    // Mode "replace"/sinkronisasi: hapus dulu transaksi pada bulan yang tercakup
+    // file, lalu masukkan data terbaru — agar impor ulang tidak menumpuk.
+    let deleted = 0;
+    if (replace) {
+      const months = new Set(parsed.rows.map((r) => r.tanggal.slice(0, 7))); // "YYYY-MM"
+      for (const ym of months) {
+        const [y, m] = ym.split("-").map(Number);
+        const start = new Date(y, m - 1, 1);
+        const end = new Date(y, m, 1);
+        const res = await prisma.transaction.deleteMany({ where: { tanggal: { gte: start, lt: end } } });
+        deleted += res.count;
+      }
     }
 
     const [categories, accounts] = await Promise.all([
@@ -72,11 +86,15 @@ export async function POST(req: Request) {
       }
     }
 
-    if (created > 0) await logAudit(session, "import", "transaction", `Impor V3BKS: ${created} transaksi`);
+    if (created > 0 || deleted > 0) {
+      await logAudit(session, "import", "transaction", `Impor V3BKS: ${created} masuk${replace ? `, ${deleted} lama diganti` : ""}`);
+    }
 
     return NextResponse.json({
       ok: true,
       created,
+      deleted,
+      replace: !!replace,
       income: parsed.rows.filter((r) => r.tipe === "income").length,
       expense: parsed.rows.filter((r) => r.tipe === "expense").length,
       totalIncome: parsed.totalIncome,
