@@ -42,6 +42,8 @@ model Account {
   transactions Transaction[]
   bookings     Booking[]
   bills        Bill[]
+  bankStatements BankStatement[]
+  cashClosings   CashClosing[]
   createdAt    DateTime      @default(now())
 }
 
@@ -119,6 +121,13 @@ model Transaction {
   // F-01: tautan ke jurnal double-entry yang terbentuk otomatis
   journalEntryId String?       @unique
   journalEntry   JournalEntry? @relation(fields: [journalEntryId], references: [id])
+
+  // F-06: relasi opsional ke kontak (pelanggan/vendor)
+  contactId String?
+  contact   Contact? @relation(fields: [contactId], references: [id])
+
+  // F-02: baris mutasi bank yang tercocokkan ke transaksi ini (back-relation)
+  bankStatementLine BankStatementLine?
 
   // F-05: soft delete (jangan hapus baris permanen)
   deletedAt   DateTime?
@@ -308,6 +317,119 @@ model PeriodLock {
   catatan        String?
 
   @@unique([periode, businessUnitId])
+}
+
+// ===========================================================================
+// PRD v2.0 — Fase 8 · Otomasi Pekerjaan Harian
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// F-02 · Rekonsiliasi Bank
+// ---------------------------------------------------------------------------
+model BankStatement {
+  id           String   @id @default(cuid())
+  accountId    String
+  account      Account  @relation(fields: [accountId], references: [id])
+  periodeAwal  DateTime
+  periodeAkhir DateTime
+  saldoAwal    Float    @default(0)
+  saldoAkhir   Float    @default(0)
+  namaFile     String?
+  status       String   @default("draft") // draft | rekonsiliasi | selesai
+  createdById  String?
+  createdAt    DateTime @default(now())
+  lines        BankStatementLine[]
+
+  @@index([accountId])
+}
+
+model BankStatementLine {
+  id            String   @id @default(cuid())
+  statementId   String
+  statement     BankStatement @relation(fields: [statementId], references: [id], onDelete: Cascade)
+  tanggal       DateTime
+  keterangan    String
+  debit         Float    @default(0) // uang keluar
+  kredit        Float    @default(0) // uang masuk
+  saldo         Float?
+  refBank       String?
+  status        String   @default("belum") // belum | cocok | manual | diabaikan
+  transactionId String?      @unique
+  transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  skorCocok     Float?
+
+  @@index([statementId])
+  @@index([tanggal])
+}
+
+// ---------------------------------------------------------------------------
+// F-03 · Tutup Kas Harian
+// ---------------------------------------------------------------------------
+model CashClosing {
+  id              String   @id @default(cuid())
+  tanggal         DateTime
+  shift           String // pagi | sore | malam | harian
+  businessUnitId  String?
+  accountId       String
+  account         Account  @relation(fields: [accountId], references: [id])
+  saldoSistem     Float
+  saldoFisik      Float
+  selisih         Float
+  rincianPecahan  Json?
+  catatan         String?
+  status          String   @default("draft") // draft | diajukan | disetujui
+  dibuatOlehId    String?
+  disetujuiOlehId String?
+  journalEntryId  String?  @unique
+  createdAt       DateTime @default(now())
+
+  @@unique([tanggal, shift, accountId])
+  @@index([tanggal])
+}
+
+// ---------------------------------------------------------------------------
+// F-06 · Kontak (pelanggan/vendor) & Utang Usaha (AP)
+// ---------------------------------------------------------------------------
+model Contact {
+  id          String   @id @default(cuid())
+  tipe        String // pelanggan | vendor | keduanya
+  nama        String
+  noHp        String?
+  email       String?
+  alamat      String?
+  npwp        String?
+  termin      Int      @default(0) // hari jatuh tempo
+  limitKredit Float?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  purchaseInvoices PurchaseInvoice[]
+  transactions     Transaction[]
+
+  @@index([tipe])
+}
+
+model PurchaseInvoice {
+  id             String   @id @default(cuid())
+  nomor          String   @unique
+  vendorId       String
+  vendor         Contact  @relation(fields: [vendorId], references: [id])
+  tanggal        DateTime
+  jatuhTempo     DateTime
+  keterangan     String?
+  coaBebanKode   String?  // akun beban/persediaan yang didebit (default 6-9000)
+  subtotal       Float
+  ppn            Float    @default(0)
+  pphDipotong    Float    @default(0) // PPh 23 atas jasa
+  total          Float
+  terbayar       Float    @default(0)
+  status         String   @default("belum") // belum | sebagian | lunas | batal
+  businessUnitId String?
+  journalEntryId String?  @unique
+  createdAt      DateTime @default(now())
+
+  @@index([jatuhTempo])
+  @@index([status])
 }
 
 // ---------------------------------------------------------------------------

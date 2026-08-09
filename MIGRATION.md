@@ -67,3 +67,28 @@ sebelum backfill dijalankan.
 Karena aditif, rollback cukup dengan mengabaikan fitur baru; data lama tidak
 terpengaruh. Bila perlu menghapus tabel baru, lakukan manual di luar Prisma
 (mis. `DROP TABLE "JournalLine", "JournalEntry", ...`) setelah backup.
+
+---
+
+# Fase 8 · Otomasi Pekerjaan Harian (F-02, F-03, F-06, F-10)
+
+Migrasi `20260809010000_fase8_otomasi_harian` — **aditif & non-breaking**
+(hanya menambah `Transaction.contactId` + tabel baru).
+
+**Model baru:** `BankStatement`, `BankStatementLine` (F-02 rekonsiliasi),
+`CashClosing` (F-03 tutup kas), `Contact` (F-06 vendor/pelanggan),
+`PurchaseInvoice` (F-06 utang usaha).
+
+**Langkah:** cukup `prisma migrate deploy`. Tidak ada backfill wajib — fitur
+aktif begitu tabel tersedia. Master vendor & faktur diisi lewat UI
+(menu **Vendor & Pelanggan** → **Utang Usaha**).
+
+**Integrasi jurnal (memakai mesin Fase 7):**
+- Tutup kas disetujui → selisih diposting ke `6-1900 Selisih Kas`.
+- Faktur pembelian → Debit beban/persediaan, Kredit `2-1100 Utang Usaha`
+  (+ `2-1330` bila ada potongan PPh 23). Pembayaran → Debit utang, Kredit kas.
+- Semua tetap menjaga Neraca Saldo seimbang (terverifikasi).
+
+**Template reminder AR (F-10):** opsional, simpan di `Setting` dengan kunci
+`template_reminder_ar` (variabel `{nama}`, `{jumlah}`, `{tanggal_main}`,
+`{sisa}`). Bila kosong, dipakai template bawaan.

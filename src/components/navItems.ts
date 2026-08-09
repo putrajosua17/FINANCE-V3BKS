@@ -32,6 +32,16 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: "Operasional Harian",
+    items: [
+      { href: "/rekonsiliasi", label: "Rekonsiliasi Bank", icon: "🔗" },
+      { href: "/tutup-kas", label: "Tutup Kas Harian", icon: "💵" },
+      { href: "/utang", label: "Utang Usaha (AP)", icon: "📤" },
+      { href: "/piutang", label: "Piutang (AR)", icon: "📥" },
+      { href: "/vendor", label: "Vendor & Pelanggan", icon: "👥" },
+    ],
+  },
+  {
     title: "Bantuan",
     items: [
       { href: "/flowai", label: "FlowAI Insight", icon: "🤖" },
