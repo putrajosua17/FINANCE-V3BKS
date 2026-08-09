@@ -51,10 +51,11 @@ const BULAN: Record<string, number> = {
   aug: 8, ags: 8, agu: 8, sep: 9, oct: 10, okt: 10, nov: 11, dec: 12, des: 12,
 };
 
-// "01-Aug-26" -> "2026-08-01"
+// Menerima "01-Aug-26", "1 August 2026", "8 Agustus 2026" (pemisah - atau spasi,
+// nama bulan Inggris/Indonesia singkat maupun panjang, tahun 2 atau 4 digit).
 export function parseTanggal(raw: string): string | null {
   const s = (raw || "").trim();
-  const m = s.match(/^(\d{1,2})-([A-Za-z]{3,})-(\d{2,4})$/);
+  const m = s.match(/^(\d{1,2})[\s-]+([A-Za-z]+)[\s-]+(\d{2,4})$/);
   if (!m) return null;
   const day = Number(m[1]);
   const mon = BULAN[m[2].slice(0, 3).toLowerCase()];
