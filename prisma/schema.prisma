@@ -21,6 +21,7 @@ model User {
   passwordHash String
   role         String        @default("admin") // owner | admin | finance
   isActive     Boolean       @default(true)
+  lastLoginAt  DateTime?
   createdAt    DateTime      @default(now())
   transactions Transaction[] @relation("CreatedBy")
 }
@@ -35,6 +36,9 @@ model Account {
   saldoAwal    Float         @default(0)
   isActive     Boolean       @default(true)
   urutan       Int           @default(0)
+  // F-01: pemetaan ke akun kas/bank pada Chart of Accounts
+  coaId        String?
+  coa          ChartOfAccount? @relation(fields: [coaId], references: [id])
   transactions Transaction[]
   bookings     Booking[]
   bills        Bill[]
@@ -51,6 +55,9 @@ model Category {
   isRecurring  Boolean       @default(false)
   isActive     Boolean       @default(true)
   urutan       Int           @default(0)
+  // F-01: pemetaan ke akun pendapatan/beban pada Chart of Accounts
+  coaId        String?
+  coa          ChartOfAccount? @relation(fields: [coaId], references: [id])
   transactions Transaction[]
   bills        Bill[]
   budgets      Budget[]
@@ -105,12 +112,26 @@ model Transaction {
   // Expense-specific
   tempatBeli String?
 
+  // F-07: dimensi unit bisnis (nullable saat migrasi, di-backfill ke V3BKS-MS)
+  businessUnitId String?
+  businessUnit   BusinessUnit? @relation(fields: [businessUnitId], references: [id])
+
+  // F-01: tautan ke jurnal double-entry yang terbentuk otomatis
+  journalEntryId String?       @unique
+  journalEntry   JournalEntry? @relation(fields: [journalEntryId], references: [id])
+
+  // F-05: soft delete (jangan hapus baris permanen)
+  deletedAt   DateTime?
+  deletedById String?
+
   createdById String?
   createdBy   User?    @relation("CreatedBy", fields: [createdById], references: [id])
   createdAt   DateTime @default(now())
 
   @@index([tanggal])
   @@index([tipe])
+  @@index([businessUnitId])
+  @@index([deletedAt])
 }
 
 // ---------------------------------------------------------------------------
@@ -165,6 +186,7 @@ model Target {
   periode  String // harian | bulanan
   tanggal  DateTime // untuk harian: tanggal; untuk bulanan: tanggal 1 bulan tsb
   nilai    Float
+  businessUnitId String?
 
   @@unique([periode, tanggal])
 }
@@ -178,6 +200,7 @@ model Budget {
   category   Category @relation(fields: [categoryId], references: [id])
   periode    String // format "YYYY-MM"
   nominal    Float    @default(0)
+  businessUnitId String?
 
   @@unique([categoryId, periode])
 }
@@ -190,6 +213,103 @@ model Setting {
   value String
 }
 
+// ===========================================================================
+// PRD v2.0 — Fase 7 · Fondasi Akuntansi
+// ===========================================================================
+
+// ---------------------------------------------------------------------------
+// F-07 · Unit Bisnis (cost center) — V3BKS + HSC, 6 unit
+// ---------------------------------------------------------------------------
+model BusinessUnit {
+  id       String  @id @default(cuid())
+  kode     String  @unique // V3BKS-MS, V3BKS-CAFE, HSC-BAD, HSC-PADEL, HSC-HYROX, HSC-CAFE
+  nama     String
+  induk    String // V3BKS | HSC
+  tipe     String // lapangan | cafe | kelas
+  isActive Boolean @default(true)
+  urutan   Int     @default(0)
+
+  transactions   Transaction[]
+  journalEntries JournalEntry[]
+}
+
+// ---------------------------------------------------------------------------
+// F-01 · Chart of Accounts (SAK EMKM)
+// ---------------------------------------------------------------------------
+model ChartOfAccount {
+  id          String  @id @default(cuid())
+  kode        String  @unique // 1-1100, 4-1000, dst
+  nama        String
+  tipe        String // ASET | KEWAJIBAN | EKUITAS | PENDAPATAN | BEBAN | HPP
+  subTipe     String? // KAS_BANK | PIUTANG | PERSEDIAAN | ASET_TETAP | UTANG_USAHA | ...
+  parentId    String?
+  parent      ChartOfAccount?  @relation("Hierarki", fields: [parentId], references: [id])
+  children    ChartOfAccount[] @relation("Hierarki")
+  saldoNormal String // debit | kredit
+  isActive    Boolean          @default(true)
+
+  lines      JournalLine[]
+  accounts   Account[]
+  categories Category[]
+
+  @@index([tipe])
+}
+
+// ---------------------------------------------------------------------------
+// F-01 · Jurnal double-entry (append-only)
+// ---------------------------------------------------------------------------
+model JournalEntry {
+  id             String        @id @default(cuid())
+  nomor          String        @unique // JV-2026-08-0001
+  tanggal        DateTime
+  deskripsi      String
+  sumber         String // transaction | booking | bill | opname | penyusutan | manual | reversal
+  sumberId       String?
+  businessUnitId String?
+  businessUnit   BusinessUnit? @relation(fields: [businessUnitId], references: [id])
+  isReversal     Boolean       @default(false)
+  reversalOfId   String?       @unique
+  reversalOf     JournalEntry? @relation("Reversal", fields: [reversalOfId], references: [id])
+  reversedBy     JournalEntry? @relation("Reversal")
+  createdById    String?
+  createdAt      DateTime      @default(now())
+
+  lines       JournalLine[]
+  transaction Transaction?
+
+  @@index([tanggal])
+  @@index([sumber, sumberId])
+}
+
+model JournalLine {
+  id      String         @id @default(cuid())
+  entryId String
+  entry   JournalEntry   @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  coaId   String
+  coa     ChartOfAccount @relation(fields: [coaId], references: [id])
+  debit   Float          @default(0)
+  kredit  Float          @default(0)
+  memo    String?
+
+  @@index([coaId])
+  @@index([entryId])
+}
+
+// ---------------------------------------------------------------------------
+// F-05 · Kunci Periode
+// ---------------------------------------------------------------------------
+model PeriodLock {
+  id             String    @id @default(cuid())
+  periode        String // "2026-08"
+  businessUnitId String?
+  status         String    @default("terbuka") // terbuka | terkunci | final
+  dikunciOlehId  String?
+  dikunciPada    DateTime?
+  catatan        String?
+
+  @@unique([periode, businessUnitId])
+}
+
 // ---------------------------------------------------------------------------
 // AuditLog  (jejak aktivitas pengguna)
 // ---------------------------------------------------------------------------
@@ -197,9 +317,13 @@ model AuditLog {
   id        String   @id @default(cuid())
   userId    String?
   userName  String
-  aksi      String // create | update | delete | import | pay | settle
-  entitas   String // transaction | bill | booking | budget | user | ...
+  aksi      String // create | update | delete | restore | import | pay | settle | lock | unlock
+  entitas   String // transaction | bill | booking | budget | user | periode | ...
   detail    String?
+  // F-05: rekonstruksi perubahan nilai lama -> nilai baru
+  nilaiLama Json?
+  nilaiBaru Json?
+  ipAddress String?
   createdAt DateTime @default(now())
 
   @@index([createdAt])

@@ -6,19 +6,21 @@ import { useRouter } from "next/navigation";
 type Category = { id: string; nama: string; tipe: string };
 type Account = { id: string; nama: string };
 type RateCard = { id: string; kode: string; nama: string; kelompok: string; harga: number };
+type BusinessUnit = { id: string; nama: string; induk: string };
 
 export type TxInitial = {
   id: string; tipe: "income" | "expense"; tanggal: string; categoryId: string; accountId: string;
   jumlah: string; catatan?: string; rateCode?: string; jam?: string; durasi?: string;
-  namaEntitas?: string; noHp?: string; statusBayar?: string; tempatBeli?: string;
+  namaEntitas?: string; noHp?: string; statusBayar?: string; tempatBeli?: string; businessUnitId?: string;
 };
 
 export default function TransactionForm({
-  categories, accounts, rateCards, defaultTipe = "income", quick = false, initial,
+  categories, accounts, rateCards, businessUnits = [], defaultTipe = "income", quick = false, initial,
 }: {
   categories: Category[];
   accounts: Account[];
   rateCards: RateCard[];
+  businessUnits?: BusinessUnit[];
   defaultTipe?: "income" | "expense";
   quick?: boolean;
   initial?: TxInitial;
@@ -49,6 +51,7 @@ export default function TransactionForm({
     pelunasan: "",
     statusBayar: initial?.statusBayar ?? "lunas",
     tempatBeli: initial?.tempatBeli ?? "",
+    businessUnitId: initial?.businessUnitId ?? businessUnits[0]?.id ?? "",
   });
 
   function set(k: string, v: string) {
@@ -196,6 +199,15 @@ export default function TransactionForm({
           </select>
         </div>
       </div>
+
+      {businessUnits.length > 0 && (
+        <div>
+          <label className="label">Unit Bisnis</label>
+          <select className="input" value={form.businessUnitId} onChange={(e) => set("businessUnitId", e.target.value)}>
+            {businessUnits.map((u) => <option key={u.id} value={u.id}>{u.induk} · {u.nama}</option>)}
+          </select>
+        </div>
+      )}
 
       <div>
         <label className="label">Catatan</label>

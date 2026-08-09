@@ -3,15 +3,21 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { logAudit } from "@/lib/audit";
 import { formatRupiah } from "@/lib/format";
+import { postJournalForTransaction } from "@/lib/journal";
+import { assertPeriodOpen, PeriodLockedError } from "@/lib/period-lock";
+import { defaultBusinessUnitId } from "@/lib/business-unit";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const tipe = searchParams.get("tipe") || undefined;
   const q = searchParams.get("q") || undefined;
+  const buId = searchParams.get("bu") || undefined;
   const take = Math.min(Number(searchParams.get("take") || 100), 500);
 
-  const where: Record<string, unknown> = {};
+  // F-05: sembunyikan transaksi yang telah di-soft-delete.
+  const where: Record<string, unknown> = { deletedAt: null };
   if (tipe === "income" || tipe === "expense") where.tipe = tipe;
+  if (buId) where.businessUnitId = buId;
   if (q) {
     where.OR = [
       { namaEntitas: { contains: q } },
@@ -44,41 +50,57 @@ export async function POST(req: Request) {
 
     const tanggal = b.tanggal ? new Date(b.tanggal) : new Date();
 
+    // F-05: tolak bila periode telah dikunci.
+    await assertPeriodOpen(prisma, tanggal, b.businessUnitId || undefined);
+
     // Pajak Daerah 10% otomatis untuk kategori Rental
     const cat = await prisma.category.findUnique({ where: { id: b.categoryId } });
     const isRental = cat?.nama?.toLowerCase() === "rental";
     const pajakDaerah = tipe === "income" && isRental ? Math.round((jumlah / 1.1) * 0.1) : 0;
 
-    const tx = await prisma.transaction.create({
-      data: {
-        tanggal,
-        tipe,
-        jumlah,
-        catatan: b.catatan || null,
-        categoryId: b.categoryId,
-        accountId: b.accountId,
-        createdById: session.id,
-        ...(tipe === "income"
-          ? {
-              rateCode: b.rateCode || null,
-              jam: b.jam || null,
-              durasi: b.durasi ? Number(b.durasi) : null,
-              tanggalMain: b.tanggalMain ? new Date(b.tanggalMain) : null,
-              namaEntitas: b.namaEntitas || null,
-              noHp: b.noHp || null,
-              dp: b.dp ? Number(b.dp) : null,
-              pelunasan: b.pelunasan ? Number(b.pelunasan) : null,
-              statusBayar: b.statusBayar || "lunas",
-              pajakDaerah,
-            }
-          : {
-              tempatBeli: b.tempatBeli || null,
-            }),
-      },
+    // F-07: unit bisnis (default V3BKS-MS bila tidak dikirim form).
+    const businessUnitId = b.businessUnitId || (await defaultBusinessUnitId());
+
+    // F-01: transaksi + jurnal double-entry dibentuk atomik.
+    const tx = await prisma.$transaction(async (db) => {
+      const created = await db.transaction.create({
+        data: {
+          tanggal,
+          tipe,
+          jumlah,
+          catatan: b.catatan || null,
+          categoryId: b.categoryId,
+          accountId: b.accountId,
+          businessUnitId,
+          createdById: session.id,
+          ...(tipe === "income"
+            ? {
+                rateCode: b.rateCode || null,
+                jam: b.jam || null,
+                durasi: b.durasi ? Number(b.durasi) : null,
+                tanggalMain: b.tanggalMain ? new Date(b.tanggalMain) : null,
+                namaEntitas: b.namaEntitas || null,
+                noHp: b.noHp || null,
+                dp: b.dp ? Number(b.dp) : null,
+                pelunasan: b.pelunasan ? Number(b.pelunasan) : null,
+                statusBayar: b.statusBayar || "lunas",
+                pajakDaerah,
+              }
+            : {
+                tempatBeli: b.tempatBeli || null,
+              }),
+        },
+      });
+      await postJournalForTransaction(db, created.id);
+      return created;
     });
-    await logAudit(session, "create", "transaction", `${tipe} ${formatRupiah(jumlah)} · ${cat?.nama ?? ""}`);
+
+    await logAudit(session, "create", "transaction", `${tipe} ${formatRupiah(jumlah)} · ${cat?.nama ?? ""}`, {
+      nilaiBaru: { tipe, jumlah, kategori: cat?.nama, tanggal },
+    });
     return NextResponse.json({ ok: true, id: tx.id });
-  } catch {
+  } catch (e) {
+    if (e instanceof PeriodLockedError) return NextResponse.json({ error: e.message }, { status: 423 });
     return NextResponse.json({ error: "Gagal menyimpan transaksi" }, { status: 500 });
   }
 }

@@ -55,6 +55,13 @@ npm run seed:prod        # idempotent — aman diulang; tidak menghapus data
 
 **Cara B — via Neon SQL Editor:** jalankan migrasi & seed dari lokal seperti di atas (Neon tidak menjalankan skrip Node, jadi seed tetap dari mesin Anda).
 
+> **Upgrade ke Fase 7 (akuntansi double-entry).** Bila database sudah berisi
+> transaksi lama, setelah `prisma migrate deploy` jalankan **sekali** (backup dulu):
+> ```bash
+> npm run backfill:journal   # idempoten — seed COA/Unit + jurnal historis + validasi Neraca Saldo
+> ```
+> Detail lengkap ada di `MIGRATION.md`.
+
 ---
 
 ## Langkah 4 — Login & Amankan

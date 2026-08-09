@@ -6,6 +6,7 @@
  */
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { seedAccountingMasters } from "./seed-accounting";
 
 const prisma = new PrismaClient();
 
@@ -89,11 +90,16 @@ async function main() {
     await prisma.setting.upsert({ where: { key: s.key }, update: {}, create: s });
   }
 
+  // ---- Master akuntansi Fase 7 (Unit Bisnis + Chart of Accounts + pemetaan) ----
+  await seedAccountingMasters(prisma);
+
   const counts = {
     users: await prisma.user.count(),
     accounts: await prisma.account.count(),
     categories: await prisma.category.count(),
     rateCards: await prisma.rateCard.count(),
+    businessUnits: await prisma.businessUnit.count(),
+    chartOfAccounts: await prisma.chartOfAccount.count(),
   };
   console.log("✅ Master data siap:", counts);
   console.log(`   Login owner: ${ownerEmail}`);

@@ -20,6 +20,7 @@ export async function POST(req: Request) {
     }
 
     await createSession({ id: user.id, nama: user.nama, email: user.email, role: user.role });
+    await prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } }).catch(() => {});
     return NextResponse.json({ ok: true, user: { nama: user.nama, role: user.role } });
   } catch {
     return NextResponse.json({ error: "Terjadi kesalahan" }, { status: 500 });

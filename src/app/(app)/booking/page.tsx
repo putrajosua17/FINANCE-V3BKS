@@ -19,7 +19,7 @@ export default async function BookingPage() {
   const [bookings, incomeTx, rateCards, accounts] = await Promise.all([
     prisma.booking.findMany({ orderBy: { tanggalMain: "asc" }, include: { account: true } }),
     prisma.transaction.findMany({
-      where: { tipe: "income", tanggal: { gte: start, lt: end }, category: { nama: "Rental" } },
+      where: { tipe: "income", tanggal: { gte: start, lt: end }, category: { nama: "Rental" }, deletedAt: null },
       select: { durasi: true },
     }),
     prisma.rateCard.findMany({ where: { isActive: true, kelompok: "RENTAL" }, orderBy: { kode: "asc" } }),

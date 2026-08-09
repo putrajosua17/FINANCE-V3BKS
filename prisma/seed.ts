@@ -1,5 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { seedAccountingMasters, DEFAULT_BU_KODE } from "./seed-accounting";
+import { postJournalForTransaction, loadCoaIndex } from "@/lib/journal";
 
 const prisma = new PrismaClient();
 
@@ -10,6 +12,9 @@ async function main() {
   console.log("🌱 Seeding V3BKS FinanceFlow ...");
 
   // ---- Reset (urutan mempertimbangkan relasi) ----
+  await prisma.journalLine.deleteMany();
+  await prisma.journalEntry.deleteMany();
+  await prisma.periodLock.deleteMany();
   await prisma.transaction.deleteMany();
   await prisma.booking.deleteMany();
   await prisma.bill.deleteMany();
@@ -80,6 +85,11 @@ async function main() {
   const categories = await prisma.category.findMany();
   const cat = (nama: string, tipe: "income" | "expense") =>
     categories.find((c) => c.nama === nama && c.tipe === tipe)!.id;
+
+  // ---- Master akuntansi (Unit Bisnis + Chart of Accounts + pemetaan COA) ----
+  await seedAccountingMasters(prisma);
+  const defaultBu = await prisma.businessUnit.findUnique({ where: { kode: DEFAULT_BU_KODE } });
+  const buId = defaultBu!.id;
 
   // ---- RateCard (master tarif) ----
   await prisma.rateCard.createMany({
@@ -184,6 +194,7 @@ async function main() {
         statusBayar: t.status ?? "lunas",
         pajakDaerah,
         catatan: t.catatan,
+        businessUnitId: buId,
         createdById: owner?.id,
       },
     });
@@ -208,10 +219,16 @@ async function main() {
         accountId: acc("Cash"),
         tempatBeli: e.tempat,
         catatan: e.catatan,
+        businessUnitId: buId,
         createdById: owner?.id,
       },
     });
   }
+
+  // ---- Bentuk jurnal double-entry untuk seluruh transaksi contoh ----
+  const coaIndex = await loadCoaIndex(prisma);
+  const seededTx = await prisma.transaction.findMany({ where: { journalEntryId: null }, select: { id: true }, orderBy: { tanggal: "asc" } });
+  for (const t of seededTx) await postJournalForTransaction(prisma, t.id, coaIndex);
 
   // ---- Bookings dengan sisa pelunasan (piutang) ----
   const bookings = [
@@ -296,12 +313,13 @@ async function main() {
     ],
   });
 
-  const [txCount, bookCount, billCount] = await Promise.all([
+  const [txCount, bookCount, billCount, jvCount] = await Promise.all([
     prisma.transaction.count(),
     prisma.booking.count(),
     prisma.bill.count(),
+    prisma.journalEntry.count(),
   ]);
-  console.log(`✅ Seed selesai: ${txCount} transaksi, ${bookCount} booking piutang, ${billCount} tagihan.`);
+  console.log(`✅ Seed selesai: ${txCount} transaksi, ${bookCount} booking piutang, ${billCount} tagihan, ${jvCount} jurnal.`);
   console.log(`   Login owner: ${ownerEmail} / ${ownerPass}`);
 }
 

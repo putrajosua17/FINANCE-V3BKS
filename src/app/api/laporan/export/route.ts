@@ -20,7 +20,7 @@ export async function GET(req: Request) {
     getDashboardData(periode),
     getBudgetComparison(periode),
     prisma.transaction.findMany({
-      where: { tanggal: { gte: start, lt: end } },
+      where: { tanggal: { gte: start, lt: end }, deletedAt: null },
       include: { category: true, account: true },
       orderBy: { tanggal: "asc" },
     }),

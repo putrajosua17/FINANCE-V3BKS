@@ -24,12 +24,12 @@ export async function getDashboardData(periode: Periode) {
 
   const [txMonth, accounts, allTx, pendingBills, piutang, targets] = await Promise.all([
     prisma.transaction.findMany({
-      where: { tanggal: { gte: start, lt: end } },
+      where: { tanggal: { gte: start, lt: end }, deletedAt: null },
       include: { category: true, account: true },
       orderBy: { tanggal: "asc" },
     }),
     prisma.account.findMany({ orderBy: { urutan: "asc" } }),
-    prisma.transaction.findMany({ select: { tipe: true, jumlah: true, accountId: true } }),
+    prisma.transaction.findMany({ where: { deletedAt: null }, select: { tipe: true, jumlah: true, accountId: true } }),
     prisma.bill.findMany({ where: { status: "pending" }, include: { category: true }, orderBy: { jatuhTempo: "asc" } }),
     prisma.booking.findMany({ where: { sisaPelunasan: { gt: 0 }, status: { not: "batal" } }, orderBy: { tanggalMain: "asc" } }),
     prisma.target.findMany({ where: { tanggal: { gte: start, lt: end } } }),
@@ -92,7 +92,7 @@ export async function getDashboardData(periode: Periode) {
 
   // ---- Tren bulanan (Jan-Des dari seluruh transaksi tahun aktif) ----
   const allYearTx = await prisma.transaction.findMany({
-    where: { tanggal: { gte: new Date(tahun, 0, 1), lt: new Date(tahun + 1, 0, 1) } },
+    where: { tanggal: { gte: new Date(tahun, 0, 1), lt: new Date(tahun + 1, 0, 1) }, deletedAt: null },
     select: { tanggal: true, tipe: true, jumlah: true },
   });
   const tren = Array.from({ length: 12 }, (_, i) => ({ bulan: i, income: 0, expense: 0, profit: 0 }));

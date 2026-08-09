@@ -7,11 +7,12 @@ export const dynamic = "force-dynamic";
 
 export default async function EditTransaksiPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [tx, categories, accounts, rateCards] = await Promise.all([
-    prisma.transaction.findUnique({ where: { id } }),
+  const [tx, categories, accounts, rateCards, businessUnits] = await Promise.all([
+    prisma.transaction.findFirst({ where: { id, deletedAt: null } }),
     prisma.category.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
     prisma.account.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
     prisma.rateCard.findMany({ where: { isActive: true }, orderBy: { kode: "asc" } }),
+    prisma.businessUnit.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
   ]);
   if (!tx) notFound();
 
@@ -30,6 +31,7 @@ export default async function EditTransaksiPage({ params }: { params: Promise<{ 
     noHp: tx.noHp ?? "",
     statusBayar: tx.statusBayar ?? "lunas",
     tempatBeli: tx.tempatBeli ?? "",
+    businessUnitId: tx.businessUnitId ?? "",
   };
 
   return (
@@ -41,7 +43,7 @@ export default async function EditTransaksiPage({ params }: { params: Promise<{ 
         </div>
         <Link href="/transaksi/riwayat" className="text-sm text-slate-500 hover:text-slate-200">← Kembali</Link>
       </div>
-      <TransactionForm categories={categories} accounts={accounts} rateCards={rateCards} initial={initial} />
+      <TransactionForm categories={categories} accounts={accounts} rateCards={rateCards} businessUnits={businessUnits} initial={initial} />
     </div>
   );
 }
