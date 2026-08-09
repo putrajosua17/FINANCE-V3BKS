@@ -2,15 +2,19 @@ import { prisma } from "@/lib/prisma";
 
 export type Periode = "ini" | "lalu";
 
-// Periode aktif bisnis = Agustus 2026 (data mulai Agustus).
-const TAHUN_AKTIF = 2026;
-const BULAN_AKTIF = 7; // 0-indexed = Agustus
-
+// Bulan aktif mengikuti kalender berjalan: "Bulan Ini" = bulan sekarang,
+// "Bulan Lalu" = bulan sebelumnya. Otomatis pindah tiap ganti bulan.
 export function rangeBulan(periode: Periode) {
-  const bulan = periode === "lalu" ? BULAN_AKTIF - 1 : BULAN_AKTIF;
-  const start = new Date(TAHUN_AKTIF, bulan, 1, 0, 0, 0);
-  const end = new Date(TAHUN_AKTIF, bulan + 1, 1, 0, 0, 0);
-  return { start, end, bulan, tahun: TAHUN_AKTIF };
+  const now = new Date();
+  let tahun = now.getFullYear();
+  let bulan = now.getMonth();
+  if (periode === "lalu") {
+    bulan -= 1;
+    if (bulan < 0) { bulan = 11; tahun -= 1; }
+  }
+  const start = new Date(tahun, bulan, 1, 0, 0, 0);
+  const end = new Date(tahun, bulan + 1, 1, 0, 0, 0);
+  return { start, end, bulan, tahun };
 }
 
 export type DashboardData = Awaited<ReturnType<typeof getDashboardData>>;
