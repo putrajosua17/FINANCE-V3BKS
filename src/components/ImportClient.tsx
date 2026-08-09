@@ -63,7 +63,13 @@ function V3bksImport() {
     skippedBelumBayar: number; unmatchedCategories: string[]; errors: { pesan: string }[];
   } | null>(null);
 
-  const preview = raw.trim() ? parseV3bksCsv(raw) : null;
+  let preview: ReturnType<typeof parseV3bksCsv> | null = null;
+  let parseError = "";
+  if (raw.trim()) {
+    try { preview = parseV3bksCsv(raw); }
+    catch (e) { parseError = String(e).slice(0, 200); }
+  }
+  const jumlahBaris = raw.trim() ? raw.split(/\r?\n/).filter((l) => l.trim()).length : 0;
 
   function onFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -71,6 +77,7 @@ function V3bksImport() {
     const reader = new FileReader();
     reader.onload = () => { setRaw(String(reader.result || "")); setResult(null); setErr(""); };
     reader.readAsText(file);
+    e.target.value = "";
   }
 
   async function submit() {
@@ -109,6 +116,23 @@ function V3bksImport() {
           placeholder="Tempel seluruh isi file CSV V3BKS di sini..." />
         {err && <p className="text-brand-red text-sm mt-2">{err}</p>}
       </div>
+
+      {/* Diagnostik ketika ada isi tapi 0 baris terbaca */}
+      {raw.trim() && (!preview || preview.rows.length === 0) && (
+        <div className="card border-brand-amber/30">
+          <p className="card-title text-brand-amber mb-2">⚠️ Tidak ada baris transaksi terbaca</p>
+          <p className="text-xs text-slate-400">
+            Terdeteksi <b>{jumlahBaris}</b> baris teks, tetapi <b>0</b> transaksi valid.
+            {parseError && <span className="block text-brand-red mt-1">Error: {parseError}</span>}
+          </p>
+          <ul className="text-xs text-slate-400 mt-2 list-disc pl-4 space-y-1">
+            <li>Pastikan Anda menyalin/memilih <b>seluruh isi file</b> (bukan hanya baris judul).</li>
+            <li>Format harus CSV ekspor V3BKS (kolom: Tanggal, Category, Code, ... JUMLAH, CATATAN).</li>
+            <li>Tanggal harus seperti <code>01-Aug-26</code>, jumlah seperti <code>Rp557,000</code>.</li>
+            <li>Untuk file besar, gunakan tombol <b>📁 Pilih File CSV</b> (lebih andal dari tempel).</li>
+          </ul>
+        </div>
+      )}
 
       {preview && preview.rows.length > 0 && (
         <div className="card">
