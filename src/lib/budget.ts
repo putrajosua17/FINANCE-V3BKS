@@ -24,7 +24,7 @@ export async function getBudgetComparison(periode: Periode = "ini") {
     prisma.budget.findMany({ where: { periode: key }, include: { category: true } }),
     prisma.category.findMany({ where: { tipe: "expense", isActive: true }, orderBy: { urutan: "asc" } }),
     prisma.transaction.findMany({
-      where: { tipe: "expense", tanggal: { gte: start, lt: end } },
+      where: { tipe: "expense", tanggal: { gte: start, lt: end }, deletedAt: null },
       select: { categoryId: true, jumlah: true },
     }),
   ]);

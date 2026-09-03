@@ -6,19 +6,21 @@ import { useRouter } from "next/navigation";
 type Category = { id: string; nama: string; tipe: string };
 type Account = { id: string; nama: string };
 type RateCard = { id: string; kode: string; nama: string; kelompok: string; harga: number };
+type BusinessUnit = { id: string; nama: string; induk: string };
 
 export type TxInitial = {
   id: string; tipe: "income" | "expense"; tanggal: string; categoryId: string; accountId: string;
   jumlah: string; catatan?: string; rateCode?: string; jam?: string; durasi?: string;
-  namaEntitas?: string; noHp?: string; statusBayar?: string; tempatBeli?: string;
+  namaEntitas?: string; noHp?: string; statusBayar?: string; tempatBeli?: string; businessUnitId?: string;
 };
 
 export default function TransactionForm({
-  categories, accounts, rateCards, defaultTipe = "income", quick = false, initial,
+  categories, accounts, rateCards, businessUnits = [], defaultTipe = "income", quick = false, initial,
 }: {
   categories: Category[];
   accounts: Account[];
   rateCards: RateCard[];
+  businessUnits?: BusinessUnit[];
   defaultTipe?: "income" | "expense";
   quick?: boolean;
   initial?: TxInitial;
@@ -49,6 +51,7 @@ export default function TransactionForm({
     pelunasan: "",
     statusBayar: initial?.statusBayar ?? "lunas",
     tempatBeli: initial?.tempatBeli ?? "",
+    businessUnitId: initial?.businessUnitId ?? businessUnits[0]?.id ?? "",
   });
 
   function set(k: string, v: string) {
@@ -163,8 +166,9 @@ export default function TransactionForm({
               <input type="date" className="input" value={form.tanggalMain} onChange={(e) => set("tanggalMain", e.target.value)} />
             </div>
             <div>
-              <label className="label">DP</label>
+              <label className="label">Nilai DP Diterima</label>
               <input type="number" className="input" value={form.dp} onChange={(e) => set("dp", e.target.value)} />
+              <p className="text-[10px] text-slate-600 mt-1">Kosongkan bila nilainya sama dengan jumlah diterima.</p>
             </div>
             <div>
               <label className="label">Status Bayar</label>
@@ -179,14 +183,14 @@ export default function TransactionForm({
 
       {tipe === "expense" && (
         <div>
-          <label className="label">Tempat Beli</label>
-          <input className="input" value={form.tempatBeli} onChange={(e) => set("tempatBeli", e.target.value)} />
+          <label className="label">Penerima / Vendor</label>
+          <input className="input" value={form.tempatBeli} onChange={(e) => set("tempatBeli", e.target.value)} required />
         </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="label">Jumlah (Rp)</label>
+          <label className="label">{tipe === "income" ? "Jumlah Diterima (Rp)" : "Jumlah Dibayar (Rp)"}</label>
           <input type="number" className="input" value={form.jumlah} onChange={(e) => set("jumlah", e.target.value)} required />
         </div>
         <div>
@@ -197,9 +201,18 @@ export default function TransactionForm({
         </div>
       </div>
 
+      {businessUnits.length > 0 && (
+        <div>
+          <label className="label">Unit Bisnis</label>
+          <select className="input" value={form.businessUnitId} onChange={(e) => set("businessUnitId", e.target.value)}>
+            {businessUnits.map((u) => <option key={u.id} value={u.id}>{u.induk} · {u.nama}</option>)}
+          </select>
+        </div>
+      )}
+
       <div>
-        <label className="label">Catatan</label>
-        <textarea className="input min-h-[60px]" value={form.catatan} onChange={(e) => set("catatan", e.target.value)} />
+        <label className="label">Catatan / Referensi Bukti</label>
+        <textarea className="input min-h-[60px]" value={form.catatan} onChange={(e) => set("catatan", e.target.value)} placeholder="Contoh: nomor booking, nomor invoice, atau nama file bukti" required />
       </div>
 
       <button className={tipe === "income" ? "btn-primary w-full" : "btn w-full bg-brand-red text-white hover:bg-red-600"} disabled={saving}>

@@ -32,6 +32,7 @@ Ikuti langkah berikut (± 10 menit).
    |---|---|
    | `DATABASE_URL` | (connection string Neon dari Langkah 1) |
    | `AUTH_SECRET` | hasil `openssl rand -base64 32` (atau string acak panjang) |
+   | `SETUP_TOKEN` | token acak terpisah minimal 24 karakter |
    | `SEED_OWNER_EMAIL` | email login owner, mis. `owner@v3bks.id` |
    | `SEED_OWNER_PASSWORD` | password owner awal (ganti setelah login) |
 
@@ -47,13 +48,20 @@ Setelah deploy pertama, database sudah bertabel tapi masih kosong (belum ada log
 # di folder proyek, pakai DATABASE_URL Neon
 export DATABASE_URL="postgresql://...neon.../v3bks?sslmode=require"
 export SEED_OWNER_EMAIL="owner@v3bks.id"
-export SEED_OWNER_PASSWORD="passwordAnda"
+export SEED_OWNER_PASSWORD="password-aman-minimal-12-karakter"
 npm install
 npm run seed:prod        # idempotent — aman diulang; tidak menghapus data
 ```
 > Ingin sekaligus memuat data contoh Agustus 2026? Gunakan `npm run seed` (⚠️ ini menghapus data lama — hanya untuk database baru/kosong).
 
 **Cara B — via Neon SQL Editor:** jalankan migrasi & seed dari lokal seperti di atas (Neon tidak menjalankan skrip Node, jadi seed tetap dari mesin Anda).
+
+> **Upgrade ke Fase 7 (akuntansi double-entry).** Bila database sudah berisi
+> transaksi lama, setelah `prisma migrate deploy` jalankan **sekali** (backup dulu):
+> ```bash
+> npm run backfill:journal   # idempoten — seed COA/Unit + jurnal historis + validasi Neraca Saldo
+> ```
+> Detail lengkap ada di `MIGRATION.md`.
 
 ---
 
@@ -62,10 +70,13 @@ npm run seed:prod        # idempotent — aman diulang; tidak menghapus data
 2. Masuk dengan `SEED_OWNER_EMAIL` / `SEED_OWNER_PASSWORD`.
 3. **Pengaturan → Pengguna**: ganti password owner, tambah user admin/finance, hapus user demo bila ada.
 
+> Endpoint setup web hanya menerima `POST /api/setup` dengan header `X-Setup-Token` yang cocok dengan `SETUP_TOKEN`; tidak pernah membuka kredensial bawaan ke publik.
+
 ---
 
 ## Checklist Keamanan Produksi
 - [ ] `AUTH_SECRET` acak & panjang (bukan nilai dev).
+- [ ] `SETUP_TOKEN` acak, terpisah dari `AUTH_SECRET`, dan minimal 24 karakter.
 - [ ] Password owner sudah diganti setelah login pertama.
 - [ ] `DATABASE_URL` memakai `sslmode=require` (default Neon).
 - [ ] Cookie session otomatis `Secure` di produksi (sudah di kode).

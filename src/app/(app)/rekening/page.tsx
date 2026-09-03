@@ -8,8 +8,8 @@ export default async function RekeningPage() {
   const { start, end } = rangeBulan("ini");
   const [accounts, allTx, monthTx] = await Promise.all([
     prisma.account.findMany({ orderBy: { urutan: "asc" } }),
-    prisma.transaction.findMany({ select: { accountId: true, tipe: true, jumlah: true } }),
-    prisma.transaction.findMany({ where: { tanggal: { gte: start, lt: end } }, select: { accountId: true, tipe: true, jumlah: true } }),
+    prisma.transaction.findMany({ where: { deletedAt: null }, select: { accountId: true, tipe: true, jumlah: true } }),
+    prisma.transaction.findMany({ where: { tanggal: { gte: start, lt: end }, deletedAt: null }, select: { accountId: true, tipe: true, jumlah: true } }),
   ]);
 
   const rows = accounts.map((a) => {

@@ -3,6 +3,7 @@ import { formatRupiah, formatPercent, formatTanggalPendek, namaBulan } from "@/l
 import ArusKasChart from "@/components/charts/ArusKasChart";
 import DonutChart from "@/components/charts/DonutChart";
 import TrenBulananChart from "@/components/charts/TrenBulananChart";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +60,26 @@ export default async function DashboardPage({
           </div>
         </div>
       </div>
+
+      {d.integritas.bermasalah && (
+        <div className="card border-brand-amber/30 bg-brand-amber/5">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-brand-amber">Data keuangan belum siap dijadikan saldo final</p>
+              <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400">
+                {d.integritas.tanpaJurnal > 0 && <span>{d.integritas.tanpaJurnal} transaksi belum berjurnal</span>}
+                {d.integritas.barisBankBelum > 0 && <span>{d.integritas.barisBankBelum} mutasi bank belum cocok</span>}
+                {d.integritas.rekonsiliasiTerbuka > 0 && <span>{d.integritas.rekonsiliasiTerbuka} rekonsiliasi belum selesai</span>}
+                {d.integritas.rekeningNegatif.length > 0 && <span>Saldo negatif: {d.integritas.rekeningNegatif.join(", ")}</span>}
+              </div>
+            </div>
+            <div className="flex gap-2 shrink-0">
+              {d.integritas.tanpaJurnal > 0 && <Link href="/tutup-buku" className="btn-ghost text-xs">Perbaiki Jurnal</Link>}
+              <Link href="/rekonsiliasi" className="btn-primary text-xs">Buka Rekonsiliasi</Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ---- Row 1: Arus Kas + Rincian Pengeluaran ---- */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -168,7 +189,7 @@ export default async function DashboardPage({
                   </span>
                   {a.nama}
                 </span>
-                <span className="tabular-nums font-medium text-white">{formatRupiah(a.saldo)}</span>
+                <span className={`tabular-nums font-medium ${a.saldo < 0 ? "text-brand-red" : "text-white"}`}>{formatRupiah(a.saldo)}</span>
               </li>
             ))}
             <li className="flex items-center justify-between text-sm pt-2 border-t border-white/5">

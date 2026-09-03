@@ -22,17 +22,26 @@ export type DashboardData = Awaited<ReturnType<typeof getDashboardData>>;
 export async function getDashboardData(periode: Periode) {
   const { start, end, bulan, tahun } = rangeBulan(periode);
 
-  const [txMonth, accounts, allTx, pendingBills, piutang, targets] = await Promise.all([
+  const [txMonth, accounts, saldoAgg, pendingBills, piutang, targets, tanpaJurnal, barisBankBelum, rekonsiliasiTerbuka] = await Promise.all([
     prisma.transaction.findMany({
-      where: { tanggal: { gte: start, lt: end } },
+      where: { tanggal: { gte: start, lt: end }, deletedAt: null },
       include: { category: true, account: true },
       orderBy: { tanggal: "asc" },
     }),
     prisma.account.findMany({ orderBy: { urutan: "asc" } }),
-    prisma.transaction.findMany({ select: { tipe: true, jumlah: true, accountId: true } }),
+    // Saldo kumulatif dihitung di database (groupBy) — tidak menarik seluruh
+    // baris transaksi ke memori, jauh lebih ringan saat data bertambah.
+    prisma.transaction.groupBy({
+      by: ["accountId", "tipe"],
+      where: { deletedAt: null },
+      _sum: { jumlah: true },
+    }),
     prisma.bill.findMany({ where: { status: "pending" }, include: { category: true }, orderBy: { jatuhTempo: "asc" } }),
     prisma.booking.findMany({ where: { sisaPelunasan: { gt: 0 }, status: { not: "batal" } }, orderBy: { tanggalMain: "asc" } }),
     prisma.target.findMany({ where: { tanggal: { gte: start, lt: end } } }),
+    prisma.transaction.count({ where: { deletedAt: null, journalEntryId: null } }),
+    prisma.bankStatementLine.count({ where: { status: "belum" } }),
+    prisma.bankStatement.count({ where: { status: { not: "selesai" } } }),
   ]);
 
   // ---- KPI dasar ----
@@ -42,12 +51,19 @@ export async function getDashboardData(periode: Periode) {
   const rasioLaba = income > 0 ? (profit / income) * 100 : 0;
 
   // ---- Saldo rekening (kumulatif seluruh waktu) ----
+  const sumByAkun = new Map<string, { masuk: number; keluar: number }>();
+  for (const g of saldoAgg) {
+    const cur = sumByAkun.get(g.accountId) ?? { masuk: 0, keluar: 0 };
+    if (g.tipe === "income") cur.masuk += g._sum.jumlah ?? 0;
+    else cur.keluar += g._sum.jumlah ?? 0;
+    sumByAkun.set(g.accountId, cur);
+  }
   const saldoPerAkun = accounts.map((a) => {
-    const masuk = allTx.filter((t) => t.accountId === a.id && t.tipe === "income").reduce((s, t) => s + t.jumlah, 0);
-    const keluar = allTx.filter((t) => t.accountId === a.id && t.tipe === "expense").reduce((s, t) => s + t.jumlah, 0);
-    return { id: a.id, nama: a.nama, tipe: a.tipe, saldo: a.saldoAwal + masuk - keluar };
+    const s = sumByAkun.get(a.id) ?? { masuk: 0, keluar: 0 };
+    return { id: a.id, nama: a.nama, tipe: a.tipe, saldo: a.saldoAwal + s.masuk - s.keluar };
   });
   const totalSaldo = saldoPerAkun.reduce((s, a) => s + a.saldo, 0);
+  const rekeningNegatif = saldoPerAkun.filter((a) => a.saldo < 0).map((a) => a.nama);
 
   // ---- Tagihan & piutang ----
   const totalTagihan = pendingBills.reduce((s, b) => s + b.nominalEstimasi, 0);
@@ -92,7 +108,7 @@ export async function getDashboardData(periode: Periode) {
 
   // ---- Tren bulanan (Jan-Des dari seluruh transaksi tahun aktif) ----
   const allYearTx = await prisma.transaction.findMany({
-    where: { tanggal: { gte: new Date(tahun, 0, 1), lt: new Date(tahun + 1, 0, 1) } },
+    where: { tanggal: { gte: new Date(tahun, 0, 1), lt: new Date(tahun + 1, 0, 1) }, deletedAt: null },
     select: { tanggal: true, tipe: true, jumlah: true },
   });
   const tren = Array.from({ length: 12 }, (_, i) => ({ bulan: i, income: 0, expense: 0, profit: 0 }));
@@ -157,7 +173,9 @@ export async function getDashboardData(periode: Periode) {
   if (totalSaldo > totalTagihan) skor += 15;
   else skor -= 10;
   skor = Math.max(0, Math.min(100, skor));
-  const statusLabel = skor >= 75 ? "Healthy" : skor >= 50 ? "Waspada" : "Berisiko";
+  const integritasBermasalah = tanpaJurnal > 0 || barisBankBelum > 0 || rekeningNegatif.length > 0;
+  if (integritasBermasalah) skor = Math.min(skor, 49);
+  const statusLabel = integritasBermasalah ? "Perlu Verifikasi" : skor >= 75 ? "Healthy" : skor >= 50 ? "Waspada" : "Berisiko";
 
   // ---- FlowAI insights (rule-based) ----
   const insights: string[] = [];
@@ -196,5 +214,12 @@ export async function getDashboardData(periode: Periode) {
     progresTarget,
     tagihanMendatang,
     insights,
+    integritas: {
+      tanpaJurnal,
+      barisBankBelum,
+      rekonsiliasiTerbuka,
+      rekeningNegatif,
+      bermasalah: integritasBermasalah,
+    },
   };
 }

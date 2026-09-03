@@ -58,7 +58,7 @@ function V3bksImport() {
   const [raw, setRaw] = useState("");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
-  const [replaceMode, setReplaceMode] = useState(true);
+  const [replaceMode, setReplaceMode] = useState(false);
   const [result, setResult] = useState<{
     created: number; deleted: number; replace: boolean; income: number; expense: number;
     totalIncome: number; totalExpense: number;
@@ -147,9 +147,9 @@ function V3bksImport() {
           <label className="flex items-start gap-2 text-xs text-slate-300 mb-3 bg-ink-800 rounded-lg p-3 cursor-pointer">
             <input type="checkbox" className="mt-0.5" checked={replaceMode} onChange={(e) => setReplaceMode(e.target.checked)} />
             <span>
-              <b>Perbarui data bulan yang sama</b> (disarankan). Transaksi lama pada bulan yang tercakup file akan
-              <b> diganti</b> dengan data ini — sehingga impor ulang tidak menumpuk/dobel.
-              <span className="block text-slate-500 mt-0.5">Nonaktifkan bila ingin sekadar menambah tanpa menghapus data lama.</span>
+              <b>Ganti seluruh data bulan yang sama.</b> Aktifkan hanya untuk sinkronisasi penuh dari tracker.
+              Transaksi aktif pada bulan yang tercakup akan dinonaktifkan, jurnalnya dibalik, lalu diganti dengan data ini.
+              <span className="block text-brand-amber mt-0.5">Transaksi manual pada bulan tersebut juga ikut diganti. Histori tetap tersimpan dan tidak dihapus permanen.</span>
             </span>
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
@@ -180,7 +180,7 @@ function V3bksImport() {
           <p className="card-title mb-2">Hasil Impor</p>
           <div className="flex flex-wrap gap-4 text-sm">
             <span className="text-brand-green">✓ {result.created} transaksi masuk</span>
-            {result.replace && result.deleted > 0 && <span className="text-brand-amber">↻ {result.deleted} lama diganti</span>}
+            {result.replace && result.deleted > 0 && <span className="text-brand-amber">↻ {result.deleted} transaksi lama dinonaktifkan</span>}
             <span className="text-slate-400">Pemasukan {formatRupiah(result.totalIncome)}</span>
             <span className="text-slate-400">Pengeluaran {formatRupiah(result.totalExpense)}</span>
             {result.skippedBelumBayar > 0 && <span className="text-slate-500">{result.skippedBelumBayar} belum bayar dilewati</span>}

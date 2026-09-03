@@ -22,6 +22,26 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    title: "Akuntansi",
+    items: [
+      { href: "/laporan/neraca", label: "Neraca", icon: "⚖️" },
+      { href: "/laporan/neraca-saldo", label: "Neraca Saldo", icon: "🧾" },
+      { href: "/laporan/buku-besar", label: "Buku Besar", icon: "📚" },
+      { href: "/laporan/per-unit", label: "Laba Rugi per Unit", icon: "🏢" },
+      { href: "/tutup-buku", label: "Tutup Buku", icon: "🔒" },
+    ],
+  },
+  {
+    title: "Operasional Harian",
+    items: [
+      { href: "/rekonsiliasi", label: "Rekonsiliasi Bank", icon: "🔗" },
+      { href: "/tutup-kas", label: "Tutup Kas Harian", icon: "💵" },
+      { href: "/utang", label: "Utang Usaha (AP)", icon: "📤" },
+      { href: "/piutang", label: "Piutang (AR)", icon: "📥" },
+      { href: "/vendor", label: "Vendor & Pelanggan", icon: "👥" },
+    ],
+  },
+  {
     title: "Bantuan",
     items: [
       { href: "/flowai", label: "FlowAI Insight", icon: "🤖" },

@@ -28,6 +28,14 @@ export default async function LaporanPage() {
         </div>
       </div>
 
+      {/* Laporan akuntansi double-entry (Fase 7) */}
+      <div className="flex gap-2 flex-wrap">
+        <Link href="/laporan/neraca" className="btn-ghost text-xs">⚖️ Neraca</Link>
+        <Link href="/laporan/neraca-saldo" className="btn-ghost text-xs">🧾 Neraca Saldo</Link>
+        <Link href="/laporan/buku-besar" className="btn-ghost text-xs">📚 Buku Besar</Link>
+        <Link href="/laporan/per-unit" className="btn-ghost text-xs">🏢 Laba Rugi per Unit</Link>
+      </div>
+
       {/* P&L per bulan */}
       <div className="card p-0 overflow-x-auto">
         <div className="px-4 py-3 border-b border-white/5"><p className="card-title">Laba Rugi per Bulan</p></div>

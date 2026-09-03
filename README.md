@@ -49,7 +49,7 @@ npm run dev                # http://localhost:3000
 
 > Tanpa Docker? Arahkan `DATABASE_URL` ke Postgres apa pun (mis. Neon) lalu jalankan langkah 4–5.
 
-**Login demo:**
+**Login demo lokal (`npm run seed` saja):**
 | Role | Email | Password |
 |---|---|---|
 | Owner | `owner@v3bks.id` | `owner123` |
@@ -59,8 +59,8 @@ npm run dev                # http://localhost:3000
 ## Deploy ke produksi (PostgreSQL)
 Panduan lengkap ada di **[`DEPLOY.md`](./DEPLOY.md)**. Ringkas:
 1. Ubah `datasource db { provider = "postgresql" }` di `prisma/schema.prisma`.
-2. Set `DATABASE_URL` ke koneksi Postgres dan `AUTH_SECRET` yang kuat (`openssl rand -base64 32`).
-3. `npx prisma migrate deploy && npm run seed` (opsional seed).
+2. Set `DATABASE_URL`, `AUTH_SECRET`, `SETUP_TOKEN`, serta kredensial owner produksi yang kuat.
+3. `npx prisma migrate deploy && npm run seed:prod`.
 4. `npm run build && npm start` (atau deploy ke Vercel). `docker-compose.yml` disediakan untuk Postgres lokal.
 
 ## Skrip

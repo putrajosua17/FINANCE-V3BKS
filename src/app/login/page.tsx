@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("owner@v3bks.id");
-  const [password, setPassword] = useState("owner123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -64,9 +64,7 @@ export default function LoginPage() {
           <button className="btn-primary w-full" disabled={loading}>
             {loading ? "Memproses..." : "Masuk"}
           </button>
-          <p className="text-[11px] text-slate-500 text-center">
-            Demo: owner@v3bks.id / owner123 · admin@v3bks.id / admin123
-          </p>
+          <p className="text-[11px] text-slate-500 text-center">Gunakan akun yang diberikan oleh owner V3BKS.</p>
         </form>
       </div>
     </div>

@@ -9,10 +9,11 @@ export default async function TambahPage({
   searchParams: Promise<{ quick?: string; tipe?: string }>;
 }) {
   const sp = await searchParams;
-  const [categories, accounts, rateCards] = await Promise.all([
+  const [categories, accounts, rateCards, businessUnits] = await Promise.all([
     prisma.category.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
     prisma.account.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
     prisma.rateCard.findMany({ where: { isActive: true }, orderBy: { kode: "asc" } }),
+    prisma.businessUnit.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" } }),
   ]);
 
   const quick = sp.quick === "1";
@@ -31,6 +32,7 @@ export default async function TambahPage({
         categories={categories}
         accounts={accounts}
         rateCards={rateCards}
+        businessUnits={businessUnits}
         defaultTipe={sp.tipe === "expense" ? "expense" : "income"}
         quick={quick}
       />
