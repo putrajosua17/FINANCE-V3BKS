@@ -166,8 +166,9 @@ export default function TransactionForm({
               <input type="date" className="input" value={form.tanggalMain} onChange={(e) => set("tanggalMain", e.target.value)} />
             </div>
             <div>
-              <label className="label">DP</label>
+              <label className="label">Nilai DP Diterima</label>
               <input type="number" className="input" value={form.dp} onChange={(e) => set("dp", e.target.value)} />
+              <p className="text-[10px] text-slate-600 mt-1">Kosongkan bila nilainya sama dengan jumlah diterima.</p>
             </div>
             <div>
               <label className="label">Status Bayar</label>
@@ -182,14 +183,14 @@ export default function TransactionForm({
 
       {tipe === "expense" && (
         <div>
-          <label className="label">Tempat Beli</label>
-          <input className="input" value={form.tempatBeli} onChange={(e) => set("tempatBeli", e.target.value)} />
+          <label className="label">Penerima / Vendor</label>
+          <input className="input" value={form.tempatBeli} onChange={(e) => set("tempatBeli", e.target.value)} required />
         </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="label">Jumlah (Rp)</label>
+          <label className="label">{tipe === "income" ? "Jumlah Diterima (Rp)" : "Jumlah Dibayar (Rp)"}</label>
           <input type="number" className="input" value={form.jumlah} onChange={(e) => set("jumlah", e.target.value)} required />
         </div>
         <div>
@@ -210,8 +211,8 @@ export default function TransactionForm({
       )}
 
       <div>
-        <label className="label">Catatan</label>
-        <textarea className="input min-h-[60px]" value={form.catatan} onChange={(e) => set("catatan", e.target.value)} />
+        <label className="label">Catatan / Referensi Bukti</label>
+        <textarea className="input min-h-[60px]" value={form.catatan} onChange={(e) => set("catatan", e.target.value)} placeholder="Contoh: nomor booking, nomor invoice, atau nama file bukti" required />
       </div>
 
       <button className={tipe === "income" ? "btn-primary w-full" : "btn w-full bg-brand-red text-white hover:bg-red-600"} disabled={saving}>

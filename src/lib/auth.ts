@@ -3,9 +3,13 @@ import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 
 const COOKIE_NAME = "v3bks_session";
-const secret = new TextEncoder().encode(
-  process.env.AUTH_SECRET || "insecure-dev-secret-change-me"
-);
+function sessionSecret(): Uint8Array {
+  const configured = process.env.AUTH_SECRET;
+  if (!configured && process.env.NODE_ENV === "production") {
+    throw new Error("AUTH_SECRET wajib diatur di environment produksi.");
+  }
+  return new TextEncoder().encode(configured || "dev-only-secret-change-me");
+}
 
 export type SessionUser = {
   id: string;
@@ -27,7 +31,7 @@ export async function createSession(user: SessionUser): Promise<void> {
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
-    .sign(secret);
+    .sign(sessionSecret());
 
   const store = await cookies();
   store.set(COOKIE_NAME, token, {
@@ -49,7 +53,7 @@ export async function getSession(): Promise<SessionUser | null> {
   const token = store.get(COOKIE_NAME)?.value;
   if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify(token, sessionSecret());
     return {
       id: String(payload.id),
       nama: String(payload.nama),
@@ -64,7 +68,7 @@ export async function getSession(): Promise<SessionUser | null> {
 export async function getSessionFromToken(token: string | undefined): Promise<SessionUser | null> {
   if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify(token, sessionSecret());
     return {
       id: String(payload.id),
       nama: String(payload.nama),

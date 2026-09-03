@@ -3,15 +3,14 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const SESSION_COOKIE = "v3bks_session";
-const secret = new TextEncoder().encode(
-  process.env.AUTH_SECRET || "insecure-dev-secret-change-me"
-);
-
 const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/setup"];
 
 async function isValid(token: string | undefined): Promise<boolean> {
   if (!token) return false;
   try {
+    const configured = process.env.AUTH_SECRET;
+    if (!configured && process.env.NODE_ENV === "production") return false;
+    const secret = new TextEncoder().encode(configured || "dev-only-secret-change-me");
     await jwtVerify(token, secret);
     return true;
   } catch {

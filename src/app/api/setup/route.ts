@@ -1,14 +1,19 @@
 import { NextResponse } from "next/server";
 import { runSetup } from "@/lib/setup";
+import { timingSafeEqual } from "node:crypto";
 
 export const dynamic = "force-dynamic";
 
 /**
  * Inisialisasi database (master data + owner) — dipanggil sekali setelah deploy.
- * Aman & idempotent: tidak menerima input pengguna, tidak menimpa data yang ada.
- * Cukup buka /api/setup di browser sekali.
+ * Endpoint mutasi ini hanya menerima POST dengan token setup terpisah.
  */
-export async function GET() {
+export async function POST(req: Request) {
+  const configured = process.env.SETUP_TOKEN;
+  const provided = req.headers.get("x-setup-token") || "";
+  if (!configured || configured.length < 24 || provided.length !== configured.length || !timingSafeEqual(Buffer.from(provided), Buffer.from(configured))) {
+    return NextResponse.json({ ok: false, error: "Akses setup ditolak." }, { status: 403 });
+  }
   try {
     const result = await runSetup();
     return NextResponse.json({

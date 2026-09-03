@@ -120,6 +120,38 @@ function findCol(header: string[], keys: string[]): number {
   return -1;
 }
 
+type MutationDirection = "debit" | "credit";
+
+/**
+ * Tentukan arah mutasi tanpa menebak dari tanda hubung pada deskripsi.
+ *
+ * Banyak deskripsi BCA mengandung `E-BANKING` atau `BI-FAST`; tanda `-`
+ * tersebut bukan penanda uang keluar. Kolom DB/CR yang eksplisit selalu
+ * diprioritaskan, lalu token DB/CR pada nominal/deskripsi, dan terakhir tanda
+ * negatif pada nominal. Nilai positif tanpa penanda dianggap ambigu dan
+ * dilewati agar rekonsiliasi tidak membalik arah transaksi.
+ */
+export function detectMutationDirection(
+  directionRaw: string,
+  amountRaw: string,
+  descriptionRaw: string
+): MutationDirection | null {
+  const explicit = `${directionRaw} ${amountRaw}`.toUpperCase();
+  if (/\b(?:DB|D|DEBET|DEBIT|DR)\b/.test(explicit)) return "debit";
+  if (/\b(?:CR|C|KREDIT|CREDIT)\b/.test(explicit)) return "credit";
+
+  const description = descriptionRaw.toUpperCase();
+  // Pada narasi BCA, token pertama DB/CR setelah jenis transfer adalah arah
+  // mutasi. Contoh incoming: "BI-FAST CR TRANSFER DR ..." — CR harus menang.
+  const token = description.match(/\b(?:DB|CR|DEBET|DEBIT|KREDIT|CREDIT)\b/)?.[0];
+  if (token === "DB" || token === "DEBET" || token === "DEBIT") return "debit";
+  if (token === "CR" || token === "KREDIT" || token === "CREDIT") return "credit";
+
+  if (/^\s*-/.test(amountRaw)) return "debit";
+  if (/^\s*\+/.test(amountRaw)) return "credit";
+  return null;
+}
+
 /**
  * Parser generik berbasis header. Mengenali kolom umum e-statement Indonesia:
  * tanggal, keterangan, debit/mutasi, kredit, saldo. Mendukung format satu-kolom
@@ -140,6 +172,7 @@ export function parseGeneric(text: string): ParsedLine[] {
   const cDebit = findCol(header, ["debit", "debet", "keluar", "withdrawal"]);
   const cKredit = findCol(header, ["kredit", "credit", "masuk", "deposit"]);
   const cMutasi = findCol(header, ["mutasi", "amount", "jumlah", "nominal"]);
+  const cDirection = findCol(header, ["dbcr", "debitcredit", "jenismutasi", "transactiontype"]);
   const cSaldo = findCol(header, ["saldo", "balance"]);
   const cRef = findCol(header, ["ref", "no", "id"]);
 
@@ -155,11 +188,12 @@ export function parseGeneric(text: string): ParsedLine[] {
 
     // Format satu-kolom mutasi bertanda DB/CR (mis. BCA)
     if (debit === 0 && kredit === 0 && cMutasi >= 0) {
-      const val = parseAngka(cols[cMutasi] ?? "");
-      const rowText = cols.join(" ").toUpperCase();
-      const isDebit = /\bDB\b|\bD\b|DEBET|DEBIT|-/.test((cols[cMutasi] ?? "") + " " + rowText);
-      if (val > 0) {
-        if (isDebit) debit = val;
+      const amountRaw = cols[cMutasi] ?? "";
+      const val = Math.abs(parseAngka(amountRaw));
+      const description = cKet >= 0 ? cols[cKet] ?? "" : cols.join(" ");
+      const direction = detectMutationDirection(cDirection >= 0 ? cols[cDirection] ?? "" : "", amountRaw, description);
+      if (val > 0 && direction) {
+        if (direction === "debit") debit = val;
         else kredit = val;
       }
     }
@@ -170,7 +204,7 @@ export function parseGeneric(text: string): ParsedLine[] {
       keterangan: (cKet >= 0 ? cols[cKet] : cols.filter((_, idx) => idx !== cTgl).join(" ")) || "-",
       debit,
       kredit,
-      saldo: cSaldo >= 0 ? parseAngka(cols[cSaldo] ?? "") : undefined,
+      saldo: cSaldo >= 0 && /\d/.test(cols[cSaldo] ?? "") ? parseAngka(cols[cSaldo] ?? "") : undefined,
       refBank: cRef >= 0 ? cols[cRef] : undefined,
     });
   }

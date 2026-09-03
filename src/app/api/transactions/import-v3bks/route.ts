@@ -3,6 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { logAudit } from "@/lib/audit";
 import { parseV3bksCsv } from "@/lib/v3bks-import";
+import { loadCoaIndex, postJournalForTransaction, reverseJournalEntry } from "@/lib/journal";
+import { assertPeriodOpen, PeriodLockedError } from "@/lib/period-lock";
+import { defaultBusinessUnitId } from "@/lib/business-unit";
 
 export const dynamic = "force-dynamic";
 
@@ -21,20 +24,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Tidak ada baris valid terbaca dari CSV" }, { status: 400 });
     }
 
-    // Mode "replace"/sinkronisasi: hapus dulu transaksi pada bulan yang tercakup
-    // file, lalu masukkan data terbaru — agar impor ulang tidak menumpuk.
-    let deleted = 0;
-    if (replace) {
-      const months = new Set(parsed.rows.map((r) => r.tanggal.slice(0, 7))); // "YYYY-MM"
-      for (const ym of months) {
-        const [y, m] = ym.split("-").map(Number);
-        const start = new Date(y, m - 1, 1);
-        const end = new Date(y, m, 1);
-        const res = await prisma.transaction.deleteMany({ where: { tanggal: { gte: start, lt: end } } });
-        deleted += res.count;
-      }
-    }
-
     const [categories, accounts] = await Promise.all([
       prisma.category.findMany(),
       prisma.account.findMany(),
@@ -47,6 +36,7 @@ export async function POST(req: Request) {
     const errors: { pesan: string }[] = [];
     const unmatchedCats = new Set<string>();
 
+    const businessUnitId = await defaultBusinessUnitId();
     for (const row of parsed.rows) {
       const cat = findCat(row.kategori, row.tipe);
       if (!cat) { unmatchedCats.add(`${row.kategori} (${row.tipe})`); continue; }
@@ -60,6 +50,7 @@ export async function POST(req: Request) {
         jumlah: row.jumlah,
         categoryId: cat.id,
         accountId: acc.id,
+        businessUnitId,
         catatan: row.catatan || null,
         createdById: session.id,
         ...(row.tipe === "income"
@@ -76,15 +67,58 @@ export async function POST(req: Request) {
       });
     }
 
-    let created = 0;
-    if (toCreate.length > 0) {
-      // Batch agar aman untuk banyak baris
-      for (let i = 0; i < toCreate.length; i += 50) {
-        const batch = toCreate.slice(i, i + 50);
-        await prisma.$transaction(batch.map((data) => prisma.transaction.create({ data })));
-        created += batch.length;
-      }
+    const months = new Set(parsed.rows.map((r) => r.tanggal.slice(0, 7))); // "YYYY-MM"
+    for (const ym of months) {
+      const [y, m] = ym.split("-").map(Number);
+      await assertPeriodOpen(prisma, new Date(y, m - 1, 1), businessUnitId);
     }
+
+    // Sinkronisasi dilakukan atomik. Data lama tidak dihapus permanen: jurnal
+    // dibalik, pasangan rekonsiliasi dilepas, lalu transaksi di-soft-delete.
+    // Dengan begitu histori tetap dapat diaudit dan kegagalan di tengah proses
+    // tidak meninggalkan laporan dalam keadaan setengah terbarui.
+    const result = await prisma.$transaction(async (db) => {
+      let replaced = 0;
+      if (replace) {
+        for (const ym of months) {
+          const [y, m] = ym.split("-").map(Number);
+          const start = new Date(y, m - 1, 1);
+          const end = new Date(y, m, 1);
+          const old = await db.transaction.findMany({
+            where: { tanggal: { gte: start, lt: end }, deletedAt: null },
+            select: { id: true, tanggal: true, journalEntryId: true },
+          });
+          if (old.length === 0) continue;
+          const ids = old.map((tx) => tx.id);
+          await db.bankStatementLine.updateMany({
+            where: { transactionId: { in: ids } },
+            data: { transactionId: null, status: "belum", skorCocok: null },
+          });
+          for (const tx of old) {
+            if (tx.journalEntryId) {
+              await reverseJournalEntry(db, tx.journalEntryId, { tanggal: tx.tanggal, createdById: session.id });
+            }
+          }
+          const soft = await db.transaction.updateMany({
+            where: { id: { in: ids } },
+            data: { deletedAt: new Date(), deletedById: session.id },
+          });
+          replaced += soft.count;
+        }
+      }
+
+      const coaIndex = await loadCoaIndex(db);
+      let created = 0;
+      for (const data of toCreate) {
+        const tx = await db.transaction.create({ data });
+        await postJournalForTransaction(db, tx.id, coaIndex);
+        created++;
+      }
+      return { created, replaced };
+    }, { maxWait: 10_000, timeout: 120_000 });
+
+    const created = result.created;
+    const deleted = result.replaced;
 
     if (created > 0 || deleted > 0) {
       await logAudit(session, "import", "transaction", `Impor V3BKS: ${created} masuk${replace ? `, ${deleted} lama diganti` : ""}`);
@@ -104,6 +138,7 @@ export async function POST(req: Request) {
       errors,
     });
   } catch (e) {
+    if (e instanceof PeriodLockedError) return NextResponse.json({ error: e.message }, { status: 423 });
     return NextResponse.json({ error: "Gagal memproses impor V3BKS", detail: String(e).slice(0, 200) }, { status: 500 });
   }
 }

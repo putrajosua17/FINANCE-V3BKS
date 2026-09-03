@@ -229,6 +229,8 @@ function RekeningRow({ a, run }: { a: Account; run: RunFn }) {
 /* ---------------- Pengguna ---------------- */
 function PenggunaSection({ users, run, canManage, role }: { users: UserRow[]; run: RunFn; canManage: boolean; role: string }) {
   const [f, setF] = useState({ nama: "", email: "", password: "", role: "admin" });
+  const [passwordUserId, setPasswordUserId] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState("");
   if (!canManage) return <div className="card text-sm text-slate-400">Hanya Owner/Admin yang dapat mengelola pengguna.</div>;
   return (
     <div className="space-y-3">
@@ -237,7 +239,7 @@ function PenggunaSection({ users, run, canManage, role }: { users: UserRow[]; ru
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           <input className="input" placeholder="Nama" value={f.nama} onChange={(e) => setF({ ...f, nama: e.target.value })} />
           <input className="input" placeholder="Email" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} />
-          <input className="input" type="password" placeholder="Password" value={f.password} onChange={(e) => setF({ ...f, password: e.target.value })} />
+          <input className="input" type="password" minLength={12} autoComplete="new-password" placeholder="Password (min. 12)" value={f.password} onChange={(e) => setF({ ...f, password: e.target.value })} />
           <select className="input" value={f.role} onChange={(e) => setF({ ...f, role: e.target.value })}>
             <option value="admin">Admin</option><option value="finance">Finance</option>
             {role === "owner" && <option value="owner">Owner</option>}
@@ -259,15 +261,32 @@ function PenggunaSection({ users, run, canManage, role }: { users: UserRow[]; ru
                 <td className="px-4 py-2.5 text-slate-400">{u.email}</td>
                 <td className="px-4 py-2.5">
                   <select className="input py-1 w-28 text-xs" defaultValue={u.role}
+                    disabled={role !== "owner" && u.role === "owner"}
                     onChange={(e) => run(api("PATCH", `/api/users/${u.id}`, { role: e.target.value }), "Role diperbarui")}>
-                    <option value="admin">admin</option><option value="finance">finance</option><option value="owner">owner</option>
+                    <option value="admin">admin</option><option value="finance">finance</option>{role === "owner" && <option value="owner">owner</option>}
                   </select>
                 </td>
                 <td className="px-4 py-2.5 text-right whitespace-nowrap">
                   <button className="text-slate-500 hover:text-brand-amber text-xs mr-3"
+                    disabled={role !== "owner" && u.role === "owner"}
                     onClick={() => run(api("PATCH", `/api/users/${u.id}`, { isActive: !u.isActive }), "Status diperbarui")}>
                     {u.isActive ? "Nonaktifkan" : "Aktifkan"}
                   </button>
+                  <button className="text-slate-500 hover:text-brand-green text-xs"
+                    disabled={role !== "owner" && u.role === "owner"}
+                    onClick={() => { setPasswordUserId(passwordUserId === u.id ? null : u.id); setNewPassword(""); }}>
+                    Ganti Password
+                  </button>
+                  {passwordUserId === u.id && (
+                    <div className="mt-2 flex justify-end gap-2">
+                      <input className="input py-1 w-48 text-xs" type="password" minLength={12} autoComplete="new-password" placeholder="Password baru (min. 12)" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                      <button className="btn-primary text-xs" disabled={newPassword.length < 12} onClick={async () => {
+                        if (await run(api("PATCH", `/api/users/${u.id}`, { password: newPassword }), "Password diperbarui")) {
+                          setPasswordUserId(null); setNewPassword("");
+                        }
+                      }}>Simpan</button>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
