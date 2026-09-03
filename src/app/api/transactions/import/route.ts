@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { logAudit } from "@/lib/audit";
+import { loadCoaIndex, postJournalForTransaction } from "@/lib/journal";
+import { assertPeriodOpen, PeriodLockedError } from "@/lib/period-lock";
+import { defaultBusinessUnitId } from "@/lib/business-unit";
 
 type InRow = {
   tanggal?: string;
@@ -33,6 +36,7 @@ export async function POST(req: Request) {
 
     const errors: { baris: number; pesan: string }[] = [];
     const toCreate: Parameters<typeof prisma.transaction.create>[0]["data"][] = [];
+    const businessUnitId = await defaultBusinessUnitId();
 
     rows.forEach((r, i) => {
       const baris = i + 1;
@@ -59,6 +63,7 @@ export async function POST(req: Request) {
         jumlah,
         categoryId: cat.id,
         accountId: acc.id,
+        businessUnitId,
         createdById: session.id,
         catatan: r.keterangan || null,
         ...(tipeNorm === "income"
@@ -72,15 +77,28 @@ export async function POST(req: Request) {
       });
     });
 
-    let created = 0;
-    if (toCreate.length > 0) {
-      const result = await prisma.$transaction(toCreate.map((data) => prisma.transaction.create({ data })));
-      created = result.length;
+    const periods = new Map<string, Date>();
+    for (const data of toCreate) {
+      const tanggal = data.tanggal as Date;
+      periods.set(`${tanggal.getFullYear()}-${tanggal.getMonth()}`, tanggal);
     }
+    for (const tanggal of periods.values()) await assertPeriodOpen(prisma, tanggal, businessUnitId);
+
+    const created = await prisma.$transaction(async (db) => {
+      const coaIndex = await loadCoaIndex(db);
+      let count = 0;
+      for (const data of toCreate) {
+        const tx = await db.transaction.create({ data });
+        await postJournalForTransaction(db, tx.id, coaIndex);
+        count++;
+      }
+      return count;
+    }, { maxWait: 10_000, timeout: 120_000 });
 
     if (created > 0) await logAudit(session, "import", "transaction", `${created} transaksi diimpor (${errors.length} gagal)`);
     return NextResponse.json({ ok: true, created, gagal: errors.length, errors });
-  } catch {
+  } catch (e) {
+    if (e instanceof PeriodLockedError) return NextResponse.json({ error: e.message }, { status: 423 });
     return NextResponse.json({ error: "Gagal memproses impor" }, { status: 500 });
   }
 }

@@ -7,8 +7,10 @@ import bcrypt from "bcryptjs";
  * Tidak menerima input dari pengguna (hanya baca env server).
  */
 export async function runSetup() {
-  const ownerEmail = (process.env.SEED_OWNER_EMAIL || "owner@v3bks.id").toLowerCase();
-  const ownerPass = process.env.SEED_OWNER_PASSWORD || "owner123";
+  const ownerEmail = process.env.SEED_OWNER_EMAIL?.toLowerCase().trim();
+  const ownerPass = process.env.SEED_OWNER_PASSWORD;
+  if (!ownerEmail || !ownerPass) throw new Error("SEED_OWNER_EMAIL dan SEED_OWNER_PASSWORD wajib diatur.");
+  if (ownerPass.length < 12) throw new Error("SEED_OWNER_PASSWORD minimal 12 karakter.");
 
   await prisma.user.upsert({
     where: { email: ownerEmail },

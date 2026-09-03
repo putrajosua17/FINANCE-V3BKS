@@ -47,6 +47,7 @@ export async function POST(req: Request) {
     if (!jumlah || jumlah <= 0) return NextResponse.json({ error: "Jumlah tidak valid" }, { status: 400 });
     if (!b.categoryId) return NextResponse.json({ error: "Kategori wajib dipilih" }, { status: 400 });
     if (!b.accountId) return NextResponse.json({ error: "Rekening wajib dipilih" }, { status: 400 });
+    if (!String(b.catatan || "").trim()) return NextResponse.json({ error: "Catatan atau referensi bukti wajib diisi" }, { status: 400 });
 
     const tanggal = b.tanggal ? new Date(b.tanggal) : new Date();
 
@@ -56,6 +57,17 @@ export async function POST(req: Request) {
     // Pajak Daerah 10% otomatis untuk kategori Rental
     const cat = await prisma.category.findUnique({ where: { id: b.categoryId } });
     const isRental = cat?.nama?.toLowerCase() === "rental";
+    if (tipe === "income" && isRental && !String(b.namaEntitas || "").trim()) {
+      return NextResponse.json({ error: "Nama penyewa wajib diisi untuk transaksi rental" }, { status: 400 });
+    }
+    if (tipe === "expense" && !String(b.tempatBeli || "").trim()) {
+      return NextResponse.json({ error: "Penerima atau vendor wajib diisi untuk pengeluaran" }, { status: 400 });
+    }
+    const statusBayar = b.statusBayar === "dp" ? "dp" : "lunas";
+    const nilaiDp = statusBayar === "dp" ? Number(b.dp || jumlah) : null;
+    if (statusBayar === "dp" && (nilaiDp == null || !Number.isFinite(nilaiDp) || Math.abs(nilaiDp - jumlah) > 1)) {
+      return NextResponse.json({ error: "Jumlah diterima harus sama dengan nilai DP. Sisa tagihan dicatat melalui Booking/Piutang." }, { status: 400 });
+    }
     const pajakDaerah = tipe === "income" && isRental ? Math.round((jumlah / 1.1) * 0.1) : 0;
 
     // F-07: unit bisnis (default V3BKS-MS bila tidak dikirim form).
@@ -81,9 +93,9 @@ export async function POST(req: Request) {
                 tanggalMain: b.tanggalMain ? new Date(b.tanggalMain) : null,
                 namaEntitas: b.namaEntitas || null,
                 noHp: b.noHp || null,
-                dp: b.dp ? Number(b.dp) : null,
+                dp: nilaiDp,
                 pelunasan: b.pelunasan ? Number(b.pelunasan) : null,
-                statusBayar: b.statusBayar || "lunas",
+                statusBayar,
                 pajakDaerah,
               }
             : {

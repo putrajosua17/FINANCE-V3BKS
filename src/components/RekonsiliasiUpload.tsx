@@ -10,6 +10,8 @@ export default function RekonsiliasiUpload({ accounts }: { accounts: Account[] }
   const [accountId, setAccountId] = useState(accounts[0]?.id ?? "");
   const [bank, setBank] = useState("generic");
   const [file, setFile] = useState<File | null>(null);
+  const [saldoAwal, setSaldoAwal] = useState("");
+  const [saldoAkhir, setSaldoAkhir] = useState("");
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
 
@@ -23,6 +25,8 @@ export default function RekonsiliasiUpload({ accounts }: { accounts: Account[] }
       fd.set("accountId", accountId);
       fd.set("bank", bank);
       fd.set("file", file);
+      if (saldoAwal.trim()) fd.set("saldoAwal", saldoAwal);
+      if (saldoAkhir.trim()) fd.set("saldoAkhir", saldoAkhir);
       const res = await fetch("/api/rekonsiliasi", { method: "POST", body: fd });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Gagal");
@@ -63,8 +67,18 @@ export default function RekonsiliasiUpload({ accounts }: { accounts: Account[] }
           <input type="file" accept=".csv,text/csv,text/plain" className="input" onChange={(e) => setFile(e.target.files?.[0] ?? null)} required />
         </div>
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label className="label">Saldo Awal <span className="text-slate-600">(bila tidak ada di CSV)</span></label>
+          <input inputMode="decimal" className="input" placeholder="Contoh: 30.168.746,33" value={saldoAwal} onChange={(e) => setSaldoAwal(e.target.value)} />
+        </div>
+        <div>
+          <label className="label">Saldo Akhir <span className="text-slate-600">(bila tidak ada di CSV)</span></label>
+          <input inputMode="decimal" className="input" placeholder="Contoh: 38.918.746,33" value={saldoAkhir} onChange={(e) => setSaldoAkhir(e.target.value)} />
+        </div>
+      </div>
       <button className="btn-primary text-sm" disabled={busy}>{busy ? "Memproses..." : "Impor & Cocokkan Otomatis"}</button>
-      <p className="text-[11px] text-slate-500">Sistem membaca kolom tanggal, keterangan, debit/kredit (atau mutasi DB/CR), dan saldo. Baris dicocokkan otomatis dengan transaksi rekening yang sama.</p>
+      <p className="text-[11px] text-slate-500">Sistem membaca tanggal, keterangan, debit/kredit (atau mutasi DB/CR), lalu memvalidasi: saldo awal + uang masuk − uang keluar = saldo akhir. File ditolak bila arah mutasi atau saldo tidak konsisten.</p>
     </form>
   );
 }
