@@ -67,6 +67,15 @@ export async function POST(req: Request) {
       });
     }
 
+    // Jangan tampilkan impor sebagai berhasil bila ada kategori yang belum
+    // dipetakan. Validasi dilakukan sebelum transaksi lama disentuh.
+    if (unmatchedCats.size > 0) {
+      return NextResponse.json({
+        error: "Ada kategori CSV yang belum tersedia di aplikasi",
+        unmatchedCategories: Array.from(unmatchedCats),
+      }, { status: 422 });
+    }
+
     const months = new Set(parsed.rows.map((r) => r.tanggal.slice(0, 7))); // "YYYY-MM"
     for (const ym of months) {
       const [y, m] = ym.split("-").map(Number);
@@ -139,6 +148,7 @@ export async function POST(req: Request) {
     });
   } catch (e) {
     if (e instanceof PeriodLockedError) return NextResponse.json({ error: e.message }, { status: 423 });
+    console.error("[import-v3bks] gagal", e);
     return NextResponse.json({ error: "Gagal memproses impor V3BKS", detail: String(e).slice(0, 200) }, { status: 500 });
   }
 }
