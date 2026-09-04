@@ -89,7 +89,14 @@ function V3bksImport() {
     });
     const data = await res.json();
     setBusy(false);
-    if (!res.ok) { setErr(data.error || "Gagal"); return; }
+    if (!res.ok) {
+      const kategori = Array.isArray(data.unmatchedCategories) && data.unmatchedCategories.length
+        ? `: ${data.unmatchedCategories.join(", ")}`
+        : "";
+      const detail = data.detail ? ` (${data.detail})` : "";
+      setErr(`${data.error || "Gagal"}${kategori}${detail}`);
+      return;
+    }
     setResult(data);
     if (data.created > 0) router.refresh();
   }
