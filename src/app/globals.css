@@ -57,7 +57,7 @@ body {
 }
 
 /* Comfortable touch controls and legible form inputs on mobile Safari. */
-@media (max-width: 640px) {
+@media (max-width: 1023px) {
   input, select, textarea { font-size: 16px !important; }
   button, .btn-primary, .btn-ghost { min-height: 44px; }
 }
@@ -71,7 +71,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-
 .mobile-menu nav { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 .input { min-width: 0; max-width: 100%; }
 input[type="file"] { min-width: 0; max-width: 100%; }
-@media (max-width: 640px) {
+@media (max-width: 1023px) {
   main { overflow-wrap: anywhere; }
   input[type="file"]::file-selector-button { min-height: 44px; }
+}
+
+@media (max-width: 1023px) {
+  input:not([type="checkbox"]):not([type="radio"]), select { min-height: 44px; }
 }

@@ -102,9 +102,9 @@ export default function TutupKasForm({ accounts, businessUnits }: { accounts: Ac
         <label className="label">Hitung Uang Fisik (per pecahan)</label>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           {PECAHAN.map((p) => (
-            <div key={p} className="flex items-center gap-2">
-              <span className="text-xs text-slate-400 w-16 tabular-nums">{p.toLocaleString("id-ID")}</span>
-              <input type="number" min="0" className="input py-1 text-sm" placeholder="0" value={pecahan[p] ?? ""} onChange={(e) => setPecahan((f) => ({ ...f, [p]: e.target.value }))} />
+            <div key={p} className="flex min-w-0 items-center gap-2">
+              <span className="text-xs text-slate-400 w-14 shrink-0 whitespace-nowrap tabular-nums">{p.toLocaleString("id-ID")}</span>
+              <input type="number" min="0" inputMode="numeric" aria-label={`Jumlah pecahan Rp${p.toLocaleString("id-ID")}`} className="input min-w-0 flex-1 py-1 text-sm" placeholder="0" value={pecahan[p] ?? ""} onChange={(e) => setPecahan((f) => ({ ...f, [p]: e.target.value }))} />
             </div>
           ))}
         </div>

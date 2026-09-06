@@ -6,6 +6,7 @@ import MobileNav from "@/components/MobileNav";
 
 const TITLES: Record<string, string> = {
   "/lapangan": "Lapangan",
+  "/tutup-kas": "Tutup Kas",
   "/operasional": "Bukti & Koreksi",
   "/pembayaran": "DP & Pelunasan",
   "/dashboard": "Dashboard",
@@ -45,7 +46,7 @@ export default function Header({ userName, role, showPeriod = false }: { userNam
   }
 
   return (
-    <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-3 sm:px-5 py-3 flex items-center justify-between gap-2">
+    <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-3 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-2">
       <div className="flex min-w-0 items-center gap-2">
         <MobileNav role={role} />
         <div className="min-w-0">
@@ -80,6 +81,11 @@ export default function Header({ userName, role, showPeriod = false }: { userNam
           </button>
         </div>
       </div>
+      {showPeriod && role !== "admin" && <label className="flex w-full items-center gap-3 text-xs text-slate-400 lg:hidden">Periode laporan
+        <select aria-label="Periode laporan" className="input flex-1" value={periode} onChange={e=>setPeriode(e.target.value as "ini" | "lalu")}>
+          <option value="lalu">Bulan Lalu</option><option value="ini">Bulan Ini</option>
+        </select>
+      </label>}
     </header>
   );
 }
