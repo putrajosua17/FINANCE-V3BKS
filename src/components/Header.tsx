@@ -45,11 +45,11 @@ export default function Header({ userName, role, showPeriod = false }: { userNam
   }
 
   return (
-    <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-5 py-3 flex items-center justify-between gap-4">
-      <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-3 sm:px-5 py-3 flex items-center justify-between gap-2">
+      <div className="flex min-w-0 items-center gap-2">
         <MobileNav role={role} />
-        <div>
-          <h1 className="text-lg font-semibold text-white leading-tight">{title}</h1>
+        <div className="min-w-0">
+          <h1 className="text-base sm:text-lg font-semibold text-white leading-tight break-words">{title}</h1>
           <p className="text-[11px] text-slate-500">V3BKS Mini Soccer</p>
         </div>
       </div>
@@ -71,11 +71,11 @@ export default function Header({ userName, role, showPeriod = false }: { userNam
             </button>
           </div>
         )}
-        <div className="flex items-center gap-2 pl-2">
-          <div className="w-8 h-8 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-sm font-semibold">
+        <div className="flex shrink-0 items-center gap-1">
+          <div className="hidden sm:flex w-8 h-8 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-sm font-semibold">
             {userName.charAt(0).toUpperCase()}
           </div>
-          <button onClick={logout} className="text-xs text-slate-400 hover:text-brand-red">
+          <button onClick={logout} className="min-w-11 min-h-11 text-xs text-slate-400 hover:text-brand-red">
             Keluar
           </button>
         </div>

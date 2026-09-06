@@ -64,3 +64,14 @@ body {
 input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, a:focus-visible {
   outline: 2px solid #4ade80; outline-offset: 3px;
 }
+
+/* Top-layer navigation escapes the sticky header's backdrop-filter context. */
+.mobile-menu { position: fixed; inset: 0; margin: 0; padding: 0; border: 0; width: 100%; height: 100vh; height: 100dvh; max-width: none; max-height: none; color: inherit; background: transparent; }
+.mobile-menu::backdrop { background: rgb(0 0 0 / 0.65); }
+.mobile-menu nav { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+.input { min-width: 0; max-width: 100%; }
+input[type="file"] { min-width: 0; max-width: 100%; }
+@media (max-width: 640px) {
+  main { overflow-wrap: anywhere; }
+  input[type="file"]::file-selector-button { min-height: 44px; }
+}
