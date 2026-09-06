@@ -1,3 +1,5 @@
+import { transferBalance } from "@/lib/account-balance";
+import Treasury from "@/components/Treasury";
 import { prisma } from "@/lib/prisma";
 import { formatRupiah } from "@/lib/format";
 import { rangeBulan } from "@/lib/dashboard";
@@ -12,13 +14,13 @@ export default async function RekeningPage() {
     prisma.transaction.findMany({ where: { tanggal: { gte: start, lt: end }, deletedAt: null }, select: { accountId: true, tipe: true, jumlah: true } }),
   ]);
 
-  const rows = accounts.map((a) => {
+  const rows = await Promise.all(accounts.map(async (a) => {
     const masuk = allTx.filter((t) => t.accountId === a.id && t.tipe === "income").reduce((s, t) => s + t.jumlah, 0);
     const keluar = allTx.filter((t) => t.accountId === a.id && t.tipe === "expense").reduce((s, t) => s + t.jumlah, 0);
     const mIn = monthTx.filter((t) => t.accountId === a.id && t.tipe === "income").reduce((s, t) => s + t.jumlah, 0);
     const mOut = monthTx.filter((t) => t.accountId === a.id && t.tipe === "expense").reduce((s, t) => s + t.jumlah, 0);
-    return { ...a, saldo: a.saldoAwal + masuk - keluar, mIn, mOut };
-  });
+    return { ...a, saldo: a.saldoAwal + masuk - keluar + await transferBalance(prisma,a.id), mIn, mOut };
+  }));
   const total = rows.reduce((s, a) => s + a.saldo, 0);
 
   return (
@@ -48,6 +50,7 @@ export default async function RekeningPage() {
         ))}
       </div>
 
+      <Treasury accounts={accounts.map(a=>({id:a.id,nama:a.nama,saldoAwal:a.saldoAwal,openingDate:a.openingDate?.toISOString().slice(0,10)||"",openingEvidence:a.openingEvidence||""}))}/>
       <div className="card flex items-center justify-between">
         <span className="text-sm text-slate-400">Total Saldo Seluruh Rekening</span>
         <span className="text-xl font-bold text-brand-green tabular-nums">{formatRupiah(total)}</span>

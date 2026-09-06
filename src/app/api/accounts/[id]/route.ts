@@ -11,7 +11,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     const data: Record<string, unknown> = {};
     if (b.nama !== undefined) data.nama = String(b.nama).trim();
     if (b.tipe !== undefined) data.tipe = b.tipe === "cash" ? "cash" : "bank";
-    if (b.saldoAwal !== undefined) data.saldoAwal = Math.max(0, Number(b.saldoAwal) || 0);
+    if (b.saldoAwal !== undefined) return NextResponse.json({error:"Ubah saldo awal melalui Daftar Rekening dengan tanggal dan bukti."},{status:400});
     if (b.isActive !== undefined) data.isActive = Boolean(b.isActive);
     const acc = await prisma.account.update({ where: { id }, data });
     return NextResponse.json({ ok: true, item: acc });
@@ -25,12 +25,7 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ id: 
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await params;
   try {
-    const used = await prisma.transaction.count({ where: { accountId: id } });
-    if (used > 0) {
-      await prisma.account.update({ where: { id }, data: { isActive: false } });
-      return NextResponse.json({ ok: true, deactivated: true });
-    }
-    await prisma.account.delete({ where: { id } });
+    await prisma.account.update({ where: { id }, data: { isActive: false } });
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Gagal menghapus" }, { status: 500 });

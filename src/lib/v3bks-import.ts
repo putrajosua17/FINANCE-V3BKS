@@ -3,6 +3,9 @@
 // baris judul/catatan/rumus & kolom kosong.
 
 export type ParsedRow = {
+  sourceRow?: number;
+  tempatBeli?: string;
+  tanggalMain?: string;
   tanggal: string; // ISO yyyy-mm-dd
   tipe: "income" | "expense";
   kategori: string; // nama kategori mentah dari sheet
@@ -22,6 +25,7 @@ export type ParseResult = {
   totalIncome: number;
   totalExpense: number;
   skippedIncome: number;
+  errors: string[];
 };
 
 // --- CSV parser (mendukung field ber-tanda kutip) ---
@@ -62,6 +66,8 @@ export function parseTanggal(raw: string): string | null {
   let year = Number(m[3]);
   if (!mon || !day) return null;
   if (year < 100) year += 2000;
+  const check = new Date(Date.UTC(year, mon - 1, day));
+  if (check.getUTCFullYear() !== year || check.getUTCMonth() !== mon - 1 || check.getUTCDate() !== day) return null;
   return `${year}-${String(mon).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 
@@ -77,7 +83,7 @@ function inferAkun(note: string): string {
   if (/mandiri/.test(s)) return "Mandiri";
   if (/bca/.test(s)) return "BCA";
   if (/pattycash|cash|tunai/.test(s)) return "Cash";
-  return "Cash";
+  return "";
 }
 
 const isTrue = (v: string) => (v || "").trim().toUpperCase() === "TRUE";
@@ -85,15 +91,17 @@ const isTrue = (v: string) => (v || "").trim().toUpperCase() === "TRUE";
 export function parseV3bksCsv(text: string): ParseResult {
   const grid = parseCSV(text);
   const rows: ParsedRow[] = [];
+  const errors: string[] = [];
   let totalIncome = 0, totalExpense = 0, skippedIncome = 0;
 
-  for (const r of grid) {
+  for (const [rowIndex, r] of grid.entries()) {
     // ---- Blok INCOME (kolom 1..13) ----
     // 1:Tanggal 2:Category 3:Code 4:Jam 5:Durasi 6:TglMain 7:Nama 8:Entitas
     // 9:NoHP 10:DP 11:PELUNASAN 12:JUMLAH 13:CATATAN
     const tgl = parseTanggal(r[1] || "");
     const kategori = (r[2] || "").trim();
     const jumlah = parseRupiah(r[12] || "");
+    if ((isTrue(r[10]) || isTrue(r[11])) && (!tgl || !kategori || jumlah<=0)) errors.push(`Baris ${rowIndex+1}: tanggal, kategori, atau jumlah pemasukan tidak valid.`);
     if (tgl && kategori && jumlah > 0) {
       const dp = isTrue(r[10] || "");
       const pel = isTrue(r[11] || "");
@@ -103,6 +111,8 @@ export function parseV3bksCsv(text: string): ParseResult {
         const nama = `${(r[7] || "").trim()} ${(r[8] || "").trim()}`.trim();
         const catatan = (r[13] || "").trim();
         rows.push({
+          sourceRow: rowIndex + 1,
+          tanggalMain: parseTanggal(r[6] || "") || undefined,
           tanggal: tgl,
           tipe: "income",
           kategori,
@@ -127,9 +137,12 @@ export function parseV3bksCsv(text: string): ParseResult {
     const tglE = parseTanggal(r[17] || "");
     const katE = (r[18] || "").trim();
     const jumlahE = parseRupiah(r[19] || "");
+    if (/^\d/.test((r[17]||"").trim()) && (!tglE || !katE || jumlahE<=0)) errors.push(`Baris ${rowIndex+1}: tanggal, kategori, atau jumlah pengeluaran tidak valid.`);
     if (tglE && katE && jumlahE > 0) {
       const catatanE = (r[21] || "").trim();
       rows.push({
+        sourceRow: rowIndex + 1,
+        tempatBeli: (r[20] || "").trim(),
         tanggal: tglE,
         tipe: "expense",
         kategori: katE,
@@ -141,5 +154,5 @@ export function parseV3bksCsv(text: string): ParseResult {
     }
   }
 
-  return { rows, totalIncome, totalExpense, skippedIncome };
+  return { rows, totalIncome, totalExpense, skippedIncome, errors };
 }

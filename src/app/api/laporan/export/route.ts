@@ -44,7 +44,7 @@ export async function GET(req: Request) {
   s1.addRow([`Laporan Keuangan V3BKS Mini Soccer — ${namaBulan(bulan, true)} ${tahun}`]);
   s1.getRow(1).font = { bold: true, size: 14 };
   s1.addRow([]);
-  const h1 = s1.addRow(["Bulan", "Pemasukan", "Pengeluaran", "Profit"]);
+  const h1 = s1.addRow(["Bulan", "Pemasukan", "Pengeluaran", "Arus Kas Bersih"]);
   styleHeader(h1);
   for (const r of d.tren) {
     s1.addRow([namaBulan(r.bulan, true), r.income, r.expense, r.profit]);

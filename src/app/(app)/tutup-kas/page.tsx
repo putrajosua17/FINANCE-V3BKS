@@ -13,9 +13,9 @@ export default async function TutupKasPage() {
   const canApprove = ["owner", "finance"].includes(session.role);
 
   const [accounts, businessUnits, closings, users] = await Promise.all([
-    prisma.account.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" }, select: { id: true, nama: true } }),
-    prisma.businessUnit.findMany({ where: { isActive: true }, orderBy: { urutan: "asc" }, select: { id: true, nama: true, induk: true } }),
-    prisma.cashClosing.findMany({ orderBy: { tanggal: "desc" }, take: 40, include: { account: true } }),
+    prisma.account.findMany({ where: { isActive: true, tipe: "cash" }, orderBy: { urutan: "asc" }, select: { id: true, nama: true } }),
+    prisma.businessUnit.findMany({ where: { isActive: true, kode: "V3BKS-MS" }, orderBy: { urutan: "asc" }, select: { id: true, nama: true, induk: true } }),
+    prisma.cashClosing.findMany({ where: canApprove ? {} : { dibuatOlehId: session.id }, orderBy: { tanggal: "desc" }, take: 40, include: { account: true } }),
     prisma.user.findMany({ select: { id: true, nama: true } }),
   ]);
   const userName = new Map(users.map((u) => [u.id, u.nama]));
@@ -34,7 +34,7 @@ export default async function TutupKasPage() {
     <div className="space-y-4">
       <div>
         <h2 className="text-base font-semibold text-white">Tutup Kas Harian</h2>
-        <p className="text-xs text-slate-500">Serah-terima kas per shift · selisih otomatis dijurnal ke akun Selisih Kas saat disetujui.</p>
+        <p className="text-xs text-slate-500">Serah-terima kas per shift · selisih tetap ditandai sampai finance memeriksa bukti penyelesaiannya.</p>
       </div>
 
       <TutupKasForm accounts={accounts} businessUnits={businessUnits} />

@@ -41,19 +41,19 @@ export default async function CetakLaporanPage({
         <section className="grid grid-cols-3 gap-4 mb-6">
           <div><p className="text-xs text-slate-500">Pemasukan</p><p className="text-lg font-bold text-green-700">{formatRupiah(d.kpi.income)}</p></div>
           <div><p className="text-xs text-slate-500">Pengeluaran</p><p className="text-lg font-bold text-red-700">{formatRupiah(d.kpi.expense)}</p></div>
-          <div><p className="text-xs text-slate-500">Profit</p><p className="text-lg font-bold">{formatRupiah(d.kpi.profit)}</p></div>
+          <div><p className="text-xs text-slate-500">Arus Kas Bersih</p><p className="text-lg font-bold">{formatRupiah(d.kpi.profit)}</p></div>
         </section>
 
         {/* P&L per bulan */}
         <section className="mb-6">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-slate-700 mb-2">Laba Rugi per Bulan</h2>
+          <h2 className="text-sm font-bold uppercase tracking-wide text-slate-700 mb-2">Arus Kas Bersih per Bulan</h2>
           <table className="w-full text-sm border-collapse">
             <thead>
               <tr className="border-b border-slate-300 text-left text-slate-500">
                 <th className="py-1.5">Bulan</th>
                 <th className="py-1.5 text-right">Pemasukan</th>
                 <th className="py-1.5 text-right">Pengeluaran</th>
-                <th className="py-1.5 text-right">Profit</th>
+                <th className="py-1.5 text-right">Arus Kas Bersih</th>
               </tr>
             </thead>
             <tbody>

@@ -2,7 +2,7 @@
 // F-02 · Algoritma auto-matching rekonsiliasi bank (skor berbobot)
 // -----------------------------------------------------------------------------
 // Bobot (PRD): nominal 0,50 · selisih tanggal ≤1 hari 0,25 · kecocokan teks 0,15
-// · rekening sama 0,10 (prasyarat). Skor ≥0,85 auto-match; 0,60–0,85 saran.
+// · rekening sama 0,10 (prasyarat). Seluruh pasangan perlu konfirmasi finance.
 import type { Db } from "@/lib/journal";
 
 export const AUTO_MATCH_THRESHOLD = 0.85;
@@ -88,7 +88,7 @@ export function bestMatch(line: LineForMatch, candidates: CandidateTx[]): Sugges
 
 /**
  * Jalankan auto-matching untuk seluruh baris "belum" pada satu statement.
- * Menetapkan pasangan berskor ≥0,85 (greedy dari skor tertinggi, satu transaksi
+ * Menyarankan pasangan (greedy dari skor tertinggi, satu transaksi
  * hanya dipakai sekali). Mengembalikan ringkasan.
  */
 export async function autoReconcile(db: Db, statementId: string) {
@@ -117,27 +117,14 @@ export async function autoReconcile(db: Db, statementId: string) {
   }
   pairs.sort((a, b) => b.skor - a.skor);
 
-  let auto = 0;
   let saran = 0;
   const doneLines = new Set<string>();
   for (const p of pairs) {
     if (doneLines.has(p.lineId) || used.has(p.txId)) continue;
-    if (p.skor >= AUTO_MATCH_THRESHOLD) {
-      await db.bankStatementLine.update({
-        where: { id: p.lineId },
-        data: { transactionId: p.txId, status: "cocok", skorCocok: p.skor },
-      });
-      used.add(p.txId);
-      doneLines.add(p.lineId);
-      auto++;
-    } else {
-      // simpan skor saran tertinggi (tanpa mengikat transaksi)
-      const line = statement.lines.find((l) => l.id === p.lineId);
-      if (line && (line.skorCocok ?? 0) < p.skor) {
-        await db.bankStatementLine.update({ where: { id: p.lineId }, data: { skorCocok: p.skor } });
-      }
-      saran++;
-    }
+    await db.bankStatementLine.update({ where: { id: p.lineId }, data: { skorCocok: p.skor } });
+    doneLines.add(p.lineId);
+    used.add(p.txId);
+    saran++;
   }
-  return { auto, saran };
+  return { auto: 0, saran };
 }

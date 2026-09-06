@@ -1,3 +1,4 @@
+import { transferBalance } from "./account-balance";
 import { prisma } from "@/lib/prisma";
 
 export type Periode = "ini" | "lalu";
@@ -58,10 +59,10 @@ export async function getDashboardData(periode: Periode) {
     else cur.keluar += g._sum.jumlah ?? 0;
     sumByAkun.set(g.accountId, cur);
   }
-  const saldoPerAkun = accounts.map((a) => {
+  const saldoPerAkun = await Promise.all(accounts.map(async (a) => {
     const s = sumByAkun.get(a.id) ?? { masuk: 0, keluar: 0 };
-    return { id: a.id, nama: a.nama, tipe: a.tipe, saldo: a.saldoAwal + s.masuk - s.keluar };
-  });
+    return { id: a.id, nama: a.nama, tipe: a.tipe, saldo: a.saldoAwal + s.masuk - s.keluar + await transferBalance(prisma,a.id) };
+  }));
   const totalSaldo = saldoPerAkun.reduce((s, a) => s + a.saldo, 0);
   const rekeningNegatif = saldoPerAkun.filter((a) => a.saldo < 0).map((a) => a.nama);
 

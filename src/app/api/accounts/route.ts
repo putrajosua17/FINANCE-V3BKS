@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       data: {
         nama: String(b.nama).trim(),
         tipe: b.tipe === "cash" ? "cash" : "bank",
-        saldoAwal: Math.max(0, Number(b.saldoAwal) || 0),
+        saldoAwal: 0,
         urutan: count + 1,
       },
     });

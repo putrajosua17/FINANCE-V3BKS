@@ -5,6 +5,9 @@ import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 
 const TITLES: Record<string, string> = {
+  "/lapangan": "Lapangan",
+  "/operasional": "Bukti & Koreksi",
+  "/pembayaran": "DP & Pelunasan",
   "/dashboard": "Dashboard",
   "/transaksi/tambah": "Tambah Transaksi",
   "/transaksi/riwayat": "Riwayat Transaksi",
@@ -20,7 +23,7 @@ const TITLES: Record<string, string> = {
   "/pengaturan": "Pengaturan",
 };
 
-export default function Header({ userName, showPeriod = false }: { userName: string; showPeriod?: boolean }) {
+export default function Header({ userName, role, showPeriod = false }: { userName: string; role: string; showPeriod?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -44,7 +47,7 @@ export default function Header({ userName, showPeriod = false }: { userName: str
   return (
     <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-5 py-3 flex items-center justify-between gap-4">
       <div className="flex items-center gap-3">
-        <MobileNav />
+        <MobileNav role={role} />
         <div>
           <h1 className="text-lg font-semibold text-white leading-tight">{title}</h1>
           <p className="text-[11px] text-slate-500">V3BKS Mini Soccer</p>
@@ -52,8 +55,8 @@ export default function Header({ userName, showPeriod = false }: { userName: str
       </div>
 
       <div className="flex items-center gap-2">
-        {showPeriod && (
-          <div className="flex items-center rounded-lg bg-ink-800 p-0.5 text-xs">
+        {showPeriod && role !== "admin" && (
+          <div className="hidden lg:flex items-center rounded-lg bg-ink-800 p-0.5 text-xs">
             <button
               onClick={() => setPeriode("lalu")}
               className={`px-3 py-1.5 rounded-md ${periode === "lalu" ? "bg-ink-700 text-white" : "text-slate-400"}`}
@@ -68,10 +71,7 @@ export default function Header({ userName, showPeriod = false }: { userName: str
             </button>
           </div>
         )}
-        <Link href="/transaksi/tambah?quick=1" className="btn-primary text-xs">
-          + Quick Spend
-        </Link>
-        <div className="hidden sm:flex items-center gap-2 pl-2">
+        <div className="flex items-center gap-2 pl-2">
           <div className="w-8 h-8 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-sm font-semibold">
             {userName.charAt(0).toUpperCase()}
           </div>

@@ -51,3 +51,19 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
 ];
+
+export function navForRole(role: string): NavGroup[] {
+  if (role === "admin") return [{ title: "Lapangan", items: [
+    { href: "/lapangan", label: "Beranda", icon: "⌂" },
+    { href: "/transaksi/impor", label: "Tracker & Impor", icon: "↑" },
+    { href: "/pembayaran", label: "DP & Pelunasan", icon: "✓" },
+    { href: "/operasional", label: "Bukti & Koreksi", icon: "▤" },
+    { href: "/tutup-kas", label: "Tutup Kas", icon: "◉" },
+  ] }];
+  return [{ title: "Pemeriksaan", items: [
+    { href: "/lapangan", label: "Operasional Lapangan", icon: "⌂" },
+    { href: "/transaksi/impor", label: "Persetujuan Impor", icon: "↑" },
+    { href: "/operasional", label: "Bukti & Koreksi", icon: "▤" },
+    { href: "/pembayaran", label: "DP & Pelunasan", icon: "✓" },
+  ] }, ...NAV_GROUPS.map(g => ({...g, items:g.items.filter(i => !["/flowai", "/laporan/per-unit", "/transaksi/impor"].includes(i.href))}))];
+}
