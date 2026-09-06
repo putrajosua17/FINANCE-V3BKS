@@ -66,7 +66,7 @@ export default function BookingForm({ rateCards, accounts }: { rateCards: RateCa
       </div>
       <div className="grid grid-cols-3 gap-2">
         <div><label className="label">Harga</label><input type="number" className="input" value={f.harga} onChange={(e) => set("harga", e.target.value)} /></div>
-        <div><label className="label">DP</label><input type="number" className="input" value={f.dp} onChange={(e) => set("dp", e.target.value)} /></div>
+        <p className="text-sm text-slate-400">DP dan pelunasan dihubungkan dari impor yang disetujui melalui menu Pembayaran.</p>
         <div>
           <label className="label">Rekening</label>
           <select className="input" value={f.accountId} onChange={(e) => set("accountId", e.target.value)}>

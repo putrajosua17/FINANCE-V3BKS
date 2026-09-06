@@ -14,12 +14,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <Suspense fallback={null}>
         <NavProgress />
       </Suspense>
-      <Sidebar />
+      <Sidebar role={session.role} />
       <div className="flex-1 min-w-0 flex flex-col">
         <Suspense fallback={<div className="h-14 border-b border-white/5" />}>
-          <Header userName={session.nama} showPeriod />
+          <Header userName={session.nama} role={session.role} showPeriod />
         </Suspense>
-        <main className="flex-1 p-5">{children}</main>
+        <main className="flex-1 p-3 sm:p-5 pb-24">{children}</main>
       </div>
     </div>
   );

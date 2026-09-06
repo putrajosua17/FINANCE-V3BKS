@@ -16,6 +16,8 @@ export async function GET(req: Request) {
   const accountId = searchParams.get("accountId") || "";
   const tanggal = searchParams.get("tanggal") ? new Date(searchParams.get("tanggal")!) : new Date();
   if (!accountId) return NextResponse.json({ error: "accountId wajib" }, { status: 400 });
+  const account = await prisma.account.findUnique({where:{id:accountId}});
+  if (!account || account.tipe !== "cash") return NextResponse.json({error:"Pilih rekening kas tunai."},{status:400});
   const saldoSistem = await saldoSistemAkun(prisma, accountId, tanggal);
   return NextResponse.json({ saldoSistem });
 }
@@ -31,11 +33,13 @@ export async function POST(req: Request) {
     const tanggal = b.tanggal ? new Date(b.tanggal) : new Date();
     const saldoFisik = Number(b.saldoFisik);
     if (!accountId) return NextResponse.json({ error: "Rekening kas wajib dipilih" }, { status: 400 });
-    if (!Number.isFinite(saldoFisik)) return NextResponse.json({ error: "Saldo fisik tidak valid" }, { status: 400 });
+    if (!Number.isFinite(saldoFisik) || saldoFisik < 0) return NextResponse.json({ error: "Saldo fisik tidak valid" }, { status: 400 });
 
     await assertPeriodOpen(prisma, tanggal, b.businessUnitId || undefined);
 
-    const saldoSistem = await saldoSistemAkun(prisma, accountId, tanggal);
+    const account = await prisma.account.findUnique({where:{id:accountId}});
+  if (!account || account.tipe !== "cash") return NextResponse.json({error:"Pilih rekening kas tunai."},{status:400});
+  const saldoSistem = await saldoSistemAkun(prisma, accountId, tanggal);
     const selisih = Math.round((saldoFisik - saldoSistem) * 100) / 100;
     if (selisih !== 0 && !b.catatan) {
       return NextResponse.json({ error: "Selisih ≠ 0 — catatan wajib diisi." }, { status: 400 });

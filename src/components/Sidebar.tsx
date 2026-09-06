@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_GROUPS } from "@/components/navItems";
+import { navForRole } from "@/components/navItems";
 
-export default function Sidebar() {
+export default function Sidebar({ role }: { role: string }) {
   const pathname = usePathname();
 
   return (
@@ -15,11 +15,11 @@ export default function Sidebar() {
           <span className="text-base font-bold text-brand-green">Flow</span>
           <span className="badge bg-brand-amber/20 text-brand-amber ml-1">PRO</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1 tracking-widest uppercase">Ultimate OS · V1.6</p>
+        <p className="text-[10px] text-slate-500 mt-1 tracking-widest uppercase">V3BKS · Keuangan & Operasional</p>
       </div>
 
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
-        {NAV_GROUPS.map((g) => (
+        {navForRole(role).map((g) => (
           <div key={g.title}>
             <p className="px-3 text-[10px] font-semibold text-slate-600 uppercase tracking-wider mb-2">
               {g.title}

@@ -127,7 +127,7 @@ function TarifRow({ r, run }: { r: RateCard; run: RunFn }) {
         ) : (
           <button className="text-slate-500 hover:text-brand-green text-xs mr-3" onClick={() => setEdit(true)}>Edit</button>
         )}
-        <button className="text-slate-500 hover:text-brand-red text-xs" onClick={() => run(api("DELETE", `/api/rate-cards/${r.id}`), "Dihapus")}>Hapus</button>
+        <button className="text-slate-500 hover:text-brand-red text-xs" onClick={() => run(api("DELETE", `/api/rate-cards/${r.id}`), "Dihapus")}>Nonaktifkan</button>
       </td>
     </tr>
   );
@@ -184,7 +184,7 @@ function RekeningSection({ accounts, run }: { accounts: Account[]; run: RunFn })
           <select className="input max-w-[140px]" value={f.tipe} onChange={(e) => setF({ ...f, tipe: e.target.value })}>
             <option value="bank">Bank</option><option value="cash">Cash</option>
           </select>
-          <input className="input max-w-[160px]" type="number" placeholder="Saldo awal" value={f.saldoAwal} onChange={(e) => setF({ ...f, saldoAwal: e.target.value })} />
+          <span className="text-xs text-slate-400">Isi saldo awal beserta tanggal dan bukti di Daftar Rekening.</span>
           <button className="btn-primary text-xs" onClick={async () => {
             if (await run(api("POST", "/api/accounts", f), "Rekening ditambahkan")) setF({ nama: "", tipe: "bank", saldoAwal: "" });
           }}>Tambah</button>
@@ -204,23 +204,16 @@ function RekeningSection({ accounts, run }: { accounts: Account[]; run: RunFn })
   );
 }
 function RekeningRow({ a, run }: { a: Account; run: RunFn }) {
-  const [edit, setEdit] = useState(false);
-  const [saldo, setSaldo] = useState(String(a.saldoAwal));
   return (
     <tr className={`border-t border-white/5 ${!a.isActive ? "opacity-50" : ""}`}>
       <td className="px-4 py-2.5 text-slate-200">{a.nama}</td>
       <td className="px-4 py-2.5 text-slate-400">{a.tipe}</td>
       <td className="px-4 py-2.5 text-right tabular-nums">
-        {edit ? <input className="input w-28 text-right py-1" type="number" value={saldo} onChange={(e) => setSaldo(e.target.value)} />
-          : <span className="text-slate-300">{formatRupiah(a.saldoAwal)}</span>}
+        <span className="text-slate-300">{formatRupiah(a.saldoAwal)}</span>
       </td>
       <td className="px-4 py-2.5 text-right whitespace-nowrap">
-        {edit ? (
-          <button className="btn-primary text-xs py-1 mr-1" onClick={async () => { if (await run(api("PATCH", `/api/accounts/${a.id}`, { saldoAwal: saldo }), "Tersimpan")) setEdit(false); }}>Simpan</button>
-        ) : (
-          <button className="text-slate-500 hover:text-brand-green text-xs mr-3" onClick={() => setEdit(true)}>Edit</button>
-        )}
-        <button className="text-slate-500 hover:text-brand-red text-xs" onClick={() => run(api("DELETE", `/api/accounts/${a.id}`), "Diperbarui")}>Hapus</button>
+        <a className="text-brand-green text-xs mr-3" href="/rekening">Saldo awal & bukti</a>
+        <button className="text-slate-500 hover:text-brand-red text-xs" onClick={() => run(api("DELETE", `/api/accounts/${a.id}`), "Diperbarui")}>Nonaktifkan</button>
       </td>
     </tr>
   );

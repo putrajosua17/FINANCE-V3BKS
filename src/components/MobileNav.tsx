@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_GROUPS } from "@/components/navItems";
+import { navForRole } from "@/components/navItems";
 
-export default function MobileNav() {
+export default function MobileNav({ role }: { role: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -31,7 +31,7 @@ export default function MobileNav() {
               <button onClick={() => setOpen(false)} className="text-slate-400 text-xl" aria-label="Tutup">×</button>
             </div>
             <nav className="py-4 px-3 space-y-5">
-              {NAV_GROUPS.map((g) => (
+              {navForRole(role).map((g) => (
                 <div key={g.title}>
                   <p className="px-3 text-[10px] font-semibold text-slate-600 uppercase tracking-wider mb-2">{g.title}</p>
                   <ul className="space-y-0.5">

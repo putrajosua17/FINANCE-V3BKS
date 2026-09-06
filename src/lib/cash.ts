@@ -1,6 +1,7 @@
 // -----------------------------------------------------------------------------
 // F-03 · Perhitungan saldo kas sistem untuk tutup kas harian
 // -----------------------------------------------------------------------------
+import { transferBalance } from "./account-balance";
 import type { Db } from "@/lib/journal";
 
 /**
@@ -8,7 +9,7 @@ import type { Db } from "@/lib/journal";
  * saldoAwal + Σ pemasukan − Σ pengeluaran (mengecualikan transaksi terhapus).
  */
 export async function saldoSistemAkun(db: Db, accountId: string, asOf: Date): Promise<number> {
-  const account = await db.account.findUnique({ where: { id: accountId }, select: { saldoAwal: true } });
+  const account = await db.account.findUnique({ where: { id: accountId }, select: { saldoAwal: true, openingDate: true } });
   if (!account) return 0;
   const end = new Date(asOf);
   end.setHours(23, 59, 59, 999);
@@ -17,5 +18,5 @@ export async function saldoSistemAkun(db: Db, accountId: string, asOf: Date): Pr
     db.transaction.aggregate({ _sum: { jumlah: true }, where: { accountId, tipe: "income", deletedAt: null, tanggal: { lte: end } } }),
     db.transaction.aggregate({ _sum: { jumlah: true }, where: { accountId, tipe: "expense", deletedAt: null, tanggal: { lte: end } } }),
   ]);
-  return account.saldoAwal + (masuk._sum.jumlah ?? 0) - (keluar._sum.jumlah ?? 0);
+  return (account.openingDate && account.openingDate > end ? 0 : account.saldoAwal) + (masuk._sum.jumlah ?? 0) - (keluar._sum.jumlah ?? 0) + await transferBalance(db, accountId, end);
 }

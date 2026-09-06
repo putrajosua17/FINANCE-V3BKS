@@ -20,7 +20,7 @@ export default async function LaporanPage() {
       <div className="flex items-center justify-between flex-wrap gap-2">
         <div>
           <h2 className="text-base font-semibold text-white">Laporan Keuangan</h2>
-          <p className="text-xs text-slate-500">Laba rugi, kategori, & pajak — tahun {d.tahun}.</p>
+          <p className="text-xs text-slate-500">Arus kas, kategori, & pajak — tahun {d.tahun}.</p>
         </div>
         <div className="flex gap-2">
           <a href="/api/laporan/export?periode=ini" className="btn-ghost text-xs">⬇️ Ekspor Excel</a>
@@ -38,14 +38,14 @@ export default async function LaporanPage() {
 
       {/* P&L per bulan */}
       <div className="card p-0 overflow-x-auto">
-        <div className="px-4 py-3 border-b border-white/5"><p className="card-title">Laba Rugi per Bulan</p></div>
+        <div className="px-4 py-3 border-b border-white/5"><p className="card-title">Arus Kas Bersih per Bulan</p></div>
         <table className="w-full text-sm min-w-[520px]">
           <thead>
             <tr className="text-left text-[11px] uppercase text-slate-500">
               <th className="px-4 py-2 font-semibold">Bulan</th>
               <th className="px-4 py-2 font-semibold text-right">Pemasukan</th>
               <th className="px-4 py-2 font-semibold text-right">Pengeluaran</th>
-              <th className="px-4 py-2 font-semibold text-right">Profit</th>
+              <th className="px-4 py-2 font-semibold text-right">Arus Kas Bersih</th>
             </tr>
           </thead>
           <tbody>

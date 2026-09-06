@@ -30,6 +30,8 @@ export function assertBalanced(lines: JurnalLineInput[]): void {
 
 /** Nomor jurnal berurutan per periode berbasis tanggal (JV-YYYY-MM-NNNN). */
 export async function nextJournalNumber(db: Db, tanggal: Date): Promise<string> {
+  // Callers use database transactions; serialize journal sequence allocation.
+  await db.$executeRaw`SELECT pg_advisory_xact_lock(7300601)`;
   const yyyy = tanggal.getFullYear();
   const mm = String(tanggal.getMonth() + 1).padStart(2, "0");
   const prefix = `JV-${yyyy}-${mm}-`;

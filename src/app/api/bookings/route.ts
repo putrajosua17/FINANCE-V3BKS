@@ -12,7 +12,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Kode, penyewa, tanggal main wajib" }, { status: 400 });
     }
     const harga = Math.max(0, Number(b.harga) || 0);
-    const dp = Math.max(0, Number(b.dp) || 0);
+    if(Number(b.dp)>0)return NextResponse.json({error:"DP harus berasal dari pembayaran impor yang disetujui. Hubungkan melalui menu Pembayaran."},{status:400});
+    const dp = 0;
     const sisa = Math.max(0, harga - dp);
     const booking = await prisma.booking.create({
       data: {

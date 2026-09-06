@@ -34,6 +34,9 @@ model Account {
   nama         String        @unique
   tipe         String        @default("bank") // cash | bank
   saldoAwal    Float         @default(0)
+  openingDate DateTime?
+  openingEvidence String?
+  openingJournalId String?
   isActive     Boolean       @default(true)
   urutan       Int           @default(0)
   // F-01: pemetaan ke akun kas/bank pada Chart of Accounts
@@ -99,6 +102,7 @@ model Transaction {
   accountId  String
   account    Account  @relation(fields: [accountId], references: [id])
 
+  bookingId String?
   // Income-specific
   rateCode    String?
   jam         String?
@@ -454,4 +458,79 @@ model AuditLog {
   createdAt DateTime @default(now())
 
   @@index([createdAt])
+}
+
+// Tracker imports are drafts until finance approval. Source files remain auditable.
+model ImportBatch {
+  id String @id @default(cuid())
+  fileName String
+  fileHash String @unique
+  csv String
+  status String @default("draft")
+  uploadedById String
+  uploadedByName String
+  reviewedById String?
+  reviewNote String?
+  createdAt DateTime @default(now())
+  reviewedAt DateTime?
+  lines ImportLine[]
+  @@index([status, createdAt])
+}
+
+model ImportLine {
+  id String @id @default(cuid())
+  batchId String
+  batch ImportBatch @relation(fields: [batchId], references: [id], onDelete: Cascade)
+  sourceRow Int
+  payload Json
+  fingerprint String
+  categoryId String?
+  accountId String?
+  decision String @default("new")
+  replacesId String?
+  transactionId String?
+  issue String?
+  @@index([batchId])
+  @@index([fingerprint])
+}
+
+model OperationNote {
+  id String @id @default(cuid())
+  transactionId String?
+  importBatchId String?
+  authorId String
+  authorName String
+  kind String @default("note")
+  text String
+  status String @default("submitted")
+  resolution String?
+  reviewedById String?
+  createdAt DateTime @default(now())
+  @@index([authorId, createdAt])
+}
+
+model Evidence {
+  id String @id @default(cuid())
+  transactionId String?
+  importBatchId String?
+  uploadedById String
+  name String
+  mime String
+  data Bytes
+  createdAt DateTime @default(now())
+  @@index([transactionId])
+  @@index([importBatchId])
+}
+
+model InternalTransfer {
+  id String @id @default(cuid())
+  fromAccountId String
+  toAccountId String
+  amount Float
+  tanggal DateTime
+  note String
+  journalEntryId String
+  createdById String
+  createdAt DateTime @default(now())
+  @@index([tanggal])
 }

@@ -46,7 +46,7 @@ export default async function DashboardPage({
         <KpiCard title="Total Saldo" value={formatRupiah(d.kpi.totalSaldo)} sub={`Semua rekening`} />
         <KpiCard title="Pemasukan" value={formatRupiah(d.kpi.income)} sub={labelBulan} accent="text-brand-green" />
         <KpiCard title="Pengeluaran" value={formatRupiah(d.kpi.expense)} sub={labelBulan} accent="text-brand-red" />
-        <KpiCard title="Rasio Laba" value={formatPercent(d.kpi.rasioLaba)} sub={`Profit ${formatRupiah(d.kpi.profit)}`} accent={d.kpi.profit >= 0 ? "text-brand-green" : "text-brand-red"} />
+        <KpiCard title="Rasio Arus Kas Bersih" value={formatPercent(d.kpi.rasioLaba)} sub={`Arus kas bersih ${formatRupiah(d.kpi.profit)}`} accent={d.kpi.profit >= 0 ? "text-brand-green" : "text-brand-red"} />
         <KpiCard title="Nilai Kekayaan" value={formatRupiah(d.kpi.nilaiKekayaan)} sub="Kas + piutang − tagihan" />
         <div className="card flex items-center justify-between">
           <div>
