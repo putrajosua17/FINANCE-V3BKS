@@ -551,6 +551,14 @@ h3{line-height:1.15}
 .watch-item b{display:block;font-size:18px;line-height:1.3}
 .watch-item p{font-size:12px;line-height:1.62;color:#69746c;margin-top:7px;max-width:42ch}
 @media(max-width:760px){.watch-intro,.watch-list{grid-template-columns:1fr}}
+
+.executive-grid{grid-template-columns:1.1fr repeat(5,1fr)}
+@media(max-width:1080px){.executive-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.executive-grid{grid-template-columns:1fr 1fr}}
+.exact-hours{grid-template-columns:1.45fr repeat(5,1fr)}
+.hour.qualitative i{height:8%;opacity:.08}
+.hour.qualitative em{color:#829087}
+@media(max-width:720px){.exact-hours{grid-template-columns:110px repeat(5,78px)}}
 </style>
 </head>
 <body>
@@ -719,7 +727,7 @@ h3{line-height:1.15}
       <div class="section-index">03 / Loyalty</div>
       <div>
         <h2>Siapa yang benar-benar kembali bermain?</h2>
-        <p>Bagian ini memisahkan total booking resmi dari frekuensi bermain tiap tim. Tujuannya untuk melihat customer yang punya pola kembali bermain, bukan sekadar customer yang pernah transaksi.</p>
+        <p>Bagian ini memisahkan total booking resmi dari frekuensi bermain tiap tim. Tujuannya untuk melihat tim atau organisasi yang benar-benar kembali bermain, bukan sekadar nama yang pernah tercatat dalam transaksi.</p>
       </div>
     </div>
 
@@ -731,7 +739,7 @@ h3{line-height:1.15}
       <div class="loyalty-copy">
         <h2>Repeat dihitung dari tanggal bermain aktual.</h2>
         <p>Jika tim yang sama bermain pada dua tanggal berbeda dalam satu bulan, tim tersebut dihitung bermain 2 kali. Baris DP dan pelunasan untuk jadwal yang sama tidak dihitung dua kali. Paket dengan beberapa tanggal bermain dihitung sesuai jumlah tanggal bermainnya.</p>
-        <div class="loyalty-definition"><strong>Definisi customer loyal dalam laporan ini:</strong> tim yang bermain minimal 2 kali dalam satu bulan, atau kembali bermain pada bulan berikutnya. Label ini dipakai sebagai indikator operasional CRM, bukan status membership.</div>
+        <div class="loyalty-definition"><strong>Definisi tim loyal dalam laporan ini:</strong> tim atau organisasi yang bermain minimal 2 kali dalam satu bulan, atau kembali bermain pada bulan berikutnya. Label ini dipakai sebagai indikator operasional CRM, bukan status membership.</div>
       </div>
     </div>
 
@@ -987,7 +995,7 @@ h3{line-height:1.15}
       <div class="watch-item reveal"><div class="n">01</div><div><b>Jam bermain per kelompok waktu</b><p>Lihat apakah jam rendah mulai terisi tanpa mengorbankan periode 19.00 sampai 22.00.</p></div></div>
       <div class="watch-item reveal"><div class="n">02</div><div><b>Rata-rata durasi per booking</b><p>September berada di 1,74 jam. Angka ini harus bergerak naik jika paket 2 jam bekerja.</p></div></div>
       <div class="watch-item reveal"><div class="n">03</div><div><b>Pendapatan sewa per jam terisi</b><p>Mencegah kenaikan jam bermain yang ternyata hanya terjadi karena diskon terlalu dalam.</p></div></div>
-      <div class="watch-item reveal"><div class="n">04</div><div><b>Jumlah tim yang kembali booking</b><p>Pantau apakah customer Agustus dan September kembali mengambil jadwal pada Oktober.</p></div></div>
+      <div class="watch-item reveal"><div class="n">04</div><div><b>Jumlah tim yang kembali booking</b><p>Pantau apakah tim atau organisasi yang bermain pada Agustus dan September kembali mengambil jadwal pada Oktober.</p></div></div>
       <div class="watch-item reveal"><div class="n">05</div><div><b>Prospek booking perusahaan</b><p>Catat jumlah perusahaan atau instansi yang sudah dihubungi, merespons, dan memiliki jadwal potensial.</p></div></div>
       <div class="watch-item reveal"><div class="n">06</div><div><b>Tingkat keterisian 19.00 sampai 22.00</b><p>Pastikan jam dengan permintaan tertinggi tetap kuat dan tidak perlu didorong dengan promo agresif.</p></div></div>
     </div>
@@ -1070,12 +1078,12 @@ h3{line-height:1.15}
       <div class="kicker">What we need to see by 31 October</div>
       <h2>Kalau angka ini tercapai, berarti Oktober bergerak ke arah yang benar.</h2>
       <div class="success-grid">
-        <div class="success-metric"><div class="num">77–93h</div><div class="label">total jam bermain Oktober</div></div>
-        <div class="success-metric"><div class="num">15–18%</div><div class="label">tingkat keterisian lapangan</div></div>
-        <div class="success-metric"><div class="num">5–8</div><div class="label">tim dengan jadwal berulang</div></div>
-        <div class="success-metric"><div class="num">2–4</div><div class="label">booking perusahaan atau booking berdurasi panjang</div></div>
-        <div class="success-metric"><div class="num">2–4</div><div class="label">booking berdurasi 4 jam atau lebih</div></div>
-        <div class="success-metric"><div class="num">19.00–22.00</div><div class="label">harga normal tetap dipertahankan</div></div>
+        <div class="success-metric"><div class="num">77 to 93h</div><div class="label">total jam bermain Oktober</div></div>
+        <div class="success-metric"><div class="num">15 to 18%</div><div class="label">tingkat keterisian lapangan</div></div>
+        <div class="success-metric"><div class="num">5 to 8</div><div class="label">tim dengan jadwal berulang</div></div>
+        <div class="success-metric"><div class="num">2 to 4</div><div class="label">booking perusahaan atau booking berdurasi 4 jam atau lebih</div></div>
+        <div class="success-metric"><div class="num">6 to 10</div><div class="label">booking tambahan berdurasi 2 jam pada jam dengan keterisian rendah</div></div>
+        <div class="success-metric"><div class="num">19.00 to 22.00</div><div class="label">harga normal tetap dipertahankan</div></div>
       </div>
       <p class="success-note">Evaluasi akhir Oktober tidak cukup hanya melihat total revenue. Kita juga harus melihat apakah jumlah jam bermain naik, durasi per booking membaik, tim kembali booking, dan jam kosong mulai terisi.</p>
     </div>
@@ -1169,4 +1177,3 @@ if(navSections.length){
 </script>
 </body>
 </html>
-<style>.executive-grid{grid-template-columns:1.1fr repeat(5,1fr)}@media(max-width:1080px){.executive-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:720px){.executive-grid{grid-template-columns:1fr 1fr}}.exact-hours{grid-template-columns:1.45fr repeat(5,1fr)}.hour.qualitative i{height:8%;opacity:.08}.hour.qualitative em{color:#829087}@media(max-width:720px){.exact-hours{grid-template-columns:110px repeat(5,78px)}}</style>
