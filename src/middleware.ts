@@ -4,7 +4,7 @@ import { jwtVerify } from "jose";
 import { canAccess } from "@/lib/access";
 
 const SESSION_COOKIE = "v3bks_session";
-const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/setup"];
+const PUBLIC_PATHS = ["/login", "/api/auth/login", "/api/setup", "/reports"];
 
 async function isValid(token: string | undefined): Promise<string | null> {
   if (!token) return null;
