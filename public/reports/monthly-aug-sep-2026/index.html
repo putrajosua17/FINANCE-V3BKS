@@ -47,7 +47,7 @@ h3{letter-spacing:-.025em}
 .nav{display:flex;gap:15px}.nav a{font-size:11px;color:#7d8a82}.nav a:hover,.nav a.active{color:#fff}
 .progress{position:absolute;left:0;right:0;bottom:-1px;height:2px}.progress i{display:block;width:0;height:100%;background:var(--green)}
 
-.hero{min-height:calc(100vh - 62px);display:grid;align-items:center;padding:55px 0 70px}
+.hero{min-height:calc(100vh - 62px);display:grid;align-items:center;padding:55px 0 70px;position:relative;overflow:hidden}.hero>.wrap{position:relative;z-index:2}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,12,10,.98) 0%,rgba(9,12,10,.82) 44%,rgba(9,12,10,.26) 100%);pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:center}
 .hero .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#849189;display:flex;align-items:center;gap:10px}
 .hero .eyebrow:before{content:"";width:42px;height:1px;background:var(--green)}
@@ -181,6 +181,31 @@ h3{letter-spacing:-.025em}
   .time-caption{grid-template-columns:1fr}.rev-label b{font-size:18px}
   .target{grid-template-columns:1fr;gap:9px}.playbook{min-height:540px}.player .disc{width:56px;height:56px;font-size:12px}
 }
+
+.compare-lab{padding:84px 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:#0b0f0c}
+.compare-shell{display:grid;grid-template-columns:.74fr 1.26fr;gap:52px;align-items:center}
+.compare-copy h2{font-size:clamp(38px,5vw,72px);margin:10px 0 18px}
+.compare-copy p{color:#9ba8a0;line-height:1.6;max-width:470px}
+.scrub-ui{border:1px solid var(--line);padding:28px;background:rgba(255,255,255,.012)}
+.scrub-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}
+.scrub-month{font-size:clamp(42px,6vw,82px);font-weight:800;letter-spacing:-.06em;line-height:.86}
+.scrub-caption{font-size:10px;color:#77847c;text-transform:uppercase;letter-spacing:.14em;text-align:right}
+.scrub-range{width:100%;accent-color:var(--green);margin:10px 0 28px}
+.scrub-scale{display:flex;justify-content:space-between;font-size:10px;color:#758179;text-transform:uppercase;letter-spacing:.12em;margin-top:-18px;margin-bottom:28px}
+.scrub-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.scrub-kpi{background:#0b0f0c;padding:18px 16px;min-height:116px}
+.scrub-kpi span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#748078}
+.scrub-kpi b{display:block;font-size:28px;letter-spacing:-.045em;margin-top:9px}
+.scrub-kpi em{display:block;font-size:10px;color:#6d7971;font-style:normal;margin-top:6px}
+.scrub-pitch{margin-top:24px;height:180px;border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;background:linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.1) 50%,transparent 50.1%)}
+.scrub-pitch:before{content:"";position:absolute;width:76px;height:76px;border:1px solid rgba(255,255,255,.12);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.capacity-fill{position:absolute;left:0;bottom:0;top:0;width:var(--fill,100%);background:linear-gradient(90deg,rgba(100,226,124,.22),rgba(100,226,124,.05));border-right:1px solid var(--green);transition:width .12s linear}
+.capacity-fill:after{content:"SOLD HOURS";position:absolute;right:8px;top:8px;font:700 9px/1 monospace;letter-spacing:.12em;color:var(--green)}
+.loss-cascade{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.loss-item{border-top:1px solid var(--line);padding-top:12px}
+.loss-item b{display:block;font-size:20px}.loss-item span{font-size:11px;color:#7e8b83}
+@media(max-width:960px){.compare-shell{grid-template-columns:1fr}.scrub-kpis{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.scrub-kpis{grid-template-columns:1fr}.scrub-head{align-items:start;flex-direction:column}.scrub-caption{text-align:left}}
 </style>
 </head>
 <body>
@@ -194,7 +219,7 @@ h3{letter-spacing:-.025em}
 </header>
 
 <main>
-<section class="hero">
+<section class="hero"><canvas id="stadiumCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.78"></canvas>
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow reveal">Monthly performance · August → September</div>
@@ -210,6 +235,38 @@ h3{letter-spacing:-.025em}
   </div>
 </section>
 
+
+<section class="compare-lab" id="compareLab">
+  <div class="wrap compare-shell">
+    <div class="compare-copy reveal">
+      <div class="kicker">Interactive comparison</div>
+      <h2>Geser sendiri dari Agustus ke September.</h2>
+      <p>Semua angka berubah bersamaan agar terlihat jelas: bukan hanya booking yang turun. Jam bermain dan nilai per booking ikut menyusut.</p>
+      <div class="loss-cascade">
+        <div class="loss-item"><b class="red">−11</b><span>bookings</span></div>
+        <div class="loss-item"><b class="red">−0.50h</b><span>avg duration</span></div>
+        <div class="loss-item"><b class="red">−Rp32.7 jt</b><span>rental revenue</span></div>
+      </div>
+    </div>
+    <div class="scrub-ui reveal">
+      <div class="scrub-head">
+        <div class="scrub-month" id="scrubMonth">AUG</div>
+        <div class="scrub-caption">Drag the month transition<br>August → September</div>
+      </div>
+      <input id="monthScrubber" class="scrub-range" type="range" min="0" max="100" value="0" step="1" aria-label="Compare August and September">
+      <div class="scrub-scale"><span>August</span><span>September</span></div>
+      <div class="scrub-kpis">
+        <div class="scrub-kpi"><span>Playing hours</span><b id="sHours">101h</b><em id="sHoursDelta">baseline</em></div>
+        <div class="scrub-kpi"><span>Bookings</span><b id="sBookings">45</b><em id="sBookingsDelta">baseline</em></div>
+        <div class="scrub-kpi"><span>Avg duration</span><b id="sDuration">2.24h</b><em id="sDurationDelta">baseline</em></div>
+        <div class="scrub-kpi"><span>Rental revenue</span><b id="sRevenue">Rp89.6 jt</b><em id="sRevenueDelta">baseline</em></div>
+      </div>
+      <div class="scrub-pitch">
+        <div class="capacity-fill" id="capacityFill" style="--fill:100%"></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="scrolly-wrap" id="diagnosis">
   <div class="scrolly">
     <div class="stage-col">
@@ -444,6 +501,102 @@ addEventListener('scroll',()=>{
   const d=document.documentElement,max=d.scrollHeight-d.clientHeight;
   document.getElementById('progress').style.width=(max?scrollY/max*100:0)+'%';
 },{passive:true});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+<script>
+(function(){
+  const canvas=document.getElementById('stadiumCanvas');
+  if(!canvas||!window.THREE)return;
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(52,1,.1,100);
+  camera.position.set(0,5.7,8.8);
+  camera.lookAt(0,0,0);
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+
+  const field=new THREE.Mesh(
+    new THREE.PlaneGeometry(10.5,6.8,1,1),
+    new THREE.MeshBasicMaterial({color:0x10391c,transparent:true,opacity:.58,side:THREE.DoubleSide})
+  );
+  field.rotation.x=-Math.PI/2;
+  scene.add(field);
+
+  const lineMat=new THREE.LineBasicMaterial({color:0x8cff9b,transparent:true,opacity:.34});
+  function line(points){
+    const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(p[0],.015,p[1])));
+    const l=new THREE.Line(g,lineMat);scene.add(l);return l;
+  }
+  line([[-5.25,-3.4],[5.25,-3.4],[5.25,3.4],[-5.25,3.4],[-5.25,-3.4]]);
+  line([[0,-3.4],[0,3.4]]);
+  const circlePts=[];for(let i=0;i<=64;i++){const a=i/64*Math.PI*2;circlePts.push([Math.cos(a)*1.05,Math.sin(a)*1.05]);}
+  line(circlePts);
+
+  const particleCount=260;
+  const pos=new Float32Array(particleCount*3);
+  for(let i=0;i<particleCount;i++){
+    pos[i*3]=(Math.random()-.5)*18;
+    pos[i*3+1]=Math.random()*9+1;
+    pos[i*3+2]=(Math.random()-.5)*14;
+  }
+  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  const pm=new THREE.PointsMaterial({color:0xe8ff59,size:.035,transparent:true,opacity:.42});
+  const points=new THREE.Points(pg,pm);scene.add(points);
+
+  const floodMat=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.08,side:THREE.DoubleSide});
+  for(const x of [-4.6,4.6]){
+    const beam=new THREE.Mesh(new THREE.ConeGeometry(2.8,8,4,1,true),floodMat);
+    beam.position.set(x,5.2,-1.6);beam.rotation.z=x<0?-.48:.48;scene.add(beam);
+  }
+
+  function resize(){
+    const r=canvas.getBoundingClientRect();
+    renderer.setSize(r.width,r.height,false);
+    camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
+  }
+  resize();addEventListener('resize',resize,{passive:true});
+
+  let mx=0,my=0;
+  addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5)},{passive:true});
+  function tick(){
+    requestAnimationFrame(tick);
+    const sy=scrollY/(document.documentElement.scrollHeight-innerHeight||1);
+    field.rotation.z=sy*.08;
+    points.rotation.y+=.00045;
+    camera.position.x+=(mx*1.1-camera.position.x)*.025;
+    camera.position.y+=(5.7+my*.5-camera.position.y)*.02;
+    camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  }
+  tick();
+})();
+</script>
+
+<script>
+(function(){
+ const r=document.getElementById('monthScrubber'); if(!r)return;
+ const vals={
+   hours:[101,59],bookings:[45,34],duration:[2.24,1.74],revenue:[89.6,56.9]
+ };
+ const lerp=(a,b,t)=>a+(b-a)*t;
+ const pct=(v,a)=>((v-a)/a*100);
+ function update(){
+   const t=Number(r.value)/100;
+   const h=lerp(...vals.hours,t),b=lerp(...vals.bookings,t),d=lerp(...vals.duration,t),rev=lerp(...vals.revenue,t);
+   document.getElementById('scrubMonth').textContent=t<.5?'AUG':'SEP';
+   document.getElementById('sHours').textContent=Math.round(h)+'h';
+   document.getElementById('sBookings').textContent=Math.round(b);
+   document.getElementById('sDuration').textContent=d.toFixed(2)+'h';
+   document.getElementById('sRevenue').textContent='Rp'+rev.toFixed(1)+' jt';
+   document.getElementById('sHoursDelta').textContent=t===0?'baseline':pct(h,vals.hours[0]).toFixed(1)+'% vs Aug';
+   document.getElementById('sBookingsDelta').textContent=t===0?'baseline':pct(b,vals.bookings[0]).toFixed(1)+'% vs Aug';
+   document.getElementById('sDurationDelta').textContent=t===0?'baseline':pct(d,vals.duration[0]).toFixed(1)+'% vs Aug';
+   document.getElementById('sRevenueDelta').textContent=t===0?'baseline':pct(rev,vals.revenue[0]).toFixed(1)+'% vs Aug';
+   const fill=(h/vals.hours[0]*100).toFixed(1)+'%';
+   document.getElementById('capacityFill').style.setProperty('--fill',fill);
+ }
+ r.addEventListener('input',update);update();
+})();
 </script>
 </body>
 </html>
