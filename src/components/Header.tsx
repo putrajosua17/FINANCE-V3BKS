@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
 
 const TITLES: Record<string, string> = {
@@ -9,7 +8,7 @@ const TITLES: Record<string, string> = {
   "/tutup-kas": "Tutup Kas",
   "/operasional": "Bukti & Koreksi",
   "/pembayaran": "DP & Pelunasan",
-  "/dashboard": "Dashboard",
+  "/dashboard": "Command Center",
   "/transaksi/tambah": "Tambah Transaksi",
   "/transaksi/riwayat": "Riwayat Transaksi",
   "/transaksi/impor": "Impor Data",
@@ -46,46 +45,65 @@ export default function Header({ userName, role, showPeriod = false }: { userNam
   }
 
   return (
-    <header className="sticky top-0 z-20 bg-ink-950/80 backdrop-blur border-b border-white/5 px-3 sm:px-5 py-3 flex flex-wrap items-center justify-between gap-2">
-      <div className="flex min-w-0 items-center gap-2">
-        <MobileNav role={role} />
-        <div className="min-w-0">
-          <h1 className="text-base sm:text-lg font-semibold text-white leading-tight break-words">{title}</h1>
-          <p className="text-[11px] text-slate-500">V3BKS Mini Soccer</p>
+    <header className="sticky top-0 z-20 border-b border-white/[0.06] bg-[#070b0a]/75 px-3 py-3 backdrop-blur-2xl sm:px-5 lg:px-6">
+      <div className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <MobileNav role={role} />
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h1 className="truncate text-base font-semibold tracking-tight text-white sm:text-lg">{title}</h1>
+              {pathname === "/dashboard" && (
+                <span className="hidden rounded-full border border-brand-green/20 bg-brand-green/[0.07] px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.15em] text-brand-green sm:inline-flex">
+                  Live
+                </span>
+              )}
+            </div>
+            <p className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-slate-600">V3BKS Mini Soccer · Management Workspace</p>
+          </div>
         </div>
-      </div>
 
-      <div className="flex items-center gap-2">
-        {showPeriod && role !== "admin" && (
-          <div className="hidden lg:flex items-center rounded-lg bg-ink-800 p-0.5 text-xs">
-            <button
-              onClick={() => setPeriode("lalu")}
-              className={`px-3 py-1.5 rounded-md ${periode === "lalu" ? "bg-ink-700 text-white" : "text-slate-400"}`}
-            >
-              Bulan Lalu
-            </button>
-            <button
-              onClick={() => setPeriode("ini")}
-              className={`px-3 py-1.5 rounded-md ${periode === "ini" ? "bg-brand-green text-black font-medium" : "text-slate-400"}`}
-            >
-              Bulan Ini
+        <div className="flex items-center gap-2">
+          {showPeriod && role !== "admin" && (
+            <div className="hidden lg:flex items-center rounded-xl border border-white/[0.06] bg-white/[0.025] p-1 text-xs">
+              <button
+                onClick={() => setPeriode("lalu")}
+                className={`rounded-lg px-3 py-1.5 transition ${
+                  periode === "lalu" ? "bg-white/[0.07] text-white shadow-sm" : "text-slate-500 hover:text-slate-300"
+                }`}
+              >
+                Bulan Lalu
+              </button>
+              <button
+                onClick={() => setPeriode("ini")}
+                className={`rounded-lg px-3 py-1.5 transition ${
+                  periode === "ini" ? "bg-brand-green text-black font-semibold shadow-lg shadow-brand-green/10" : "text-slate-500 hover:text-slate-300"
+                }`}
+              >
+                Bulan Ini
+              </button>
+            </div>
+          )}
+
+          <div className="flex shrink-0 items-center rounded-xl border border-white/[0.06] bg-white/[0.02] p-1">
+            <div className="hidden h-8 w-8 items-center justify-center rounded-lg border border-brand-green/20 bg-brand-green/[0.09] text-xs font-bold text-brand-green sm:flex">
+              {userName.charAt(0).toUpperCase()}
+            </div>
+            <button onClick={logout} className="min-h-9 px-3 text-xs text-slate-500 transition hover:text-brand-red">
+              Keluar
             </button>
           </div>
-        )}
-        <div className="flex shrink-0 items-center gap-1">
-          <div className="hidden sm:flex w-8 h-8 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center text-sm font-semibold">
-            {userName.charAt(0).toUpperCase()}
-          </div>
-          <button onClick={logout} className="min-w-11 min-h-11 text-xs text-slate-400 hover:text-brand-red">
-            Keluar
-          </button>
         </div>
+
+        {showPeriod && role !== "admin" && (
+          <label className="flex w-full items-center gap-3 border-t border-white/[0.05] pt-3 text-xs text-slate-500 lg:hidden">
+            Periode laporan
+            <select aria-label="Periode laporan" className="input flex-1" value={periode} onChange={e=>setPeriode(e.target.value as "ini" | "lalu")}>
+              <option value="lalu">Bulan Lalu</option>
+              <option value="ini">Bulan Ini</option>
+            </select>
+          </label>
+        )}
       </div>
-      {showPeriod && role !== "admin" && <label className="flex w-full items-center gap-3 text-xs text-slate-400 lg:hidden">Periode laporan
-        <select aria-label="Periode laporan" className="input flex-1" value={periode} onChange={e=>setPeriode(e.target.value as "ini" | "lalu")}>
-          <option value="lalu">Bulan Lalu</option><option value="ini">Bulan Ini</option>
-        </select>
-      </label>}
     </header>
   );
 }
