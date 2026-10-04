@@ -503,6 +503,43 @@ h3{line-height:1.15}
   .customer-col,.customer-col + .customer-col{padding:26px 0;border-left:0;border-top:1px solid rgba(255,255,255,.08)}
   .footer-grid{grid-template-columns:1fr}.footer-meta{grid-template-columns:1fr 1fr}
 }
+
+.loyalty{padding-block:var(--space-section);background:#0d120e;color:var(--ink);position:relative}
+.loyalty:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:rgba(255,255,255,.06)}
+.loyalty-summary{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(3rem,7vw,7rem);align-items:start}
+.loyalty-big{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.loyalty-big .monthbox{padding-top:18px;border-top:1px solid rgba(255,255,255,.13)}
+.monthbox span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#748078}
+.monthbox b{display:block;font-size:clamp(52px,7vw,88px);line-height:.85;letter-spacing:-.065em;margin-top:10px}
+.monthbox small{display:block;font-size:12px;color:#89958d;margin-top:10px;line-height:1.55}
+.loyalty-copy h2{max-width:14ch}
+.loyalty-copy p{max-width:55ch;color:#99a69e;line-height:1.72}
+.loyalty-definition{margin-top:28px;padding:20px 0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);font-size:12px;line-height:1.65;color:#a9b4ad;max-width:58ch}
+.loyalty-core{margin-top:76px}
+.loyalty-core h3{font-size:clamp(1.8rem,2.8vw,2.8rem);max-width:18ch}
+.loyalty-ranking{margin-top:32px}
+.loyal-row{display:grid;grid-template-columns:42px minmax(180px,1.1fr) .7fr .7fr .8fr;gap:22px;align-items:center;padding:18px 0;border-top:1px solid rgba(255,255,255,.08)}
+.loyal-row .rank{font:700 11px/1 monospace;color:#6f7b73}
+.loyal-row .team{font-size:17px;font-weight:680}
+.loyal-row .metric span{display:block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#647168}
+.loyal-row .metric b{display:block;font-size:16px;margin-top:4px}
+.loyal-row.core .team{color:var(--lime)}
+.loyalty-months{margin-top:88px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,7rem)}
+.month-list h3{font-size:28px;margin-bottom:8px}
+.month-list .sub{font-size:12px;color:#748078;margin-bottom:26px;max-width:44ch;line-height:1.6}
+.team-list{display:grid;grid-template-columns:1fr 1fr;column-gap:26px}
+.team-line{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}
+.team-line span:last-child{color:#7f8b83;white-space:nowrap}
+.team-line.repeat span:first-child{color:#e5ebE7;font-weight:700}
+.cross-month{margin-top:88px;background:#e7ebe3;color:#111511;padding:clamp(2rem,5vw,4.5rem)}
+.cross-month h3{font-size:clamp(2rem,3.5vw,3.5rem);max-width:16ch;margin-bottom:18px}
+.cross-month p{max-width:55ch;color:#5e6961;line-height:1.68}
+.returning-grid{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.returning-team{padding:18px 0;border-top:1px solid rgba(17,21,17,.12)}
+.returning-team b{display:block;font-size:15px}
+.returning-team span{display:block;font-size:11px;color:#657168;margin-top:6px}
+@media(max-width:900px){.loyalty-summary,.loyalty-months{grid-template-columns:1fr}.returning-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.loyalty-big{grid-template-columns:1fr 1fr}.loyal-row{grid-template-columns:30px 1fr}.loyal-row .metric{grid-column:2}.team-list{grid-template-columns:1fr}.returning-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -515,7 +552,7 @@ h3{line-height:1.15}
     </div>
     <nav class="corp-nav" aria-label="Report navigation">
       <a href="#story">Performance</a>
-      <a href="#customers">Customers</a>
+      <a href="#loyalty">Loyalty</a><a href="#customers">Customers</a>
       <a href="#playbook">October plan</a>
       <a href="#octoberNow">October status</a>
       <a href="#actions">Action plan</a>
@@ -666,9 +703,144 @@ h3{line-height:1.15}
   </div>
 </section>
 
+
+<section class="loyalty" id="loyalty">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-index">03 / Loyalty</div>
+      <div>
+        <h2>Siapa yang benar-benar kembali bermain?</h2>
+        <p>Bagian ini memisahkan total booking resmi dari frekuensi bermain tiap tim. Tujuannya untuk melihat customer yang punya pola kembali bermain, bukan sekadar customer yang pernah transaksi.</p>
+      </div>
+    </div>
+
+    <div class="loyalty-summary reveal">
+      <div class="loyalty-big">
+        <div class="monthbox"><span>Agustus</span><b>45</b><small>total booking resmi</small></div>
+        <div class="monthbox"><span>September</span><b>34</b><small>total booking resmi</small></div>
+      </div>
+      <div class="loyalty-copy">
+        <h2>Repeat dihitung dari tanggal bermain aktual.</h2>
+        <p>Jika tim yang sama bermain pada dua tanggal berbeda dalam satu bulan, tim tersebut dihitung bermain 2 kali. Baris DP dan pelunasan untuk jadwal yang sama tidak dihitung dua kali. Paket dengan beberapa tanggal bermain dihitung sesuai jumlah tanggal bermainnya.</p>
+        <div class="loyalty-definition"><strong>Definisi customer loyal dalam laporan ini:</strong> tim yang bermain minimal 2 kali dalam satu bulan, atau kembali bermain pada bulan berikutnya. Label ini dipakai sebagai indikator operasional CRM, bukan status membership.</div>
+      </div>
+    </div>
+
+    <div class="loyalty-core reveal">
+      <div class="kicker">Strongest loyalty signals</div>
+      <h3>Empat tim menunjukkan pola repeat paling kuat.</h3>
+      <div class="loyalty-ranking">
+        <div class="loyal-row core"><div class="rank">01</div><div class="team">Dragon FC</div><div class="metric"><span>Agustus</span><b>3 kali</b></div><div class="metric"><span>September</span><b>7 kali</b></div><div class="metric"><span>Total 2 bulan</span><b>10 kali</b></div></div>
+        <div class="loyal-row core"><div class="rank">02</div><div class="team">Pertamina EP</div><div class="metric"><span>Agustus</span><b>4 kali</b></div><div class="metric"><span>September</span><b>5 kali</b></div><div class="metric"><span>Total 2 bulan</span><b>9 kali</b></div></div>
+        <div class="loyal-row core"><div class="rank">03</div><div class="team">Fitness Solution</div><div class="metric"><span>Agustus</span><b>2 kali</b></div><div class="metric"><span>September</span><b>2 kali</b></div><div class="metric"><span>Total 2 bulan</span><b>4 kali</b></div></div>
+        <div class="loyal-row core"><div class="rank">04</div><div class="team">ULJ</div><div class="metric"><span>Agustus</span><b>2 kali</b></div><div class="metric"><span>September</span><b>2 kali</b></div><div class="metric"><span>Total 2 bulan</span><b>4 kali</b></div></div>
+        <div class="loyal-row"><div class="rank">05</div><div class="team">Ramdoor</div><div class="metric"><span>Agustus</span><b>2 kali</b></div><div class="metric"><span>September</span><b>1 kali</b></div><div class="metric"><span>Total 2 bulan</span><b>3 kali</b></div></div>
+      </div>
+    </div>
+
+    <div class="loyalty-months">
+      <div class="month-list reveal">
+        <div class="kicker">Agustus 2026</div>
+        <h3>37 tim atau organisasi tercatat bermain.</h3>
+        <p class="sub">Nama di bawah dihitung berdasarkan tanggal bermain yang berada di bulan Agustus. Angka di kanan menunjukkan berapa tanggal berbeda tim tersebut bermain.</p>
+        <div class="team-list">
+          <div class="team-line repeat"><span>Pertamina EP</span><span>4 kali</span></div>
+          <div class="team-line repeat"><span>Dragon FC</span><span>3 kali</span></div>
+          <div class="team-line repeat"><span>MR JNT 06</span><span>3 kali</span></div>
+          <div class="team-line repeat"><span>Fitness Solution</span><span>2 kali</span></div>
+          <div class="team-line repeat"><span>Juno</span><span>2 kali</span></div>
+          <div class="team-line repeat"><span>Ramdoor</span><span>2 kali</span></div>
+          <div class="team-line repeat"><span>ULJ</span><span>2 kali</span></div>
+          <div class="team-line"><span>AHUM FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>Ariesco</span><span>1 kali</span></div>
+          <div class="team-line"><span>Aziziyah United</span><span>1 kali</span></div>
+          <div class="team-line"><span>B'Cool</span><span>1 kali</span></div>
+          <div class="team-line"><span>Borneo Empire FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>Filan</span><span>1 kali</span></div>
+          <div class="team-line"><span>Genz RT 23 Squad</span><span>1 kali</span></div>
+          <div class="team-line"><span>GS 20</span><span>1 kali</span></div>
+          <div class="team-line"><span>Harmonika</span><span>1 kali</span></div>
+          <div class="team-line"><span>Ice Fishing</span><span>1 kali</span></div>
+          <div class="team-line"><span>ICT Soccer</span><span>1 kali</span></div>
+          <div class="team-line"><span>Imigrasi</span><span>1 kali</span></div>
+          <div class="team-line"><span>IMIPAA</span><span>1 kali</span></div>
+          <div class="team-line"><span>IMIPAS</span><span>1 kali</span></div>
+          <div class="team-line"><span>Indofams FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>JCI SMR</span><span>1 kali</span></div>
+          <div class="team-line"><span>Kawal Team</span><span>1 kali</span></div>
+          <div class="team-line"><span>Kegocek FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>Kita Kita Aja</span><span>1 kali</span></div>
+          <div class="team-line"><span>KPS</span><span>1 kali</span></div>
+          <div class="team-line"><span>Lambung 09</span><span>1 kali</span></div>
+          <div class="team-line"><span>One Fire</span><span>1 kali</span></div>
+          <div class="team-line"><span>Pertamina Gas</span><span>1 kali</span></div>
+          <div class="team-line"><span>Prima FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>RSP</span><span>1 kali</span></div>
+          <div class="team-line"><span>Sagaliga</span><span>1 kali</span></div>
+          <div class="team-line"><span>Sahabat Sport</span><span>1 kali</span></div>
+          <div class="team-line"><span>Selembur</span><span>1 kali</span></div>
+          <div class="team-line"><span>SRI01</span><span>1 kali</span></div>
+          <div class="team-line"><span>Tarkam Boy</span><span>1 kali</span></div>
+        </div>
+      </div>
+
+      <div class="month-list reveal">
+        <div class="kicker">September 2026</div>
+        <h3>25 tim atau organisasi tercatat bermain.</h3>
+        <p class="sub">Nama di bawah hanya memasukkan jadwal yang tanggal bermainnya berada di September. Booking untuk Oktober tidak dimasukkan ke frekuensi September.</p>
+        <div class="team-list">
+          <div class="team-line repeat"><span>Dragon FC</span><span>7 kali</span></div>
+          <div class="team-line repeat"><span>Pertamina EP</span><span>5 kali</span></div>
+          <div class="team-line repeat"><span>Fitness Solution</span><span>2 kali</span></div>
+          <div class="team-line repeat"><span>Ikhlas Beramal</span><span>2 kali</span></div>
+          <div class="team-line repeat"><span>ULJ</span><span>2 kali</span></div>
+          <div class="team-line"><span>Aman</span><span>1 kali</span></div>
+          <div class="team-line"><span>B'Cool</span><span>1 kali</span></div>
+          <div class="team-line"><span>Bakoel FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>Check In</span><span>1 kali</span></div>
+          <div class="team-line"><span>Elnusa x PHSS</span><span>1 kali</span></div>
+          <div class="team-line"><span>FC Bulust</span><span>1 kali</span></div>
+          <div class="team-line"><span>FM</span><span>1 kali</span></div>
+          <div class="team-line"><span>G.G 3 Reborn</span><span>1 kali</span></div>
+          <div class="team-line"><span>Hidden Hybrid Race Vol II</span><span>1 kali</span></div>
+          <div class="team-line"><span>Ice Fishing</span><span>1 kali</span></div>
+          <div class="team-line"><span>ICT Soccer</span><span>1 kali</span></div>
+          <div class="team-line"><span>JCI SMR</span><span>1 kali</span></div>
+          <div class="team-line"><span>Mandaya Jaya</span><span>1 kali</span></div>
+          <div class="team-line"><span>Meranyau FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>PCC</span><span>1 kali</span></div>
+          <div class="team-line"><span>Prima FC</span><span>1 kali</span></div>
+          <div class="team-line"><span>Ramdoor</span><span>1 kali</span></div>
+          <div class="team-line"><span>Sahabat Sport</span><span>1 kali</span></div>
+          <div class="team-line"><span>Security PHSS</span><span>1 kali</span></div>
+          <div class="team-line"><span>SSB Private Team</span><span>1 kali</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cross-month reveal">
+      <div class="kicker">Returned in both months</div>
+      <h3>11 tim muncul di Agustus dan kembali bermain di September.</h3>
+      <p>Kelompok ini adalah basis CRM paling relevan karena sudah menunjukkan perilaku kembali bermain lintas bulan. Empat nama teratas juga memiliki frekuensi bermain lebih dari satu kali di kedua bulan.</p>
+      <div class="returning-grid">
+        <div class="returning-team"><b>Dragon FC</b><span>3x Agustus · 7x September</span></div>
+        <div class="returning-team"><b>Pertamina EP</b><span>4x Agustus · 5x September</span></div>
+        <div class="returning-team"><b>Fitness Solution</b><span>2x Agustus · 2x September</span></div>
+        <div class="returning-team"><b>ULJ</b><span>2x Agustus · 2x September</span></div>
+        <div class="returning-team"><b>Ramdoor</b><span>2x Agustus · 1x September</span></div>
+        <div class="returning-team"><b>B'Cool</b><span>1x Agustus · 1x September</span></div>
+        <div class="returning-team"><b>Ice Fishing</b><span>1x Agustus · 1x September</span></div>
+        <div class="returning-team"><b>ICT Soccer</b><span>1x Agustus · 1x September</span></div>
+        <div class="returning-team"><b>JCI SMR</b><span>1x Agustus · 1x September</span></div>
+        <div class="returning-team"><b>Prima FC</b><span>1x Agustus · 1x September</span></div>
+        <div class="returning-team"><b>Sahabat Sport</b><span>1x Agustus · 1x September</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="customers" id="customers">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index">03 / Customers</div><div><h2>Siapa yang paling relevan untuk pertumbuhan Oktober?</h2><p>Kelompok pelanggan dibedakan berdasarkan kontribusinya terhadap jumlah booking, kepastian jadwal, dan durasi bermain.</p></div></div>
+    <div class="section-head reveal"><div class="section-index">04 / Customers</div><div><h2>Siapa yang paling relevan untuk pertumbuhan Oktober?</h2><p>Kelompok pelanggan dibedakan berdasarkan kontribusinya terhadap jumlah booking, kepastian jadwal, dan durasi bermain.</p></div></div>
     <div class="customers-intro reveal">
       <div><div class="kicker">Sumber pertumbuhan Oktober</div><h2>Setiap kelompok pelanggan memberi kontribusi yang berbeda.</h2></div>
       <p>Tim komunitas menambah jumlah booking. Tim dengan jadwal berulang memberi kepastian jam terisi. Perusahaan dan instansi berpotensi menghasilkan booking berdurasi lebih panjang, jadwal berulang, dan nilai transaksi yang lebih besar.</p>
@@ -699,7 +871,7 @@ h3{line-height:1.15}
 
 <section class="playbook" id="playbook">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index" style="color:#667168">04 / October plan</div><div><h2>Arah pertumbuhan untuk Oktober.</h2><p>Empat jalur utama dipilih karena langsung menanggapi penurunan jumlah booking dan durasi bermain.</p></div></div>
+    <div class="section-head reveal"><div class="section-index" style="color:#667168">05 / October plan</div><div><h2>Arah pertumbuhan untuk Oktober.</h2><p>Empat jalur utama dipilih karena langsung menanggapi penurunan jumlah booking dan durasi bermain.</p></div></div>
     <div class="playbook-head reveal">
       <div class="kicker">Rencana Oktober</div>
       <h2>Oktober perlu menambah booking sekaligus meningkatkan durasi bermain.</h2>
@@ -739,7 +911,7 @@ h3{line-height:1.15}
 
 <section class="october-now" id="octoberNow">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index" style="color:#667168">05 / October status</div><div><h2>Posisi booking Oktober saat laporan dibuat.</h2><p>Bagian ini menghitung jadwal bermain Oktober, termasuk booking yang sudah dibayar atau dicatat sejak September.</p></div></div>
+    <div class="section-head reveal"><div class="section-index" style="color:#667168">06 / October status</div><div><h2>Posisi booking Oktober saat laporan dibuat.</h2><p>Bagian ini menghitung jadwal bermain Oktober, termasuk booking yang sudah dibayar atau dicatat sejak September.</p></div></div>
     <div class="october-intro reveal">
       <div>
         <div class="kicker">October · forward bookings</div>
@@ -794,7 +966,7 @@ h3{line-height:1.15}
 
 <section class="action-plan" id="actions">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index">06 / Execution</div><div><h2>Action plan yang bisa langsung dijalankan.</h2><p>Setiap tindakan memiliki masalah asal, fokus eksekusi, dan target Oktober yang dapat diperiksa kembali pada akhir bulan.</p></div></div>
+    <div class="section-head reveal"><div class="section-index">07 / Execution</div><div><h2>Action plan yang bisa langsung dijalankan.</h2><p>Setiap tindakan memiliki masalah asal, fokus eksekusi, dan target Oktober yang dapat diperiksa kembali pada akhir bulan.</p></div></div>
     <div class="intro reveal">
       <div>
         <div class="kicker">October execution plan</div>
