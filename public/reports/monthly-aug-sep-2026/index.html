@@ -3,574 +3,420 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090c0a">
-<title>V3BKS — Monthly Match Report Aug / Sep 2026</title>
+<meta name="theme-color" content="#0a0d0b">
+<title>V3BKS — August / September 2026</title>
 <style>
 :root{
-  --bg:#090c0a;--bg2:#0d120f;--ink:#f3f6f3;--mut:#8d9a92;
-  --line:rgba(255,255,255,.105);--line2:rgba(255,255,255,.052);
-  --green:#64e27c;--acid:#e8ff59;--red:#ff7a82;--amber:#ffc66b;--blue:#8ed4ff;
-  --max:1260px;
+  --bg:#0a0d0b;
+  --paper:#f0f2ec;
+  --ink:#f5f7f4;
+  --ink-dark:#111511;
+  --muted:#96a199;
+  --green:#66df7b;
+  --lime:#e4ff59;
+  --red:#ff797f;
+  --amber:#ffcc74;
+  --blue:#90d3ff;
+  --max:1220px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--bg)}
 body{
-  margin:0;color:var(--ink);
-  background:
-    linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px),
-    var(--bg);
-  background-size:44px 44px;
+  margin:0;background:var(--bg);color:var(--ink);
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
 a{color:inherit;text-decoration:none}
 .wrap{width:min(var(--max),calc(100% - 42px));margin:auto}
 .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
-.muted{color:var(--mut)}.green{color:var(--green)}.acid{color:var(--acid)}.red{color:var(--red)}
-.kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:850}
-.section{padding:108px 0;border-top:1px solid var(--line2)}
+.kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:800}
 h1,h2,h3,p{margin-top:0}
-h1{font-size:clamp(58px,9.4vw,138px);line-height:.84;letter-spacing:-.072em;font-weight:800;margin:17px 0 26px;max-width:1180px;text-wrap:balance}
-h2{font-size:clamp(38px,5.7vw,80px);line-height:.94;letter-spacing:-.058em;margin:12px 0 20px;max-width:1080px;text-wrap:balance}
-h3{letter-spacing:-.025em}
-.lead{font-size:clamp(18px,1.75vw,24px);line-height:1.58;color:#c2ccc6;max-width:850px}
-.small{font-size:12px;line-height:1.55;color:var(--mut)}
+h1{font-size:clamp(64px,10vw,148px);line-height:.84;letter-spacing:-.078em;margin:18px 0 28px;max-width:1160px;text-wrap:balance}
+h2{font-size:clamp(40px,6vw,82px);line-height:.94;letter-spacing:-.06em;margin:10px 0 22px;text-wrap:balance}
+h3{font-size:24px;letter-spacing:-.035em}
+.lead{font-size:clamp(18px,1.8vw,24px);line-height:1.58;max-width:820px;color:#c4cec7}
+.small{font-size:12px;line-height:1.6;color:var(--muted)}
+.red{color:var(--red)}.green{color:var(--green)}.lime{color:var(--lime)}
 
 .top{
-  height:62px;position:sticky;top:0;z-index:100;
-  background:rgba(9,12,10,.8);backdrop-filter:blur(15px);border-bottom:1px solid var(--line2)
+  position:sticky;top:0;z-index:50;height:58px;
+  display:flex;align-items:center;
+  background:rgba(10,13,11,.76);backdrop-filter:blur(14px)
 }
-.top .inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.brand{display:flex;align-items:center;gap:11px;font-size:11px;font-weight:900;letter-spacing:.155em}
-.mark{width:30px;height:30px;border:1px solid rgba(100,226,124,.32);display:grid;place-items:center;color:var(--green);font-size:10px}
-.nav{display:flex;gap:15px}.nav a{font-size:11px;color:#7d8a82}.nav a:hover,.nav a.active{color:#fff}
-.progress{position:absolute;left:0;right:0;bottom:-1px;height:2px}.progress i{display:block;width:0;height:100%;background:var(--green)}
+.top .inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-size:11px;font-weight:900;letter-spacing:.14em}
+.top .month{font-size:10px;color:#748078;letter-spacing:.12em}
 
-.hero{min-height:calc(100vh - 62px);display:grid;align-items:center;padding:55px 0 70px;position:relative;overflow:hidden}.hero>.wrap{position:relative;z-index:2}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,12,10,.98) 0%,rgba(9,12,10,.82) 44%,rgba(9,12,10,.26) 100%);pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:44px;align-items:center}
-.hero .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#849189;display:flex;align-items:center;gap:10px}
-.hero .eyebrow:before{content:"";width:42px;height:1px;background:var(--green)}
-.hero-side{border-left:1px solid var(--line);padding-left:28px}
-.hero-side .stat{padding:22px 0;border-bottom:1px solid var(--line)}
-.hero-side .stat:first-child{border-top:1px solid var(--line)}
-.hero-side .n{font-size:clamp(38px,5vw,66px);font-weight:800;letter-spacing:-.06em}
-.hero-side .l{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#7d8a82;margin-top:4px}
-.hero-note{margin-top:28px;color:#9ca8a1;font-size:13px;line-height:1.55;max-width:620px}
+.hero{
+  min-height:calc(100vh - 58px);position:relative;display:grid;align-items:center;
+  overflow:hidden;padding:72px 0 86px
+}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.64;pointer-events:none}
+.hero:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(10,13,11,.98) 0%,rgba(10,13,11,.84) 50%,rgba(10,13,11,.22) 100%)
+}
+.hero .wrap{position:relative;z-index:2}
+.hero-copy{max-width:1080px}
+.hero .dek{font-size:clamp(20px,2vw,28px);line-height:1.5;color:#c0cbc3;max-width:850px}
+.hero .scrollcue{margin-top:46px;font-size:11px;color:#78857d;letter-spacing:.12em;text-transform:uppercase}
+.hero .scrollcue span{display:inline-block;margin-left:8px;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
 
-.scrolly-wrap{border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:#080b09}
-.scrolly{width:min(var(--max),calc(100% - 42px));margin:auto;display:grid;grid-template-columns:1.12fr .88fr;gap:54px;align-items:start}
-.stage-col{min-width:0}
-.stage{
-  position:sticky;top:86px;height:calc(100vh - 118px);min-height:590px;max-height:760px;
-  border-left:1px solid var(--line);border-right:1px solid var(--line);
-  overflow:hidden;background:
-    radial-gradient(circle at 50% 42%,rgba(100,226,124,.045),transparent 42%),
-    #0a0e0b
+.opening{
+  background:var(--paper);color:var(--ink-dark);padding:110px 0 126px
 }
-.stage:before{
-  content:"MATCH ANALYSIS";position:absolute;left:22px;top:18px;z-index:20;
-  font:700 9px/1 "SFMono-Regular",Consolas,monospace;letter-spacing:.16em;color:#66736b
+.opening .wrap{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px}
+.opening .aside{font-size:12px;line-height:1.6;color:#657168;max-width:260px}
+.opening .statement{font-size:clamp(34px,4.5vw,64px);line-height:1.06;letter-spacing:-.045em;max-width:870px}
+.opening .statement strong{font-weight:800}
+
+.scrolly{
+  display:grid;grid-template-columns:1.08fr .92fr;gap:54px;width:min(var(--max),calc(100% - 42px));margin:auto;
+  padding:10vh 0 16vh
 }
-.scene{position:absolute;inset:0;padding:58px 36px 34px;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .45s ease,transform .45s ease}
+.visual-wrap{min-width:0}
+.visual{
+  position:sticky;top:78px;height:calc(100vh - 100px);min-height:590px;max-height:760px;
+  display:grid;place-items:center;overflow:hidden
+}
+.visual-inner{width:100%;height:100%;position:relative}
+.scene{position:absolute;inset:0;display:grid;align-content:center;opacity:0;transform:translateY(16px);transition:.5s ease}
 .scene.active{opacity:1;transform:none}
-.scene-title{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#7e8c84}
-.scene-big{font-size:clamp(72px,9vw,128px);line-height:.8;letter-spacing:-.075em;font-weight:800}
-.scene-sub{font-size:13px;color:#98a59d;max-width:430px;line-height:1.5}
+.scene-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#718078;margin-bottom:18px}
+.scene-title{font-size:clamp(62px,9vw,126px);font-weight:830;line-height:.82;letter-spacing:-.075em}
+.scene-copy{font-size:14px;line-height:1.6;color:#99a69e;max-width:470px;margin-top:18px}
 
-.pitch-grid{
-  margin-top:30px;position:relative;height:55%;min-height:290px;border:1px solid rgba(255,255,255,.17);
-  background:
-    linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.12) 50%,transparent 50.1%),
-    linear-gradient(180deg,rgba(100,226,124,.035),transparent)
+.pitch{
+  position:relative;height:330px;margin-top:32px;
+  background:linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.12) 50%,transparent 50.1%);
+  outline:1px solid rgba(255,255,255,.15)
 }
-.pitch-grid:before{content:"";position:absolute;width:110px;height:110px;border:1px solid rgba(255,255,255,.13);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
-.pitch-grid .lost-band{position:absolute;left:7%;right:7%;height:8%;background:rgba(255,122,130,.12);border:1px dashed rgba(255,122,130,.4)}
-.pitch-grid .ok-band{position:absolute;left:7%;right:7%;height:8%;background:rgba(100,226,124,.72)}
-.pitch-grid .b1{top:13%}.pitch-grid .b2{top:25%}.pitch-grid .b3{top:37%}.pitch-grid .b4{top:49%}.pitch-grid .b5{top:61%}.pitch-grid .b6{top:73%}
+.pitch:before{
+  content:"";position:absolute;width:105px;height:105px;border-radius:50%;outline:1px solid rgba(255,255,255,.13);
+  left:50%;top:50%;transform:translate(-50%,-50%)
+}
+.pitch-fill{position:absolute;left:0;top:0;bottom:0;width:58.4%;background:linear-gradient(90deg,rgba(102,223,123,.24),rgba(102,223,123,.05))}
+.pitch-fill:after{content:"59h sold";position:absolute;right:12px;bottom:12px;font:700 10px/1 monospace;color:var(--green);letter-spacing:.1em}
 
-.dot-field{margin-top:34px;display:grid;grid-template-columns:repeat(9,1fr);gap:9px;max-width:520px}
-.dot{aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(100,226,124,.18)}
-.dot.on{background:var(--green);border-color:var(--green)}
-.dot.lost{background:transparent;border:1px dashed rgba(255,122,130,.45)}
-.dot-legend{display:flex;gap:18px;margin-top:20px;font-size:11px;color:#829087}.dot-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+.booking-dots{display:grid;grid-template-columns:repeat(9,1fr);gap:11px;width:min(520px,100%);margin-top:38px}
+.booking-dots i{aspect-ratio:1;border-radius:50%;background:var(--green)}
+.booking-dots i.lost{background:rgba(255,121,127,.08);outline:1px dashed rgba(255,121,127,.5)}
 
-.duration-bars{margin-top:42px;display:grid;gap:24px}
-.drow{display:grid;grid-template-columns:82px 1fr 64px;gap:12px;align-items:center}
-.drow label{font-size:11px;color:#829087;text-transform:uppercase;letter-spacing:.08em}
-.track{height:18px;background:rgba(255,255,255,.035);position:relative}
-.track .aug,.track .sep{position:absolute;left:0;height:7px}
-.track .aug{top:0;background:#76827a;width:var(--a)}
-.track .sep{bottom:0;background:var(--green);width:var(--s)}
-.drow span{font-size:11px;color:#8e9c94;text-align:right}
+.duration{margin-top:38px;width:min(620px,100%)}
+.duration-row{display:grid;grid-template-columns:74px 1fr 72px;gap:14px;align-items:center;margin:20px 0}
+.duration-row span{font-size:11px;color:#819087;text-transform:uppercase;letter-spacing:.08em}
+.dual{height:26px;position:relative}
+.dual .aug,.dual .sep{position:absolute;left:0;height:9px}
+.dual .aug{top:0;background:#4d5a52;width:var(--a)}
+.dual .sep{bottom:0;background:var(--green);width:var(--s)}
+.duration-row b{font-size:11px;text-align:right;color:#9ba79f}
 
-.time-strip{display:grid;grid-template-columns:repeat(9,1fr);gap:5px;margin-top:44px}
-.tslot{height:145px;border:1px solid var(--line2);display:flex;flex-direction:column;justify-content:flex-end;padding:10px 7px;background:rgba(255,255,255,.012);position:relative}
-.tslot:before{content:"";position:absolute;left:5px;right:5px;bottom:34px;height:var(--h);background:rgba(100,226,124,var(--o))}
-.tslot b{font-size:9px;position:relative;z-index:2}.tslot span{font-size:9px;color:#75827a;position:relative;z-index:2;margin-top:3px}
-.time-caption{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}.time-caption div{border-top:1px solid var(--line);padding-top:12px}.time-caption b{font-size:13px}.time-caption span{display:block;font-size:11px;color:#839088;margin-top:5px}
+.hours-map{display:grid;grid-template-columns:repeat(9,1fr);gap:5px;margin-top:38px}
+.hour{height:180px;position:relative;background:rgba(255,255,255,.022);overflow:hidden}
+.hour i{position:absolute;left:0;right:0;bottom:0;height:var(--h);background:rgba(102,223,123,var(--o))}
+.hour b{position:absolute;left:7px;bottom:8px;font-size:9px;z-index:2}
+.hour em{position:absolute;left:7px;top:8px;font-size:9px;font-style:normal;color:#75827a}
 
-.revenue-line{margin-top:70px;position:relative;height:4px;background:rgba(255,255,255,.09)}
-.revenue-line .filled{position:absolute;left:0;top:0;bottom:0;width:63.5%;background:var(--green)}
-.rev-label{position:absolute;top:-45px}
-.rev-label.start{left:0}.rev-label.end{right:0;text-align:right}.rev-label.gap{left:63.5%;transform:translateX(-50%);text-align:center}
-.rev-label b{font-size:24px}.rev-label span{display:block;font-size:9px;color:#77847c;text-transform:uppercase;letter-spacing:.1em}
-.rev-label.gap b{color:var(--red)}
+.revenue{margin-top:56px}
+.revenue-bar{height:46px;background:rgba(255,255,255,.05);position:relative}
+.revenue-bar .sep{height:100%;width:63.5%;background:linear-gradient(90deg,var(--green),rgba(102,223,123,.22))}
+.revenue-labels{display:flex;justify-content:space-between;margin-top:12px}
+.revenue-labels div{font-size:11px;color:#7f8c84}.revenue-labels b{display:block;font-size:22px;color:#eef3ef;margin-bottom:2px}
 
-.steps{padding:12vh 0 16vh}
-.step{min-height:70vh;display:grid;align-content:center;padding:34px 0;opacity:.36;transition:opacity .25s}
+.steps{padding-top:12vh}
+.step{min-height:78vh;display:grid;align-content:center;opacity:.3;transition:opacity .25s}
 .step.active{opacity:1}
-.step .index{font:700 10px/1 "SFMono-Regular",Consolas,monospace;color:var(--green);letter-spacing:.15em}
-.step h3{font-size:clamp(29px,3vw,44px);line-height:1.02;margin:13px 0 14px;max-width:460px}
-.step p{font-size:15px;line-height:1.65;color:#a4b0a8;max-width:430px}
-.step .fact{display:inline-block;margin-top:12px;padding-top:11px;border-top:1px solid var(--line);font-size:12px;color:#c3ccc6}
+.step .n{font:700 10px/1 monospace;color:var(--green);letter-spacing:.14em}
+.step h3{font-size:clamp(28px,3vw,43px);line-height:1.03;margin:12px 0 14px;max-width:460px}
+.step p{font-size:15px;line-height:1.7;color:#9ca9a1;max-width:430px}
+.step .fact{font-size:12px;color:#d0d8d3;margin-top:8px}
 
-.after{padding:115px 0}
-.after-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:60px}
-.sticky-copy{position:sticky;top:100px;align-self:start}
-.sticky-copy .num{font-size:clamp(80px,12vw,168px);font-weight:800;line-height:.82;letter-spacing:-.08em;color:var(--red)}
-.sticky-copy p{max-width:320px;font-size:13px;line-height:1.55;color:#8e9b93}
-.cause-list{border-top:1px solid var(--line)}
-.cause{display:grid;grid-template-columns:66px 1fr;gap:20px;padding:27px 0;border-bottom:1px solid var(--line)}
-.cause .n{font-size:11px;color:#69766e}.cause b{display:block;font-size:25px;margin-bottom:6px}.cause span{font-size:13px;color:#8d9a92}
+.breath{
+  min-height:72vh;display:grid;place-items:center;text-align:center;padding:100px 20px;background:#111712
+}
+.breath blockquote{
+  margin:0;max-width:1000px;font-size:clamp(44px,6vw,86px);line-height:.98;letter-spacing:-.055em;font-weight:760
+}
+.breath p{margin:28px auto 0;max-width:680px;color:#95a299;line-height:1.65}
 
-.roster{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:34px}
-.roster-col{padding:27px 23px;border-right:1px solid var(--line)}
-.roster-col:last-child{border-right:0}
-.roster-col .role{font-size:9px;color:var(--green);letter-spacing:.15em;text-transform:uppercase}
-.roster-col h3{font-size:25px;margin:9px 0 20px}
-.roster-col ul{list-style:none;padding:0;margin:0}.roster-col li{font-size:13px;padding:10px 0;border-top:1px solid var(--line2)}
-.roster-col p{font-size:12px;line-height:1.55;color:#87948c;margin-top:18px}
+.customers{background:#151b16;padding:120px 0}
+.customers-intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;margin-bottom:70px}
+.customers-intro p{font-size:18px;line-height:1.65;color:#a5b0a8}
+.customer-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.customer-col .role{font-size:10px;color:var(--green);letter-spacing:.14em;text-transform:uppercase}
+.customer-col h3{font-size:30px;margin:8px 0 22px}
+.customer-col ul{list-style:none;padding:0;margin:0}
+.customer-col li{font-size:14px;padding:8px 0;color:#d6ddd8}
+.customer-col p{font-size:12px;color:#85928a;line-height:1.6;margin-top:20px;max-width:300px}
 
-.playbook{position:relative;min-height:650px;border:1px solid var(--line);margin-top:34px;overflow:hidden}
-.playbook:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--line)}
-.playbook:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid var(--line);left:50%;top:50%;transform:translate(-50%,-50%)}
-.box{position:absolute;top:27%;bottom:27%;width:18%;border:1px solid var(--line)}.box.l{left:-1px}.box.r{right:-1px}
-.player{position:absolute;transform:translate(-50%,-50%);z-index:3;text-align:center}
-.player .disc{width:70px;height:70px;border-radius:50%;background:#101610;border:1px solid rgba(232,255,89,.32);display:grid;place-items:center;color:var(--acid);font-weight:850;margin:auto}
-.player b{display:block;font-size:16px;margin-top:9px}.player span{display:block;font-size:10px;color:#7f8c84;margin-top:3px}
-.p1{left:50%;top:17%}.p2{left:27%;top:48%}.p3{left:73%;top:48%}.p4{left:50%;top:78%}
-.recovery{text-align:center;margin-top:30px}.recovery strong{display:block;font-size:clamp(62px,9vw,126px);line-height:.86;letter-spacing:-.075em;color:var(--green)}.recovery span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#78857d}
+.playbook{padding:120px 0;background:var(--paper);color:var(--ink-dark)}
+.playbook .kicker{color:#24893b}
+.playbook-head{max-width:900px}
+.field{
+  margin-top:54px;position:relative;height:640px;background:#dfe5da;
+  outline:1px solid rgba(17,21,17,.12)
+}
+.field:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(17,21,17,.16)}
+.field:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;outline:1px solid rgba(17,21,17,.15);left:50%;top:50%;transform:translate(-50%,-50%)}
+.tactic{position:absolute;transform:translate(-50%,-50%);text-align:center;cursor:pointer}
+.tactic .ball{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:var(--ink-dark);color:var(--lime);font-weight:850;transition:.25s}
+.tactic:hover .ball,.tactic.active .ball{transform:scale(1.1);box-shadow:0 0 0 12px rgba(17,21,17,.06)}
+.tactic b{display:block;font-size:17px;margin-top:10px}.tactic span{font-size:11px;color:#657168}
+.t1{left:50%;top:18%}.t2{left:27%;top:49%}.t3{left:73%;top:49%}.t4{left:50%;top:80%}
+.tactic-story{margin-top:34px;display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:start}
+.tactic-money{font-size:clamp(56px,7vw,96px);line-height:.85;letter-spacing:-.07em;font-weight:820;color:#24893b}
+.tactic-story h3{font-size:34px;margin:0 0 10px}.tactic-story p{font-size:16px;line-height:1.65;color:#566159;max-width:620px}
 
-.targets{border-top:1px solid var(--line);margin-top:34px}
-.target{display:grid;grid-template-columns:1fr .9fr 1.7fr;gap:22px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
-.target .name{font-size:15px;font-weight:750}.target .range{font-size:20px}.meter{height:9px;background:rgba(255,255,255,.05);position:relative}.meter i{display:block;height:100%;width:var(--w);background:var(--green)}.meter:after{content:"";position:absolute;left:var(--t);top:-5px;height:19px;width:1px;background:var(--acid)}
+.targets{padding:120px 0}
+.target-intro{max-width:880px}
+.target-list{margin-top:54px}
+.target{display:grid;grid-template-columns:1fr .8fr 1.5fr;gap:28px;align-items:center;margin:28px 0}
+.target .name{font-size:16px}.target .range{font-size:20px}
+.track{height:6px;background:rgba(255,255,255,.07);position:relative}
+.track i{display:block;height:100%;width:var(--w);background:var(--green)}
+.track b{position:absolute;left:var(--t);top:50%;width:12px;height:12px;border-radius:50%;background:var(--lime);transform:translate(-50%,-50%)}
 
-.timeline{border-top:1px solid var(--line);margin-top:34px}
-.week{display:grid;grid-template-columns:110px 1fr;gap:28px;padding:23px 0;border-bottom:1px solid var(--line)}
-.week .wk{font-size:10px;color:var(--green);letter-spacing:.14em}.week b{display:block;font-size:19px;margin-bottom:6px}.week span{font-size:13px;color:#87948c}
+.close{
+  min-height:85vh;display:grid;align-items:center;padding:100px 0;background:#0d110e
+}
+.close h2{font-size:clamp(62px,9vw,132px);max-width:1160px}
+.close p{font-size:20px;line-height:1.6;color:#a1ada5;max-width:760px}
+.close .final{margin-top:36px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:#cbd3ce}
 
-.closing{min-height:82vh;display:grid;align-items:center}.closing h2{font-size:clamp(58px,9vw,128px);max-width:1180px}.formula{display:flex;gap:18px;flex-wrap:wrap;margin-top:30px}.formula span{min-width:190px;padding-top:13px;border-top:1px solid var(--line);font-size:13px;color:#aab5ae}
-
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}.reveal.show{opacity:1;transform:none}
+.reveal{opacity:0;transform:translateY(14px);transition:.6s ease}.reveal.show{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scene,.reveal,.step{transition:none}.reveal{opacity:1;transform:none}}
 @media(max-width:960px){
-  .hero-grid,.scrolly,.after-grid{grid-template-columns:1fr}
-  .hero-side{border-left:0;padding-left:0;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
-  .hero-side .stat{background:var(--bg);padding:18px;border:0}
-  .stage{top:62px;height:58vh;min-height:430px;max-height:560px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .steps{padding-top:0}.step{min-height:54vh}
-  .sticky-copy{position:relative;top:auto}
-  .roster{grid-template-columns:1fr}.roster-col{border-right:0;border-bottom:1px solid var(--line)}.roster-col:last-child{border-bottom:0}
+  .opening .wrap,.scrolly,.customers-intro,.tactic-story{grid-template-columns:1fr}
+  .visual{height:58vh;min-height:430px;top:58px}.steps{padding-top:0}.step{min-height:55vh}
+  .customer-flow{grid-template-columns:1fr}.customer-col{margin-bottom:28px}
 }
 @media(max-width:720px){
   .wrap,.scrolly{width:min(var(--max),calc(100% - 26px))}
-  .nav{display:none}.hero{padding-top:36px}.hero-side{grid-template-columns:1fr}
-  .stage{height:52vh;min-height:400px}.scene{padding:48px 18px 22px}.scene-big{font-size:68px}
-  .dot-field{gap:6px}.time-strip{overflow-x:auto;grid-template-columns:repeat(9,70px);padding-bottom:8px}.tslot{height:116px}
-  .time-caption{grid-template-columns:1fr}.rev-label b{font-size:18px}
-  .target{grid-template-columns:1fr;gap:9px}.playbook{min-height:540px}.player .disc{width:56px;height:56px;font-size:12px}
+  .hero{padding-top:42px}.opening{padding:80px 0}
+  .visual{height:54vh;min-height:410px}.pitch{height:250px}
+  .hours-map{overflow-x:auto;grid-template-columns:repeat(9,68px);padding-bottom:8px}.hour{height:138px}
+  .field{height:540px}.tactic .ball{width:60px;height:60px;font-size:12px}
+  .target{grid-template-columns:1fr;gap:10px}
 }
-
-.compare-lab{padding:84px 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:#0b0f0c}
-.compare-shell{display:grid;grid-template-columns:.74fr 1.26fr;gap:52px;align-items:center}
-.compare-copy h2{font-size:clamp(38px,5vw,72px);margin:10px 0 18px}
-.compare-copy p{color:#9ba8a0;line-height:1.6;max-width:470px}
-.scrub-ui{border:1px solid var(--line);padding:28px;background:rgba(255,255,255,.012)}
-.scrub-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}
-.scrub-month{font-size:clamp(42px,6vw,82px);font-weight:800;letter-spacing:-.06em;line-height:.86}
-.scrub-caption{font-size:10px;color:#77847c;text-transform:uppercase;letter-spacing:.14em;text-align:right}
-.scrub-range{width:100%;accent-color:var(--green);margin:10px 0 28px}
-.scrub-scale{display:flex;justify-content:space-between;font-size:10px;color:#758179;text-transform:uppercase;letter-spacing:.12em;margin-top:-18px;margin-bottom:28px}
-.scrub-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
-.scrub-kpi{background:#0b0f0c;padding:18px 16px;min-height:116px}
-.scrub-kpi span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:#748078}
-.scrub-kpi b{display:block;font-size:28px;letter-spacing:-.045em;margin-top:9px}
-.scrub-kpi em{display:block;font-size:10px;color:#6d7971;font-style:normal;margin-top:6px}
-.scrub-pitch{margin-top:24px;height:180px;border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;background:linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.1) 50%,transparent 50.1%)}
-.scrub-pitch:before{content:"";position:absolute;width:76px;height:76px;border:1px solid rgba(255,255,255,.12);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
-.capacity-fill{position:absolute;left:0;bottom:0;top:0;width:var(--fill,100%);background:linear-gradient(90deg,rgba(100,226,124,.22),rgba(100,226,124,.05));border-right:1px solid var(--green);transition:width .12s linear}
-.capacity-fill:after{content:"SOLD HOURS";position:absolute;right:8px;top:8px;font:700 9px/1 monospace;letter-spacing:.12em;color:var(--green)}
-.loss-cascade{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.loss-item{border-top:1px solid var(--line);padding-top:12px}
-.loss-item b{display:block;font-size:20px}.loss-item span{font-size:11px;color:#7e8b83}
-@media(max-width:960px){.compare-shell{grid-template-columns:1fr}.scrub-kpis{grid-template-columns:1fr 1fr}}
-@media(max-width:620px){.scrub-kpis{grid-template-columns:1fr}.scrub-head{align-items:start;flex-direction:column}.scrub-caption{text-align:left}}
-
-.cine-intro{position:fixed;inset:0;z-index:9999;background:#050706;display:grid;place-items:center;transition:opacity .8s ease,visibility .8s ease}
-.cine-intro.hidden{opacity:0;visibility:hidden}
-.cine-inner{text-align:center;width:min(920px,calc(100% - 36px))}
-.cine-kicker{font:700 10px/1 monospace;letter-spacing:.22em;color:#718078;text-transform:uppercase}
-.cine-title{font-size:clamp(58px,11vw,160px);line-height:.8;letter-spacing:-.08em;font-weight:850;margin:18px 0}
-.cine-title .sep{color:var(--red)}
-.cine-line{height:1px;background:rgba(255,255,255,.1);position:relative;overflow:hidden;margin:26px auto 18px;max-width:620px}
-.cine-line i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--green),var(--acid));animation:cineLoad 2.2s cubic-bezier(.2,.8,.2,1) forwards}
-.cine-sub{font-size:12px;color:#829087;letter-spacing:.08em;text-transform:uppercase}
-@keyframes cineLoad{to{width:100%}}
-
-.chapter-hud{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:80;display:grid;gap:8px}
-.chapter-hud button{width:8px;height:34px;border:0;background:rgba(255,255,255,.09);padding:0;cursor:pointer;position:relative}
-.chapter-hud button.active{background:var(--green)}
-.chapter-hud button span{position:absolute;left:16px;top:50%;transform:translateY(-50%);font:700 9px/1 monospace;letter-spacing:.1em;color:#66736b;opacity:0;white-space:nowrap;pointer-events:none;transition:.2s}
-.chapter-hud button:hover span,.chapter-hud button.active span{opacity:1;color:#aab7af}
-
-.auto-btn{margin-top:14px;border:1px solid rgba(232,255,89,.25);background:rgba(232,255,89,.06);color:var(--acid);padding:10px 13px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
-.auto-btn:hover{background:rgba(232,255,89,.11)}
-
-.loss-cinema{padding:100px 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);background:#080b09}
-.loss-stage{position:relative;min-height:560px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden}
-.loss-axis{position:absolute;left:6%;right:6%;top:50%;height:1px;background:rgba(255,255,255,.1)}
-.loss-origin,.loss-final{position:absolute;top:50%;transform:translateY(-50%);text-align:center}
-.loss-origin{left:5%}.loss-final{right:5%}
-.loss-origin b,.loss-final b{display:block;font-size:clamp(54px,7vw,94px);letter-spacing:-.07em}
-.loss-origin span,.loss-final span{font:700 9px/1 monospace;color:#7e8b83;letter-spacing:.12em;text-transform:uppercase}
-.loss-segment{position:absolute;top:50%;height:16px;transform:translateY(-50%);transform-origin:left center;transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity .8s}
-.loss-segment.freq{left:27%;width:20%;background:rgba(255,122,130,.28)}
-.loss-segment.duration{left:47%;width:16%;background:rgba(255,198,107,.3)}
-.loss-segment.mix{left:63%;width:12%;background:rgba(142,212,255,.3)}
-.loss-marker{position:absolute;top:calc(50% + 30px);font-size:11px;color:#8f9d95;line-height:1.45;max-width:180px}
-.loss-marker b{display:block;color:#dce4df;font-size:12px;margin-bottom:4px}
-.lm1{left:28%}.lm2{left:49%}.lm3{left:65%}
-.loss-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:34px}
-.loss-head p{max-width:440px;color:#8b9991;line-height:1.6;margin:0}
-.loss-rail{position:absolute;left:6%;right:6%;top:50%;height:16px;transform:translateY(-50%);background:linear-gradient(90deg,var(--green) 0 58.4%,rgba(255,255,255,.04) 58.4% 100%);opacity:.75}
-.loss-stage.inview .loss-segment.freq{transform:translateY(-50%) scaleX(1)}
-.loss-stage.inview .loss-segment.duration{transform:translateY(-50%) scaleX(1)}
-.loss-stage.inview .loss-segment.mix{transform:translateY(-50%) scaleX(1)}
-
-.metric-marquee{overflow:hidden;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);white-space:nowrap;background:#0b100d}
-.metric-track{display:inline-flex;gap:44px;padding:14px 0;min-width:max-content;animation:marquee 28s linear infinite}
-.metric-track span{font:700 10px/1 monospace;letter-spacing:.13em;text-transform:uppercase;color:#748179}
-.metric-track b{color:#dfe6e1}
-@keyframes marquee{to{transform:translateX(-50%)}}
-
-.tactic-detail{margin-top:20px;border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.tactic-detail .big{font-size:42px;letter-spacing:-.055em;font-weight:800;color:var(--green)}
-.tactic-detail p{margin:5px 0 0;color:#89968e;font-size:13px;line-height:1.55}
-.player{cursor:pointer;transition:transform .25s}
-.player:hover{transform:translate(-50%,-50%) scale(1.08)}
-.player.selected .disc{box-shadow:0 0 0 8px rgba(232,255,89,.06),0 0 50px rgba(232,255,89,.12);background:#151d13}
-
-.scene-progress{position:absolute;right:20px;top:18px;font:700 9px/1 monospace;letter-spacing:.12em;color:#66736b;z-index:21}
-.scene-progress b{color:var(--green)}
-
-@media(max-width:960px){.chapter-hud{display:none}.loss-head{align-items:start;flex-direction:column}.tactic-detail{grid-template-columns:1fr}.loss-stage{min-height:500px}}
-@media(max-width:720px){.loss-marker{font-size:9px;max-width:110px}.loss-origin b,.loss-final b{font-size:46px}.lm1{left:22%}.lm2{left:45%}.lm3{left:66%}.loss-stage{min-height:440px}}
 </style>
 </head>
 <body>
-
-<div class="cine-intro" id="cineIntro">
-  <div class="cine-inner">
-    <div class="cine-kicker">V3BKS · Monthly Match Report</div>
-    <div class="cine-title">AUG <span class="sep">→ SEP</span></div>
-    <div class="cine-line"><i></i></div>
-    <div class="cine-sub">101 hours became 59</div>
-  </div>
-</div>
-<nav class="chapter-hud" id="chapterHud" aria-label="Report chapters">
-  <button data-target="compareLab"><span>Compare</span></button>
-  <button data-target="diagnosis"><span>Diagnosis</span></button>
-  <button data-target="lossCinema"><span>Loss cascade</span></button>
-  <button data-target="customers"><span>Customers</span></button>
-  <button data-target="playbook"><span>Playbook</span></button>
-  <button data-target="targets"><span>Targets</span></button>
-</nav>
 <header class="top">
   <div class="wrap inner">
-    <div class="brand"><span class="mark">V3</span><span>V3BKS MONTHLY MATCH REPORT</span></div>
-    <nav class="nav"><a href="#diagnosis">Diagnosis</a><a href="#customers">Customers</a><a href="#playbook">October</a><a href="#targets">Targets</a></nav>
-    <span class="mono muted" style="font-size:10px">AUG / SEP 2026</span>
+    <div class="brand">V3BKS · MONTHLY MATCH REPORT</div>
+    <div class="month mono">AUG → SEP 2026</div>
   </div>
-  <div class="progress"><i id="progress"></i></div>
 </header>
 
 <main>
-<section class="hero"><canvas id="stadiumCanvas" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.78"></canvas>
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow reveal">Monthly performance · August → September</div>
-      <h1 class="reveal"><span class="red">42 jam</span> permainan hilang dalam satu bulan.</h1>
-      <p class="lead reveal">Booking memang turun. Tetapi cerita yang lebih penting adalah setiap booking juga menjadi lebih pendek — dan long-block bernilai tinggi menghilang.</p>
-      <p class="hero-note reveal">Scroll untuk melihat bagaimana penurunan itu terbentuk, dari operasional hingga revenue.</p>
-    </div>
-    <aside class="hero-side reveal">
-      <div class="stat"><div class="n">101 → 59h</div><div class="l">Playing hours</div></div>
-      <div class="stat"><div class="n">45 → 34</div><div class="l">Bookings</div></div>
-      <div class="stat"><div class="n">19.2 → 11.6%</div><div class="l">Utilization</div></div>
-    </aside>
-  </div>
-</section>
-
-
-
-<div class="metric-marquee" aria-hidden="true"><div class="metric-track">
-  <span><b>101h → 59h</b> PLAYING HOURS</span><span><b>45 → 34</b> BOOKINGS</span><span><b>2.24h → 1.74h</b> AVG DURATION</span><span><b>19.2% → 11.6%</b> UTILIZATION</span><span><b>Rp89.6jt → Rp56.9jt</b> RENTAL</span>
-  <span><b>101h → 59h</b> PLAYING HOURS</span><span><b>45 → 34</b> BOOKINGS</span><span><b>2.24h → 1.74h</b> AVG DURATION</span><span><b>19.2% → 11.6%</b> UTILIZATION</span><span><b>Rp89.6jt → Rp56.9jt</b> RENTAL</span>
-</div></div>
-<section class="compare-lab" id="compareLab">
-  <div class="wrap compare-shell">
-    <div class="compare-copy reveal">
-      <div class="kicker">Interactive comparison</div>
-      <h2>Geser sendiri dari Agustus ke September.</h2>
-      <p>Semua angka berubah bersamaan agar terlihat jelas: bukan hanya booking yang turun. Jam bermain dan nilai per booking ikut menyusut.</p>
-      <div class="loss-cascade">
-        <div class="loss-item"><b class="red">−11</b><span>bookings</span></div>
-        <div class="loss-item"><b class="red">−0.50h</b><span>avg duration</span></div>
-        <div class="loss-item"><b class="red">−Rp32.7 jt</b><span>rental revenue</span></div>
-      </div>
-    </div>
-    <div class="scrub-ui reveal">
-      <div class="scrub-head">
-        <div class="scrub-month" id="scrubMonth">AUG</div>
-        <div class="scrub-caption">Drag the month transition<br>August → September</div>
-      </div>
-      <input id="monthScrubber" class="scrub-range" type="range" min="0" max="100" value="0" step="1" aria-label="Compare August and September">
-      <div class="scrub-scale"><span>August</span><span>September</span></div><button class="auto-btn" id="autoCompare">▶ Play August → September</button>
-      <div class="scrub-kpis">
-        <div class="scrub-kpi"><span>Playing hours</span><b id="sHours">101h</b><em id="sHoursDelta">baseline</em></div>
-        <div class="scrub-kpi"><span>Bookings</span><b id="sBookings">45</b><em id="sBookingsDelta">baseline</em></div>
-        <div class="scrub-kpi"><span>Avg duration</span><b id="sDuration">2.24h</b><em id="sDurationDelta">baseline</em></div>
-        <div class="scrub-kpi"><span>Rental revenue</span><b id="sRevenue">Rp89.6 jt</b><em id="sRevenueDelta">baseline</em></div>
-      </div>
-      <div class="scrub-pitch">
-        <div class="capacity-fill" id="capacityFill" style="--fill:100%"></div>
-      </div>
+<section class="hero">
+  <canvas id="stadiumCanvas" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="kicker reveal">August / September 2026</div>
+      <h1 class="reveal">September kehilangan <span class="red">42 jam.</span></h1>
+      <p class="dek reveal">Bukan hanya karena lebih sedikit tim datang. Mereka juga bermain lebih singkat — dan booking panjang yang paling bernilai tidak kembali.</p>
+      <div class="scrollcue reveal">Ikuti apa yang berubah <span>↓</span></div>
     </div>
   </div>
 </section>
-<section class="scrolly-wrap" id="diagnosis">
-  <div class="scrolly">
-    <div class="stage-col">
-      <figure class="stage" id="stage"><div class="scene-progress">SCENE <b id="sceneNum">01</b> / 05</div>
+
+<section class="opening">
+  <div class="wrap">
+    <div class="aside">Satu bulan sebelumnya, V3BKS menjual 101 jam dari 45 booking. September menutup bulan dengan 59 jam dari 34 booking.</div>
+    <div class="statement"><strong>Kalau masalahnya hanya sebelas booking yang hilang, jam bermain tidak seharusnya jatuh sedalam ini.</strong> Ada sesuatu yang lain berubah di dalam setiap booking.</div>
+  </div>
+</section>
+
+<section class="scrolly" id="story">
+  <div class="visual-wrap">
+    <div class="visual">
+      <div class="visual-inner">
         <div class="scene active" data-scene="0">
-          <div class="scene-title">Playing hours · August vs September</div>
-          <div class="scene-big">101h <span class="red">→ 59h</span></div>
-          <div class="scene-sub">September mempertahankan hanya sekitar 58% jam bermain Agustus.</div>
-          <div class="pitch-grid">
-            <i class="ok-band b1"></i><i class="ok-band b2"></i><i class="ok-band b3"></i>
-            <i class="lost-band b4"></i><i class="lost-band b5"></i><i class="lost-band b6"></i>
-          </div>
+          <div class="scene-label">The headline</div>
+          <div class="scene-title">101h <span class="red">→ 59h</span></div>
+          <div class="scene-copy">Hampir separuh waktu bermain yang terjual pada Agustus tidak muncul lagi di September.</div>
+          <div class="pitch"><div class="pitch-fill"></div></div>
         </div>
 
         <div class="scene" data-scene="1">
-          <div class="scene-title">Booking count · 45 → 34</div>
-          <div class="scene-big">−11 <span class="red">bookings</span></div>
-          <div class="scene-sub">Volume demand memang turun 24.4% — tetapi itu belum menjelaskan penurunan jam sebesar 41.6%.</div>
-          <div class="dot-field" id="dotField"></div>
-          <div class="dot-legend"><span><i style="background:var(--green)"></i>34 retained</span><span><i style="border:1px dashed rgba(255,122,130,.55)"></i>11 lost</span></div>
+          <div class="scene-label">First layer · frequency</div>
+          <div class="scene-title">45 <span class="red">→ 34</span></div>
+          <div class="scene-copy">Sebelas booking hilang. Itu menjelaskan sebagian penurunan — tapi belum semuanya.</div>
+          <div class="booking-dots" id="bookingDots"></div>
         </div>
 
         <div class="scene" data-scene="2">
-          <div class="scene-title">Duration · average hours per booking</div>
-          <div class="scene-big">2.24h <span class="red">→ 1.74h</span></div>
-          <div class="scene-sub">Setiap visit September membeli waktu 22.7% lebih sedikit.</div>
-          <div class="duration-bars">
-            <div class="drow"><label>1 hour</label><div class="track"><i class="aug" style="--a:100%"></i><i class="sep" style="--s:90%"></i></div><span>20 → 18</span></div>
-            <div class="drow"><label>2 hours</label><div class="track"><i class="aug" style="--a:85%"></i><i class="sep" style="--s:55%"></i></div><span>17 → 11</span></div>
-            <div class="drow"><label>3 hours</label><div class="track"><i class="aug" style="--a:32%"></i><i class="sep" style="--s:16%"></i></div><span>2 → 1</span></div>
-            <div class="drow"><label>4 hours</label><div class="track"><i class="aug" style="--a:42%"></i><i class="sep" style="--s:42%"></i></div><span>4 → 4</span></div>
-            <div class="drow"><label>Long</label><div class="track"><i class="aug" style="--a:68%"></i><i class="sep" style="--s:0%"></i></div><span>2 → 0</span></div>
+          <div class="scene-label">Second layer · duration</div>
+          <div class="scene-title">2.24h <span class="red">→ 1.74h</span></div>
+          <div class="scene-copy">Customer yang tetap datang membeli waktu lebih sedikit.</div>
+          <div class="duration">
+            <div class="duration-row"><span>1 hour</span><div class="dual"><i class="aug" style="--a:100%"></i><i class="sep" style="--s:90%"></i></div><b>20 → 18</b></div>
+            <div class="duration-row"><span>2 hours</span><div class="dual"><i class="aug" style="--a:85%"></i><i class="sep" style="--s:55%"></i></div><b>17 → 11</b></div>
+            <div class="duration-row"><span>3 hours</span><div class="dual"><i class="aug" style="--a:32%"></i><i class="sep" style="--s:16%"></i></div><b>2 → 1</b></div>
+            <div class="duration-row"><span>4 hours</span><div class="dual"><i class="aug" style="--a:42%"></i><i class="sep" style="--s:42%"></i></div><b>4 → 4</b></div>
+            <div class="duration-row"><span>Long block</span><div class="dual"><i class="aug" style="--a:68%"></i><i class="sep" style="--s:0%"></i></div><b>2 → 0</b></div>
           </div>
         </div>
 
         <div class="scene" data-scene="3">
-          <div class="scene-title">Time map · where demand still works</div>
-          <div class="scene-big"><span class="green">20–22</span> is alive.</div>
-          <div class="scene-sub">Prime time tetap menjadi pusat demand. Kapasitas kosong terutama hidup di off-peak.</div>
-          <div class="time-strip">
-            <div class="tslot" style="--h:8%;--o:.08"><b>07–09</b><span>off</span></div>
-            <div class="tslot" style="--h:10%;--o:.08"><b>09–12</b><span>off</span></div>
-            <div class="tslot" style="--h:16%;--o:.12"><b>12–16</b><span>opportunity</span></div>
-            <div class="tslot" style="--h:28%;--o:.18"><b>16–18</b><span>bridge</span></div>
-            <div class="tslot" style="--h:32%;--o:.2"><b>18–19</b><span>build-up</span></div>
-            <div class="tslot" style="--h:58%;--o:.45"><b>19–20</b><span>32.6%</span></div>
-            <div class="tslot" style="--h:88%;--o:.8"><b>20–21</b><span>47.8%</span></div>
-            <div class="tslot" style="--h:76%;--o:.7"><b>21–22</b><span>41.3%</span></div>
-            <div class="tslot" style="--h:38%;--o:.28"><b>22–23</b><span>19.6%</span></div>
+          <div class="scene-label">Where the field still works</div>
+          <div class="scene-title"><span class="green">20–22</span> masih hidup.</div>
+          <div class="scene-copy">Malam bukan sumber masalah utama. Prime time masih memegang demand terkuat.</div>
+          <div class="hours-map">
+            <div class="hour"><i style="--h:8%;--o:.08"></i><em>off</em><b>07–09</b></div>
+            <div class="hour"><i style="--h:10%;--o:.08"></i><em>off</em><b>09–12</b></div>
+            <div class="hour"><i style="--h:16%;--o:.12"></i><em>opp.</em><b>12–16</b></div>
+            <div class="hour"><i style="--h:28%;--o:.18"></i><em>bridge</em><b>16–18</b></div>
+            <div class="hour"><i style="--h:32%;--o:.2"></i><em>build</em><b>18–19</b></div>
+            <div class="hour"><i style="--h:58%;--o:.45"></i><em>32.6%</em><b>19–20</b></div>
+            <div class="hour"><i style="--h:88%;--o:.8"></i><em>47.8%</em><b>20–21</b></div>
+            <div class="hour"><i style="--h:76%;--o:.7"></i><em>41.3%</em><b>21–22</b></div>
+            <div class="hour"><i style="--h:38%;--o:.28"></i><em>19.6%</em><b>22–23</b></div>
           </div>
-          <div class="time-caption"><div><b>Protect 19.00–22.00</b><span>Jangan diskon massal di core revenue window.</span></div><div><b>Build 07.00–16.00</b><span>Demand baru harus diciptakan di sini.</span></div></div>
         </div>
 
         <div class="scene" data-scene="4">
-          <div class="scene-title">Rental revenue · the commercial consequence</div>
-          <div class="scene-big">Rp89.6 <span class="red">→ 56.9 jt</span></div>
-          <div class="scene-sub">Gap rental revenue September terhadap Agustus: sekitar Rp32.7 juta.</div>
-          <div class="revenue-line">
-            <div class="filled"></div>
-            <div class="rev-label start"><b>89.6</b><span>August</span></div>
-            <div class="rev-label gap"><b>−32.7</b><span>Gap</span></div>
-            <div class="rev-label end"><b>56.9</b><span>September</span></div>
-          </div>
-          <div style="margin-top:74px;border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
-            <div><div class="scene-title">Sep total revenue</div><b style="font-size:28px">Rp63.0 jt</b></div>
-            <div><div class="scene-title">Sep expenses</div><b style="font-size:28px">Rp66.26 jt</b></div>
+          <div class="scene-label">Commercial consequence</div>
+          <div class="scene-title">Rp89.6 <span class="red">→ 56.9 jt</span></div>
+          <div class="scene-copy">Rental revenue turun sekitar Rp32.7 juta.</div>
+          <div class="revenue">
+            <div class="revenue-bar"><div class="sep"></div></div>
+            <div class="revenue-labels"><div><b>Rp89.6 jt</b>Agustus</div><div style="text-align:right"><b>Rp56.9 jt</b>September</div></div>
           </div>
         </div>
-      </figure>
+      </div>
     </div>
+  </div>
 
-    <article class="steps">
-      <div class="step active" data-step="0">
-        <div class="index">01 / PLAYING HOURS</div>
-        <h3>Penurunan terbesar bukan jumlah booking. Penurunan terbesar adalah waktu.</h3>
-        <p>Agustus menghasilkan 101 jam permainan. September hanya 59 jam. Artinya, 42 jam kapasitas yang sebelumnya terjual tidak kembali.</p>
-        <span class="fact">−41.6% playing hours</span>
-      </div>
-      <div class="step" data-step="1">
-        <div class="index">02 / FREQUENCY</div>
-        <h3>Sebelas booking memang hilang.</h3>
-        <p>Booking turun dari 45 menjadi 34. Itu menjelaskan sebagian penurunan, tetapi belum cukup menjelaskan mengapa jam bermain jatuh lebih dalam.</p>
-        <span class="fact">−24.4% bookings</span>
-      </div>
-      <div class="step" data-step="2">
-        <div class="index">03 / DURATION</div>
-        <h3>Customer yang datang pun membeli waktu lebih sedikit.</h3>
-        <p>Average duration turun dari 2.24 menjadi 1.74 jam. Booking 2 jam berkurang, dan long-block yang ada pada Agustus menjadi nol.</p>
-        <span class="fact">−22.7% average duration</span>
-      </div>
-      <div class="step" data-step="3">
-        <div class="index">04 / CAPACITY</div>
-        <h3>Masalahnya bukan prime time.</h3>
-        <p>Jam 19.00–22.00 masih menjadi window terkuat. Artinya Oktober tidak membutuhkan diskon besar di malam hari; kita perlu menciptakan demand baru di off-peak.</p>
-        <span class="fact">Peak: 20–21 at 47.8%</span>
-      </div>
-      <div class="step" data-step="4">
-        <div class="index">05 / REVENUE</div>
-        <h3>Operasional yang melemah akhirnya terlihat di revenue.</h3>
-        <p>Rental revenue turun dari Rp89.6 juta menjadi Rp56.9 juta. Kita tidak mengarang atribusi nominal per penyebab, tetapi data menunjukkan tiga sinyal yang konsisten: frequency turun, duration turun, long-block hilang.</p>
-        <span class="fact">−Rp32.7 jt rental revenue gap</span>
-      </div>
-    </article>
+  <article class="steps">
+    <section class="step active" data-step="0">
+      <div class="n">01</div>
+      <h3>Mulai dari yang paling terasa: lapangan menjual 42 jam lebih sedikit.</h3>
+      <p>Agustus menghasilkan 101 jam. September hanya 59. Playing hours turun 41.6% — jauh lebih dalam daripada penurunan jumlah booking.</p>
+      <div class="fact">101h → 59h</div>
+    </section>
+
+    <section class="step" data-step="1">
+      <div class="n">02</div>
+      <h3>Sebelas booking memang hilang. Tetapi itu bukan seluruh cerita.</h3>
+      <p>Booking turun 24.4%, dari 45 menjadi 34. Kalau durasi per booking tetap sama, penurunan jam tidak akan sedalam yang terjadi.</p>
+      <div class="fact">45 → 34 bookings</div>
+    </section>
+
+    <section class="step" data-step="2">
+      <div class="n">03</div>
+      <h3>Yang datang pun bermain lebih singkat.</h3>
+      <p>Average duration turun 22.7%. Booking dua jam menyusut dari 17 menjadi 11, sementara dua long-block Agustus tidak punya pengganti di September.</p>
+      <div class="fact">2.24h → 1.74h</div>
+    </section>
+
+    <section class="step" data-step="3">
+      <div class="n">04</div>
+      <h3>Dan masalahnya bukan malam hari.</h3>
+      <p>Jam 20–21 mencapai 47.8%, 21–22 mencapai 41.3%, dan 19–20 mencapai 32.6%. Prime time masih menjadi pusat demand. Kapasitas kosong justru hidup di jam yang lebih awal.</p>
+      <div class="fact">Protect 19.00–22.00</div>
+    </section>
+
+    <section class="step" data-step="4">
+      <div class="n">05</div>
+      <h3>Ketika frequency dan duration turun bersamaan, revenue ikut terseret.</h3>
+      <p>Rental revenue bergerak dari Rp89.6 juta menjadi Rp56.9 juta. Total revenue September Rp63.0 juta, sedangkan expenses Rp66.26 juta — spread negatif Rp3.26 juta.</p>
+      <div class="fact">Rental gap ≈ Rp32.7 jt</div>
+    </section>
+  </article>
+</section>
+
+<section class="breath">
+  <div>
+    <blockquote>September bukan sekadar <span class="red">lebih sepi.</span><br>September juga <span class="lime">lebih pendek.</span></blockquote>
+    <p>Itulah sebabnya strategi Oktober tidak cukup hanya mengejar lebih banyak orang. V3BKS perlu menjual lebih banyak waktu kepada customer yang tepat.</p>
   </div>
 </section>
 
-
-<section class="loss-cinema" id="lossCinema">
+<section class="customers" id="customers">
   <div class="wrap">
-    <div class="loss-head reveal">
-      <div><div class="kicker">Loss cascade</div><h2 style="margin-bottom:0">42 jam tidak hilang sekaligus.</h2></div>
-      <p>Penurunan terbentuk berlapis: frekuensi booking turun, durasi menyusut, lalu long-block bernilai tinggi menghilang. Visual ini menunjukkan urutan logisnya, bukan atribusi rupiah per faktor.</p>
+    <div class="customers-intro reveal">
+      <div><div class="kicker">Who can bring the hours back?</div><h2>Customer tidak punya peran yang sama.</h2></div>
+      <p>Community memberi volume. Recurring memberi kepastian. Corporate memberi durasi dan nilai. Recovery Oktober harus memperlakukan ketiganya secara berbeda.</p>
     </div>
-    <div class="loss-stage reveal" id="lossStage">
-      <div class="loss-rail"></div>
-      <div class="loss-origin"><b>101h</b><span>August</span></div>
-      <div class="loss-final"><b class="red">59h</b><span>September</span></div>
-      <div class="loss-segment freq"></div><div class="loss-segment duration"></div><div class="loss-segment mix"></div>
-      <div class="loss-marker lm1"><b>Frequency</b>45 → 34 bookings</div>
-      <div class="loss-marker lm2"><b>Duration</b>2.24h → 1.74h</div>
-      <div class="loss-marker lm3"><b>Mix</b>Long-block 2 → 0</div>
-    </div>
-  </div>
-</section>
-<section class="after" id="customers">
-  <div class="wrap after-grid">
-    <aside class="sticky-copy reveal">
-      <div class="kicker">Diagnosis</div>
-      <div class="num">42h</div>
-      <p>Jam hilang bukan satu masalah. Ia adalah gabungan frequency, duration, dan customer mix.</p>
-    </aside>
-    <div class="cause-list">
-      <div class="cause reveal"><div class="n mono">01</div><div><b>Frequency</b><span>45 → 34. Sebelas booking tidak tergantikan.</span></div></div>
-      <div class="cause reveal"><div class="n mono">02</div><div><b>Duration</b><span>2.24h → 1.74h. Customer membeli waktu lebih sedikit.</span></div></div>
-      <div class="cause reveal"><div class="n mono">03</div><div><b>Mix</b><span>Long-block 2 → 0. High-value hours hilang.</span></div></div>
-    </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="kicker reveal">Customer architecture</div>
-    <h2 class="reveal">Volume, stability, dan value datang dari kelompok yang berbeda.</h2>
-    <div class="roster reveal">
-      <div class="roster-col">
-        <div class="role">Volume</div><h3>Community / Team</h3>
+    <div class="customer-flow reveal">
+      <div class="customer-col">
+        <div class="role">Volume</div>
+        <h3>Community / Team</h3>
         <ul><li>Dragon FC</li><li>Fitness Solution</li><li>Sahabat Sport</li><li>ICT Soccer</li><li>Ikhlas Beramal</li><li>B'Cool</li></ul>
-        <p>Sumber frequency. Pipeline terbaik untuk diarahkan menjadi recurring.</p>
+        <p>Mereka menjaga frequency dan menjadi sumber recurring berikutnya.</p>
       </div>
-      <div class="roster-col">
-        <div class="role">Stability</div><h3>Recurring / Membership</h3>
+      <div class="customer-col">
+        <div class="role">Stability</div>
+        <h3>Recurring / Membership</h3>
         <ul><li>ULJ</li><li>Kawal Team</li><li>Dragon FC</li></ul>
-        <p>Membuat demand lebih dapat diprediksi dan mengurangi ketergantungan pada promo.</p>
+        <p>Mereka mengurangi ketergantungan pada promo dan mengunci slot berulang.</p>
       </div>
-      <div class="roster-col">
-        <div class="role">Duration & Value</div><h3>Corporate / Institutional</h3>
+      <div class="customer-col">
+        <div class="role">Duration & Value</div>
+        <h3>Corporate / Institutional</h3>
         <ul><li>Pertamina EP</li><li>IMIPAS</li><li>PHSS</li><li>Imigrasi</li><li>Polsek</li></ul>
-        <p>Sumber terbaik untuk block booking, event, dan bundled services.</p>
+        <p>Mereka paling relevan untuk block booking, event, dan bundled services.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="playbook">
+<section class="playbook" id="playbook">
   <div class="wrap">
-    <div class="kicker reveal">October playbook</div>
-    <h2 class="reveal">Oktober membutuhkan taktik recovery, bukan sekadar diskon.</h2>
-    <div class="playbook reveal">
-      <div class="box l"></div><div class="box r"></div>
-      <div class="player p1 selected" data-name="Corporate blocks" data-money="+Rp7 jt" data-desc="Bangun monthly prepaid block untuk institusi, event, dan booking berdurasi panjang."><div class="disc">CO</div><b>Corporate</b><span>+Rp7 jt</span></div>
-      <div class="player p2" data-name="Recurring teams" data-money="+Rp10 jt" data-desc="Ubah tim aktif menjadi fixed-slot prepaid agar demand lebih stabil dan repeatable."><div class="disc">RT</div><b>Recurring</b><span>+Rp10 jt</span></div>
-      <div class="player p3" data-name="Add-ons" data-money="+Rp3 jt" data-desc="Naikkan revenue per booking melalui photographer, referee, mineral, dan event service."><div class="disc">AD</div><b>Add-ons</b><span>+Rp3 jt</span></div>
-      <div class="player p4" data-name="2H off-peak" data-money="+Rp6 jt" data-desc="Dorong paket dua jam untuk mengisi 07.00–16.00 dan bridge time tanpa merusak prime-time pricing."><div class="disc">2H</div><b>Off-Peak</b><span>+Rp6 jt</span></div>
-    </div><div class="tactic-detail reveal"><div><div class="kicker">Selected tactic</div><div class="big" id="tacticMoney">+Rp7 jt</div></div><div><h3 id="tacticName" style="margin:0 0 6px">Corporate blocks</h3><p id="tacticDesc">Bangun monthly prepaid block untuk institusi, event, dan booking berdurasi panjang.</p></div></div>
-    <div class="recovery reveal"><strong>≈ Rp30 jt</strong><span>estimated monthly recovery potential incl. last-minute slot</span></div>
-  </div>
-</section>
+    <div class="playbook-head reveal">
+      <div class="kicker">October response</div>
+      <h2>Bukan promo baru. Taktik baru.</h2>
+      <p class="lead" style="color:#4d5950">Jika September kehilangan jam karena frequency dan duration melemah, maka Oktober harus dibangun untuk mengembalikan keduanya.</p>
+    </div>
 
-<section class="section" id="targets">
-  <div class="wrap">
-    <div class="kicker reveal">October target board</div>
-    <h2 class="reveal">Keberhasilan harus terlihat pada jam, repeat, dan block booking.</h2>
-    <div class="targets">
-      <div class="target reveal"><div class="name">Utilization</div><div class="range">11.6% → 15–18%</div><div class="meter" style="--w:58%;--t:78%"><i></i></div></div>
-      <div class="target reveal"><div class="name">Playing Hours</div><div class="range">59h → 77–93h</div><div class="meter" style="--w:55%;--t:78%"><i></i></div></div>
-      <div class="target reveal"><div class="name">Recurring Teams</div><div class="range">→ 5–8 teams</div><div class="meter" style="--w:38%;--t:73%"><i></i></div></div>
-      <div class="target reveal"><div class="name">Corporate Blocks</div><div class="range">→ 2–4 blocks</div><div class="meter" style="--w:24%;--t:67%"><i></i></div></div>
-      <div class="target reveal"><div class="name">Prime Pricing</div><div class="range">Protect 19–22</div><div class="meter" style="--w:82%;--t:82%"><i></i></div></div>
+    <div class="field reveal">
+      <div class="tactic t1 active" data-name="Corporate blocks" data-money="+Rp7 jt" data-copy="Bangun monthly prepaid block untuk institusi, event, dan booking berdurasi panjang."><div class="ball">CO</div><b>Corporate</b><span>+Rp7 jt</span></div>
+      <div class="tactic t2" data-name="Recurring teams" data-money="+Rp10 jt" data-copy="Ubah tim yang sudah aktif menjadi fixed-slot prepaid agar demand kembali setiap minggu."><div class="ball">RT</div><b>Recurring</b><span>+Rp10 jt</span></div>
+      <div class="tactic t3" data-name="Add-ons" data-money="+Rp3 jt" data-copy="Naikkan revenue per visit melalui photographer, referee, mineral, dan event service."><div class="ball">AD</div><b>Add-ons</b><span>+Rp3 jt</span></div>
+      <div class="tactic t4" data-name="2H off-peak" data-money="+Rp6 jt" data-copy="Dorong paket dua jam di 07.00–16.00 dan bridge time tanpa mengganggu pricing 19.00–22.00."><div class="ball">2H</div><b>Off-Peak</b><span>+Rp6 jt</span></div>
+    </div>
+
+    <div class="tactic-story reveal">
+      <div class="tactic-money" id="tacticMoney">+Rp7 jt</div>
+      <div><h3 id="tacticName">Corporate blocks</h3><p id="tacticCopy">Bangun monthly prepaid block untuk institusi, event, dan booking berdurasi panjang.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="targets" id="targets">
   <div class="wrap">
-    <div class="kicker reveal">Weekly execution</div>
-    <h2 class="reveal">Report ini selesai hanya jika berubah menjadi pekerjaan.</h2>
-    <div class="timeline">
-      <div class="week reveal"><div class="wk mono">WEEK 01</div><div><b>Recurring outreach + corporate prospecting</b><span>Follow-up tim existing dan buka pipeline institusi.</span></div></div>
-      <div class="week reveal"><div class="wk mono">WEEK 02</div><div><b>2H off-peak activation</b><span>Push 07.00–16.00 dan bridge slot 17.00–18.00.</span></div></div>
-      <div class="week reveal"><div class="wk mono">WEEK 03</div><div><b>Event & bundled services</b><span>Photographer, referee, mineral, dan kebutuhan event.</span></div></div>
-      <div class="week reveal"><div class="wk mono">WEEK 04</div><div><b>Review utilization & pricing</b><span>Bandingkan actual dengan target dan pertahankan value prime time.</span></div></div>
+    <div class="target-intro reveal">
+      <div class="kicker">What October must prove</div>
+      <h2>Recovery harus terlihat pada jam, repeat, dan block booking.</h2>
+    </div>
+    <div class="target-list">
+      <div class="target reveal"><div class="name">Utilization</div><div class="range">11.6% → 15–18%</div><div class="track" style="--w:58%;--t:78%"><i></i><b></b></div></div>
+      <div class="target reveal"><div class="name">Playing Hours</div><div class="range">59h → 77–93h</div><div class="track" style="--w:55%;--t:78%"><i></i><b></b></div></div>
+      <div class="target reveal"><div class="name">Recurring Teams</div><div class="range">→ 5–8 teams</div><div class="track" style="--w:38%;--t:73%"><i></i><b></b></div></div>
+      <div class="target reveal"><div class="name">Corporate Blocks</div><div class="range">→ 2–4 blocks</div><div class="track" style="--w:24%;--t:67%"><i></i><b></b></div></div>
+      <div class="target reveal"><div class="name">Prime Pricing</div><div class="range">Protect 19–22</div><div class="track" style="--w:82%;--t:82%"><i></i><b></b></div></div>
     </div>
   </div>
 </section>
 
-<section class="section closing">
+<section class="close">
   <div class="wrap reveal">
     <div class="kicker">Final whistle</div>
-    <h2>More hours.<br><span class="green">More repeat.</span><br><span class="acid">More long-block.</span></h2>
-    <p class="lead">Jangan hanya mengejar lebih banyak booking. Kejar lebih banyak waktu terjual, lebih banyak customer kembali, dan lebih banyak booking berdurasi tinggi.</p>
-    <div class="formula"><span>↑ Utilization</span><span>↑ Rental revenue</span><span>Protect prime-time value</span></div>
+    <h2>More hours.<br><span class="green">More repeat.</span><br><span class="lime">More long-block.</span></h2>
+    <p>Kalau Oktober hanya menambah booking satu jam, masalah September belum selesai. Recovery baru terjadi ketika customer kembali, bermain lebih lama, dan kapasitas kosong mulai terisi tanpa merusak prime time.</p>
+    <div class="final"><span>↑ Utilization</span><span>↑ Rental revenue</span><span>Protect 19.00–22.00</span></div>
   </div>
 </section>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
 <script>
-const dotField=document.getElementById('dotField');
-for(let i=0;i<45;i++){
-  const d=document.createElement('i');
-  d.className='dot '+(i<34?'on':'lost');
-  dotField.appendChild(d);
-}
+const dots=document.getElementById('bookingDots');
+for(let i=0;i<45;i++){const d=document.createElement('i');if(i>=34)d.className='lost';dots.appendChild(d)}
 
 const scenes=[...document.querySelectorAll('.scene')];
 const steps=[...document.querySelectorAll('.step')];
@@ -578,178 +424,39 @@ function setScene(i){
   scenes.forEach((s,n)=>s.classList.toggle('active',n===i));
   steps.forEach((s,n)=>s.classList.toggle('active',n===i));
 }
-const stepObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting)setScene(Number(e.target.dataset.step));
-  });
-},{rootMargin:'-38% 0px -42% 0px',threshold:0});
-steps.forEach(s=>stepObserver.observe(s));
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setScene(Number(e.target.dataset.step))}),{rootMargin:'-38% 0px -42% 0px'});
+steps.forEach(s=>so.observe(s));
 
-const revealObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');revealObserver.unobserve(e.target)}});
-},{threshold:.1});
-document.querySelectorAll('.reveal').forEach(e=>revealObserver.observe(e));
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');ro.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(e=>ro.observe(e));
 
-const nav=[...document.querySelectorAll('.nav a')];
-const navTargets=nav.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const navObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)nav.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))});
-},{rootMargin:'-35% 0px -55% 0px'});
-navTargets.forEach(e=>navObserver.observe(e));
+document.querySelectorAll('.tactic').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tactic').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  document.getElementById('tacticMoney').textContent=t.dataset.money;
+  document.getElementById('tacticName').textContent=t.dataset.name;
+  document.getElementById('tacticCopy').textContent=t.dataset.copy;
+}));
 
-addEventListener('scroll',()=>{
-  const d=document.documentElement,max=d.scrollHeight-d.clientHeight;
-  document.getElementById('progress').style.width=(max?scrollY/max*100:0)+'%';
-},{passive:true});
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
-<script>
 (function(){
-  const canvas=document.getElementById('stadiumCanvas');
-  if(!canvas||!window.THREE)return;
+  const canvas=document.getElementById('stadiumCanvas');if(!canvas||!window.THREE)return;
   const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(52,1,.1,100);
-  camera.position.set(0,5.7,8.8);
-  camera.lookAt(0,0,0);
+  const camera=new THREE.PerspectiveCamera(50,1,.1,100);
+  camera.position.set(0,5.4,8.6);camera.lookAt(0,0,0);
   const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-
-  const field=new THREE.Mesh(
-    new THREE.PlaneGeometry(10.5,6.8,1,1),
-    new THREE.MeshBasicMaterial({color:0x10391c,transparent:true,opacity:.58,side:THREE.DoubleSide})
-  );
-  field.rotation.x=-Math.PI/2;
-  scene.add(field);
-
-  const lineMat=new THREE.LineBasicMaterial({color:0x8cff9b,transparent:true,opacity:.34});
-  function line(points){
-    const g=new THREE.BufferGeometry().setFromPoints(points.map(p=>new THREE.Vector3(p[0],.015,p[1])));
-    const l=new THREE.Line(g,lineMat);scene.add(l);return l;
-  }
-  line([[-5.25,-3.4],[5.25,-3.4],[5.25,3.4],[-5.25,3.4],[-5.25,-3.4]]);
-  line([[0,-3.4],[0,3.4]]);
-  const circlePts=[];for(let i=0;i<=64;i++){const a=i/64*Math.PI*2;circlePts.push([Math.cos(a)*1.05,Math.sin(a)*1.05]);}
-  line(circlePts);
-
-  const particleCount=260;
-  const pos=new Float32Array(particleCount*3);
-  for(let i=0;i<particleCount;i++){
-    pos[i*3]=(Math.random()-.5)*18;
-    pos[i*3+1]=Math.random()*9+1;
-    pos[i*3+2]=(Math.random()-.5)*14;
-  }
-  const pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  const pm=new THREE.PointsMaterial({color:0xe8ff59,size:.035,transparent:true,opacity:.42});
-  const points=new THREE.Points(pg,pm);scene.add(points);
-
-  const floodMat=new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.08,side:THREE.DoubleSide});
-  for(const x of [-4.6,4.6]){
-    const beam=new THREE.Mesh(new THREE.ConeGeometry(2.8,8,4,1,true),floodMat);
-    beam.position.set(x,5.2,-1.6);beam.rotation.z=x<0?-.48:.48;scene.add(beam);
-  }
-
-  function resize(){
-    const r=canvas.getBoundingClientRect();
-    renderer.setSize(r.width,r.height,false);
-    camera.aspect=r.width/r.height;camera.updateProjectionMatrix();
-  }
+  const field=new THREE.Mesh(new THREE.PlaneGeometry(10.6,6.8),new THREE.MeshBasicMaterial({color:0x12381c,transparent:true,opacity:.65,side:THREE.DoubleSide}));
+  field.rotation.x=-Math.PI/2;scene.add(field);
+  const mat=new THREE.LineBasicMaterial({color:0x8bff9c,transparent:true,opacity:.33});
+  const addLine=pts=>{const g=new THREE.BufferGeometry().setFromPoints(pts.map(p=>new THREE.Vector3(p[0],.015,p[1])));scene.add(new THREE.Line(g,mat))};
+  addLine([[-5.3,-3.4],[5.3,-3.4],[5.3,3.4],[-5.3,3.4],[-5.3,-3.4]]);addLine([[0,-3.4],[0,3.4]]);
+  const cp=[];for(let i=0;i<=64;i++){const a=i/64*Math.PI*2;cp.push([Math.cos(a)*1.05,Math.sin(a)*1.05])}addLine(cp);
+  const pg=new THREE.BufferGeometry(),arr=new Float32Array(240*3);
+  for(let i=0;i<240;i++){arr[i*3]=(Math.random()-.5)*18;arr[i*3+1]=Math.random()*9+1;arr[i*3+2]=(Math.random()-.5)*14}
+  pg.setAttribute('position',new THREE.BufferAttribute(arr,3));const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xe4ff59,size:.032,transparent:true,opacity:.35}));scene.add(pts);
+  function resize(){const r=canvas.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}
   resize();addEventListener('resize',resize,{passive:true});
-
-  let mx=0,my=0;
-  addEventListener('pointermove',e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5)},{passive:true});
-  function tick(){
-    requestAnimationFrame(tick);
-    const sy=scrollY/(document.documentElement.scrollHeight-innerHeight||1);
-    field.rotation.z=sy*.08;
-    points.rotation.y+=.00045;
-    camera.position.x+=(mx*1.1-camera.position.x)*.025;
-    camera.position.y+=(5.7+my*.5-camera.position.y)*.02;
-    camera.lookAt(0,0,0);
-    renderer.render(scene,camera);
-  }
-  tick();
-})();
-</script>
-
-<script>
-(function(){
- const r=document.getElementById('monthScrubber'); if(!r)return;
- const vals={
-   hours:[101,59],bookings:[45,34],duration:[2.24,1.74],revenue:[89.6,56.9]
- };
- const lerp=(a,b,t)=>a+(b-a)*t;
- const pct=(v,a)=>((v-a)/a*100);
- function update(){
-   const t=Number(r.value)/100;
-   const h=lerp(...vals.hours,t),b=lerp(...vals.bookings,t),d=lerp(...vals.duration,t),rev=lerp(...vals.revenue,t);
-   document.getElementById('scrubMonth').textContent=t<.5?'AUG':'SEP';
-   document.getElementById('sHours').textContent=Math.round(h)+'h';
-   document.getElementById('sBookings').textContent=Math.round(b);
-   document.getElementById('sDuration').textContent=d.toFixed(2)+'h';
-   document.getElementById('sRevenue').textContent='Rp'+rev.toFixed(1)+' jt';
-   document.getElementById('sHoursDelta').textContent=t===0?'baseline':pct(h,vals.hours[0]).toFixed(1)+'% vs Aug';
-   document.getElementById('sBookingsDelta').textContent=t===0?'baseline':pct(b,vals.bookings[0]).toFixed(1)+'% vs Aug';
-   document.getElementById('sDurationDelta').textContent=t===0?'baseline':pct(d,vals.duration[0]).toFixed(1)+'% vs Aug';
-   document.getElementById('sRevenueDelta').textContent=t===0?'baseline':pct(rev,vals.revenue[0]).toFixed(1)+'% vs Aug';
-   const fill=(h/vals.hours[0]*100).toFixed(1)+'%';
-   document.getElementById('capacityFill').style.setProperty('--fill',fill);
- }
- r.addEventListener('input',update);update();
-})();
-</script>
-
-<script>
-(function(){
-  const intro=document.getElementById('cineIntro');
-  if(intro){setTimeout(()=>intro.classList.add('hidden'),2450);setTimeout(()=>intro.remove(),3400);}
-
-  const hud=[...document.querySelectorAll('#chapterHud button')];
-  const sections=hud.map(b=>document.getElementById(b.dataset.target)).filter(Boolean);
-  hud.forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.target)?.scrollIntoView({behavior:'smooth',block:'start'})));
-  const hudObs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)hud.forEach(b=>b.classList.toggle('active',b.dataset.target===e.target.id))});
-  },{rootMargin:'-40% 0px -45% 0px'});
-  sections.forEach(s=>hudObs.observe(s));
-
-  const loss=document.getElementById('lossStage');
-  if(loss){
-    const o=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('inview')}),{threshold:.35});
-    o.observe(loss);
-  }
-
-  const auto=document.getElementById('autoCompare'),r=document.getElementById('monthScrubber');
-  let raf=0;
-  if(auto&&r){
-    auto.addEventListener('click',()=>{
-      cancelAnimationFrame(raf);r.value=0;r.dispatchEvent(new Event('input'));
-      const start=performance.now(),dur=2600;
-      function frame(now){
-        const p=Math.min(1,(now-start)/dur);
-        const eased=1-Math.pow(1-p,3);
-        r.value=Math.round(eased*100);r.dispatchEvent(new Event('input'));
-        if(p<1)raf=requestAnimationFrame(frame);
-      }
-      raf=requestAnimationFrame(frame);
-    });
-  }
-
-  const players=[...document.querySelectorAll('.player[data-name]')];
-  const money=document.getElementById('tacticMoney'),name=document.getElementById('tacticName'),desc=document.getElementById('tacticDesc');
-  players.forEach(p=>p.addEventListener('click',()=>{
-    players.forEach(x=>x.classList.remove('selected'));p.classList.add('selected');
-    if(money)money.textContent=p.dataset.money;if(name)name.textContent=p.dataset.name;if(desc)desc.textContent=p.dataset.desc;
-  }));
-
-  const sn=document.getElementById('sceneNum');
-  const origSet=window.setScene;
-  if(typeof origSet==='function'){
-    window.setScene=function(i){origSet(i);if(sn)sn.textContent=String(i+1).padStart(2,'0')};
-  } else {
-    const scenes=[...document.querySelectorAll('.scene')],steps=[...document.querySelectorAll('.step')];
-    const so=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){const i=Number(e.target.dataset.step);scenes.forEach((s,n)=>s.classList.toggle('active',n===i));steps.forEach((s,n)=>s.classList.toggle('active',n===i));if(sn)sn.textContent=String(i+1).padStart(2,'0')}}),{rootMargin:'-38% 0px -42% 0px'});
-    steps.forEach(s=>so.observe(s));
-  }
+  let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
+  function tick(){requestAnimationFrame(tick);pts.rotation.y+=.0004;camera.position.x+=(mx*.9-camera.position.x)*.02;camera.position.y+=(5.4+my*.35-camera.position.y)*.02;camera.lookAt(0,0,0);renderer.render(scene,camera)}tick();
 })();
 </script>
 </body>
