@@ -231,6 +231,29 @@ h3{font-size:24px;letter-spacing:-.035em}
 .october-verdict p{margin-top:22px;font-size:15px;line-height:1.7;color:#5e6961;max-width:760px}
 @media(max-width:960px){.october-intro,.october-score,.october-pulse{grid-template-columns:1fr}.october-score,.october-pulse{gap:48px}}
 @media(max-width:620px){.mixrow{grid-template-columns:70px 1fr 64px}.october-now{padding:92px 0}}
+
+.action-plan{padding:128px 0 140px;background:#101511;color:var(--ink)}
+.action-plan .intro{display:grid;grid-template-columns:.72fr 1.28fr;gap:72px;align-items:start}
+.action-plan .intro p{font-size:18px;line-height:1.65;color:#a4afa7;max-width:760px}
+.action-stack{margin-top:78px;display:grid;gap:56px}
+.action-item{display:grid;grid-template-columns:.62fr 1.38fr;gap:54px;align-items:start}
+.action-problem{font-size:clamp(36px,4.5vw,64px);line-height:.96;letter-spacing:-.045em;font-weight:780}
+.action-problem small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#718078;margin-bottom:14px}
+.action-body h3{font-size:30px;margin:0 0 12px}
+.action-body p{font-size:15px;line-height:1.65;color:#9aa69f;max-width:700px}
+.action-meta{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px}
+.action-meta div{padding-top:8px}
+.action-meta span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#6f7c74}
+.action-meta b{display:block;font-size:18px;margin-top:6px;color:#eef3ef}
+.success-board{margin-top:110px;background:#e9ede5;color:#111511;padding:70px}
+.success-board .kicker{color:#278c3e}
+.success-board h2{max-width:900px}
+.success-grid{margin-top:54px;display:grid;grid-template-columns:repeat(3,1fr);gap:38px}
+.success-metric .num{font-size:clamp(44px,6vw,74px);line-height:.9;letter-spacing:-.06em;font-weight:820}
+.success-metric .label{font-size:12px;line-height:1.5;color:#667168;margin-top:10px}
+.success-note{margin-top:54px;font-size:16px;line-height:1.65;color:#4f5a52;max-width:860px}
+@media(max-width:960px){.action-plan .intro,.action-item{grid-template-columns:1fr}.success-grid{grid-template-columns:1fr 1fr}.success-board{padding:48px}}
+@media(max-width:620px){.action-plan{padding:92px 0}.action-meta,.success-grid{grid-template-columns:1fr}.success-board{padding:34px 24px}}
 </style>
 </head>
 <body>
@@ -486,6 +509,94 @@ h3{font-size:24px;letter-spacing:-.035em}
   <div class="october-verdict reveal">
       <blockquote>Dari total 24 jam yang sudah terjadwal, <span style="color:#278c3e">16 jam berasal dari booking berdurasi 2 atau 3 jam. Empat jam lainnya berasal dari jadwal Dragon FC dan ULJ yang sudah dibeli sebagai paket berulang.</span></blockquote>
       <p>Data awal Oktober menunjukkan durasi 2 dan 3 jam mulai memberi kontribusi besar. Namun, belum ada booking berdurasi 4 jam atau lebih. Karena itu, peningkatan booking berdurasi panjang masih menjadi target Oktober.</p>
+    </div>
+  </div>
+</section>
+
+<section class="action-plan" id="actions">
+  <div class="wrap">
+    <div class="intro reveal">
+      <div>
+        <div class="kicker">October execution plan</div>
+        <h2>Apa yang harus dikerjakan setelah membaca laporan ini?</h2>
+      </div>
+      <p>Setiap action point di bawah langsung berasal dari masalah yang terlihat pada September. Tujuannya bukan menambah aktivitas, tetapi mengembalikan jam bermain yang hilang dengan cara yang bisa diukur pada akhir Oktober.</p>
+    </div>
+
+    <div class="action-stack">
+      <div class="action-item reveal">
+        <div class="action-problem"><small>Masalah 01</small>Booking turun<br>45 menjadi 34</div>
+        <div class="action-body">
+          <h3>Ubah tim yang sudah pernah main menjadi jadwal tetap mingguan.</h3>
+          <p>Prioritaskan tim yang sudah pernah bermain dan memiliki kemungkinan kembali rutin. Mulai dari JCI SMR, Dragon FC, ULJ, lalu lanjutkan ke tim September lain yang sudah pernah booking.</p>
+          <div class="action-meta">
+            <div><span>Tindakan</span><b>Follow-up dan tawarkan fixed weekly slot</b></div>
+            <div><span>Target Oktober</span><b>5 sampai 8 tim dengan jadwal berulang</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-problem"><small>Masalah 02</small>Durasi turun<br>2,24 menjadi 1,74 jam</div>
+        <div class="action-body">
+          <h3>Dorong booking 2 jam pada jam yang tingkat keterisiannya masih rendah.</h3>
+          <p>Fokus pada 07.00 sampai 16.00 serta 17.00 sampai 18.00. Jangan gunakan potongan harga agresif pada 19.00 sampai 22.00 karena periode tersebut masih menjadi jam dengan tingkat keterisian tertinggi.</p>
+          <div class="action-meta">
+            <div><span>Tindakan</span><b>Push paket 2 jam pada jam sepi</b></div>
+            <div><span>Target Oktober</span><b>6 sampai 10 booking tambahan berdurasi 2 jam</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-problem"><small>Masalah 03</small>Booking 4 jam atau lebih<br>masih 0 di Oktober</div>
+        <div class="action-body">
+          <h3>Kejar booking berdurasi panjang melalui perusahaan, instansi, dan kegiatan kelompok.</h3>
+          <p>Gunakan penawaran block booking, mini tournament, gathering, atau event internal perusahaan. Penawaran dapat digabung dengan referee, photographer, mineral, dan kebutuhan event lain agar nilai transaksi per booking meningkat.</p>
+          <div class="action-meta">
+            <div><span>Tindakan</span><b>Buat penawaran corporate block dan event package</b></div>
+            <div><span>Target Oktober</span><b>2 sampai 4 booking berdurasi 4 jam atau lebih</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-problem"><small>Masalah 04</small>Jam malam kuat<br>siang masih kosong</div>
+        <div class="action-body">
+          <h3>Pertahankan harga malam, gunakan promosi untuk mengisi jam rendah.</h3>
+          <p>Jam 19.00 sampai 22.00 tetap dipertahankan pada harga normal. Promo diarahkan ke jam yang masih rendah tingkat keterisiannya agar pertumbuhan datang dari kapasitas kosong, bukan dari diskon pada jam yang sudah kuat.</p>
+          <div class="action-meta">
+            <div><span>Tindakan</span><b>Promo hanya pada jam rendah</b></div>
+            <div><span>Target Oktober</span><b>Utilization total naik menjadi 15 sampai 18 persen</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-item reveal">
+        <div class="action-problem"><small>Masalah 05</small>Pendapatan sewa turun<br>Rp89,6 menjadi Rp56,9 juta</div>
+        <div class="action-body">
+          <h3>Naikkan nilai setiap booking melalui layanan tambahan.</h3>
+          <p>Setiap booking yang cocok ditawarkan photographer, referee, mineral, dan kebutuhan event lainnya. Tujuannya meningkatkan pendapatan per kunjungan tanpa bergantung pada kenaikan harga sewa lapangan saja.</p>
+          <div class="action-meta">
+            <div><span>Tindakan</span><b>Bundling layanan tambahan pada booking yang relevan</b></div>
+            <div><span>Target Oktober</span><b>Tambahan pendapatan layanan sekitar Rp3 juta</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-board reveal">
+      <div class="kicker">What we need to see by 31 October</div>
+      <h2>Kalau angka ini tercapai, berarti Oktober bergerak ke arah yang benar.</h2>
+      <div class="success-grid">
+        <div class="success-metric"><div class="num">77–93h</div><div class="label">total jam bermain Oktober</div></div>
+        <div class="success-metric"><div class="num">15–18%</div><div class="label">tingkat keterisian lapangan</div></div>
+        <div class="success-metric"><div class="num">5–8</div><div class="label">tim dengan jadwal berulang</div></div>
+        <div class="success-metric"><div class="num">2–4</div><div class="label">booking perusahaan atau booking berdurasi panjang</div></div>
+        <div class="success-metric"><div class="num">≥ 1</div><div class="label">event yang dibuat atau dikelola V3BKS</div></div>
+        <div class="success-metric"><div class="num">19.00–22.00</div><div class="label">harga normal tetap dipertahankan</div></div>
+      </div>
+      <p class="success-note">Evaluasi akhir Oktober tidak cukup hanya melihat total revenue. Kita juga harus melihat apakah jumlah jam bermain naik, durasi per booking membaik, tim kembali booking, dan jam kosong mulai terisi.</p>
     </div>
   </div>
 </section>
