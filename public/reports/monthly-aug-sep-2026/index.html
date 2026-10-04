@@ -27,9 +27,9 @@ body:after{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:linear-gradient(115deg,transparent 0 63%,rgba(88,242,122,.025) 63.1%,transparent 63.6% 100%);
 }
-#deck{position:relative;z-index:1}
+#deck{position:fixed;inset:0;z-index:1;overflow:hidden}
 .slide{
-  position:absolute;inset:0;padding:40px 58px 76px;display:none;overflow:auto;
+  position:absolute;inset:0;padding:40px 58px 76px;display:none;overflow-y:auto;overflow-x:hidden;
   isolation:isolate;
 }
 .slide:before{
