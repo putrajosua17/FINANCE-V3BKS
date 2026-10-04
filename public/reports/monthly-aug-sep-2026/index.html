@@ -254,6 +254,135 @@ h3{font-size:24px;letter-spacing:-.035em}
 .success-note{margin-top:54px;font-size:16px;line-height:1.65;color:#4f5a52;max-width:860px}
 @media(max-width:960px){.action-plan .intro,.action-item{grid-template-columns:1fr}.success-grid{grid-template-columns:1fr 1fr}.success-board{padding:48px}}
 @media(max-width:620px){.action-plan{padding:92px 0}.action-meta,.success-grid{grid-template-columns:1fr}.success-board{padding:34px 24px}}
+
+/* Editorial proportion pass
+   References: Open Props content widths, Tailwind Typography rhythm,
+   The Pudding editorial hierarchy. */
+:root{
+  --copy-narrow:45ch;
+  --copy:60ch;
+  --heading-short:12ch;
+  --heading:20ch;
+  --space-section:clamp(5.5rem,9vw,8.5rem);
+  --space-block:clamp(2rem,4vw,4rem);
+}
+body{font-size:16px;line-height:1.72}
+h1,h2,h3{overflow-wrap:normal;word-break:normal}
+h1{
+  font-size:clamp(3.7rem,8.1vw,8.8rem);
+  line-height:.88;
+  max-width:var(--heading-short);
+  letter-spacing:-.068em
+}
+h2{
+  font-size:clamp(2.7rem,5vw,5.2rem);
+  line-height:.98;
+  max-width:16ch;
+  letter-spacing:-.052em
+}
+h3{line-height:1.15}
+.lead{font-size:clamp(1.12rem,1.55vw,1.38rem);line-height:1.62;max-width:var(--copy)}
+.small{max-width:var(--copy);line-height:1.7}
+
+.hero{padding-block:clamp(4rem,8vh,7rem)}
+.hero-copy{max-width:1080px}
+.hero .dek{font-size:clamp(1.18rem,1.75vw,1.55rem);line-height:1.58;max-width:54ch}
+.hero .scrollcue{margin-top:clamp(2rem,4vh,3.5rem)}
+
+.opening{padding-block:var(--space-section)}
+.opening .wrap{grid-template-columns:minmax(180px,.52fr) minmax(0,1.48fr);gap:clamp(2.5rem,6vw,6rem)}
+.opening .aside{max-width:28ch;font-size:.82rem;line-height:1.7}
+.opening .statement{font-size:clamp(2.1rem,4vw,4rem);line-height:1.08;max-width:21ch}
+
+.scrolly{grid-template-columns:minmax(0,1.16fr) minmax(300px,.84fr);gap:clamp(2.5rem,5vw,5rem)}
+.scene-title{font-size:clamp(3.6rem,7.6vw,7.8rem);max-width:9.5ch;line-height:.86}
+.scene-copy{font-size:.95rem;line-height:1.7;max-width:var(--copy-narrow)}
+.step h3{font-size:clamp(1.85rem,2.7vw,2.7rem);line-height:1.08;max-width:16ch}
+.step p{font-size:1rem;line-height:1.72;max-width:39ch}
+.step .fact{max-width:38ch;line-height:1.55}
+
+.breath{padding-block:var(--space-section)}
+.breath blockquote{font-size:clamp(2.8rem,5.4vw,5.7rem);max-width:17ch;line-height:1.02;margin-inline:auto}
+.breath p{max-width:52ch;font-size:1rem}
+
+.customers,.playbook,.targets,.october-now,.action-plan{padding-block:var(--space-section)}
+.customers-intro,.october-intro,.action-plan .intro{grid-template-columns:minmax(230px,.62fr) minmax(0,1.38fr);gap:clamp(2.5rem,6vw,6rem)}
+.customers-intro h2,.october-answer h2,.action-plan .intro h2{max-width:14ch}
+.customers-intro p,.october-answer p,.action-plan .intro p{max-width:52ch;line-height:1.68}
+.customer-flow{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(2rem,4vw,4.25rem)}
+.customer-col h3{font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.1}
+.customer-col p{max-width:34ch;font-size:.83rem;line-height:1.7}
+
+.playbook-head{max-width:900px}
+.playbook-head h2{max-width:15ch}
+.playbook-head .lead{max-width:54ch}
+.tactic-story{grid-template-columns:minmax(190px,.55fr) minmax(0,1.45fr);gap:clamp(2.5rem,6vw,6rem)}
+.tactic-story p{max-width:48ch}
+
+.target-intro{max-width:860px}
+.target-intro h2{max-width:15ch}
+.target{grid-template-columns:minmax(170px,.8fr) minmax(180px,.72fr) minmax(280px,1.48fr);gap:clamp(1.5rem,3vw,3rem)}
+.target .name{font-size:.95rem}
+.target .range{font-size:clamp(1.05rem,1.6vw,1.25rem)}
+
+.october-question{max-width:31ch;line-height:1.72}
+.october-answer p{font-size:1.05rem}
+.october-score{grid-template-columns:minmax(230px,.58fr) minmax(0,1.42fr);gap:clamp(3rem,7vw,7rem)}
+.october-big .caption{max-width:34ch;line-height:1.7}
+.october-pulse{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(3rem,7vw,7rem)}
+.repeat-story p,.forward-story p{max-width:46ch;line-height:1.72}
+.october-verdict{max-width:980px}
+.october-verdict blockquote{max-width:18ch;font-size:clamp(2.35rem,4.5vw,4.5rem);line-height:1.06}
+.october-verdict p{max-width:54ch}
+
+.action-stack{gap:clamp(4rem,7vw,7rem)}
+.action-item{grid-template-columns:minmax(220px,.52fr) minmax(0,1.48fr);gap:clamp(3rem,7vw,7rem)}
+.action-problem{font-size:clamp(2rem,3.6vw,3.8rem);line-height:1.02;max-width:12ch}
+.action-body{max-width:760px}
+.action-body h3{font-size:clamp(1.65rem,2.4vw,2.2rem);line-height:1.12;max-width:22ch}
+.action-body p{font-size:.98rem;line-height:1.72;max-width:55ch}
+.action-meta{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1.5rem,4vw,4rem);max-width:720px}
+.action-meta b{font-size:1.05rem;line-height:1.4;max-width:28ch}
+
+.success-board{padding:clamp(2.5rem,6vw,5.5rem)}
+.success-board h2{max-width:15ch}
+.success-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(2.5rem,5vw,5rem)}
+.success-metric .num{font-size:clamp(2.6rem,5vw,4.8rem)}
+.success-metric .label{max-width:25ch;line-height:1.55}
+.success-note{max-width:55ch;line-height:1.72}
+
+.close h2{max-width:11ch}
+.close p{font-size:clamp(1.1rem,1.5vw,1.3rem);max-width:52ch;line-height:1.65}
+.close .final{max-width:760px}
+
+@media(max-width:960px){
+  h1{max-width:11ch}
+  h2{max-width:18ch}
+  .opening .wrap,.customers-intro,.october-intro,.action-plan .intro,.action-item,.october-score,.october-pulse,.tactic-story{grid-template-columns:1fr}
+  .opening .aside,.october-question{max-width:45ch}
+  .scrolly{grid-template-columns:1fr}
+  .step h3{max-width:20ch}
+  .step p{max-width:52ch}
+  .customer-flow{grid-template-columns:1fr;max-width:680px}
+  .customer-col p{max-width:48ch}
+  .target{grid-template-columns:1fr 1fr;gap:12px 24px}
+  .target .track{grid-column:1/-1}
+}
+@media(max-width:620px){
+  body{font-size:15px}
+  h1{font-size:clamp(3.25rem,16vw,5.3rem);max-width:10ch}
+  h2{font-size:clamp(2.35rem,11vw,3.7rem);max-width:14ch}
+  .hero .dek{max-width:32ch}
+  .opening .statement{font-size:clamp(1.9rem,9vw,2.8rem);max-width:16ch}
+  .scene-title{font-size:clamp(3rem,15vw,5rem);max-width:9ch}
+  .step h3{font-size:clamp(1.75rem,8vw,2.35rem);max-width:16ch}
+  .step p{max-width:34ch}
+  .breath blockquote{max-width:12ch}
+  .action-problem{max-width:11ch}
+  .action-body h3{max-width:17ch}
+  .action-meta,.success-grid,.target{grid-template-columns:1fr}
+  .target .track{grid-column:auto}
+}
 </style>
 </head>
 <body>
