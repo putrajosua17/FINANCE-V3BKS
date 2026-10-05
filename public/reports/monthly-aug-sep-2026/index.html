@@ -3,380 +3,884 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#050807">
-<title>V3BKS Mini Soccer — Monthly Report Aug–Sep 2026</title>
+<meta name="theme-color" content="#0a0d0b">
+<title>V3BKS | Laporan Agustus dan September 2026</title>
 <style>
 :root{
-  --bg:#050807;--bg2:#08100c;--panel:#0d1511;--panel2:#101b15;
-  --ink:#f7faf8;--mut:#92a398;--line:rgba(255,255,255,.08);
-  --green:#59f17b;--lime:#ddff59;--amber:#ffc96b;--red:#ff7c85;--blue:#7dc7ff;
-  --radius:24px;--shadow:0 26px 80px rgba(0,0,0,.34);
+  --bg:#0a0d0b;
+  --paper:#f0f2ec;
+  --ink:#f5f7f4;
+  --ink-dark:#111511;
+  --muted:#96a199;
+  --green:#66df7b;
+  --lime:#e4ff59;
+  --red:#ff797f;
+  --amber:#ffcc74;
+  --blue:#90d3ff;
+  --max:1220px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;background:var(--bg)}
 body{
-  margin:0;color:var(--ink);background:
-  radial-gradient(circle at 82% 4%,rgba(89,241,123,.10),transparent 28rem),
-  radial-gradient(circle at 10% 48%,rgba(221,255,89,.04),transparent 22rem),
-  linear-gradient(180deg,#07100c 0%,#050807 18%,#050807 100%);
+  margin:0;background:var(--bg);color:var(--ink);
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-body:before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
-  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
-  background-size:52px 52px;
-  mask-image:linear-gradient(to bottom,#000 0%,rgba(0,0,0,.65) 42%,transparent 95%);
-}
-body:after{
-  content:"";position:fixed;inset:-20%;pointer-events:none;z-index:-1;
-  background:radial-gradient(circle at var(--mx,70%) var(--my,18%),rgba(89,241,123,.055),transparent 24rem);
-  transition:background-position .2s ease;
-}
 a{color:inherit;text-decoration:none}
-.wrap{width:min(1180px,calc(100% - 40px));margin:auto}
-.section{padding:96px 0;position:relative}
-.section.compact{padding:72px 0}
-.eyebrow{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.17em;text-transform:uppercase;color:var(--green);font-weight:900}
-.eyebrow:before{content:"";width:28px;height:1px;background:var(--green);box-shadow:0 0 14px rgba(89,241,123,.35)}
+.wrap{width:min(var(--max),calc(100% - 42px));margin:auto}
+.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.kicker{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:800}
 h1,h2,h3,p{margin-top:0}
-h1{font-size:clamp(50px,7.2vw,104px);line-height:.92;letter-spacing:-.065em;margin:18px 0 22px;font-weight:800;text-wrap:balance}
-h2{font-size:clamp(34px,4.5vw,62px);line-height:.98;letter-spacing:-.05em;margin:14px 0 18px;text-wrap:balance}
-h3{font-size:18px;letter-spacing:-.02em}
-.lead{font-size:clamp(17px,1.7vw,22px);line-height:1.6;color:#bcc9c1;max-width:820px}
-.muted{color:var(--mut)}
-.accent{color:var(--green)}.lime{color:var(--lime)}.red{color:var(--red)}.amber{color:var(--amber)}
-.topnav{
-  position:sticky;top:0;z-index:50;background:rgba(5,8,7,.72);backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.055)
+h1{font-size:clamp(64px,10vw,148px);line-height:.84;letter-spacing:-.078em;margin:18px 0 28px;max-width:1160px;text-wrap:balance}
+h2{font-size:clamp(40px,6vw,82px);line-height:.94;letter-spacing:-.06em;margin:10px 0 22px;text-wrap:balance}
+h3{font-size:24px;letter-spacing:-.035em}
+.lead{font-size:clamp(18px,1.8vw,24px);line-height:1.58;max-width:820px;color:#c4cec7}
+.small{font-size:12px;line-height:1.6;color:var(--muted)}
+.red{color:var(--red)}.green{color:var(--green)}.lime{color:var(--lime)}
+
+.top{
+  position:sticky;top:0;z-index:50;height:58px;
+  display:flex;align-items:center;
+  background:rgba(10,13,11,.76);backdrop-filter:blur(14px)
 }
-.topnav .inner{height:68px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-.brand{display:flex;align-items:center;gap:11px;font-size:12px;font-weight:900;letter-spacing:.13em}
-.brandmark{width:36px;height:36px;border-radius:12px;border:1px solid rgba(89,241,123,.24);background:rgba(89,241,123,.07);display:grid;place-items:center;color:var(--green);box-shadow:0 0 28px rgba(89,241,123,.06)}
-.navlinks{display:flex;gap:8px;flex-wrap:wrap}
-.navlinks a{font-size:11px;color:#8fa297;padding:8px 10px;border-radius:999px;transition:.2s}
-.navlinks a:hover,.navlinks a.active{color:#fff;background:rgba(255,255,255,.055)}
-.progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:rgba(255,255,255,.03)}
-.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--lime))}
-.hero{min-height:calc(100vh - 68px);display:grid;align-items:center;padding:74px 0 54px;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.16fr .84fr;gap:48px;align-items:center}
-.hero .tag{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(89,241,123,.24);background:rgba(89,241,123,.055);color:var(--green);border-radius:999px;padding:9px 12px;font-size:11px;font-weight:900;letter-spacing:.1em}
-.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:13px;border:1px solid var(--line);font-size:13px;font-weight:800;transition:.2s}
-.btn.primary{background:var(--green);color:#041007;border-color:var(--green)}
-.btn:hover{transform:translateY(-1px)}
-.hero-card{
-  min-height:520px;border:1px solid var(--line);border-radius:30px;position:relative;overflow:hidden;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.02),transparent 32%),
-    radial-gradient(circle at 50% 18%,rgba(89,241,123,.16),transparent 28rem),
-    linear-gradient(180deg,#0d1a13,#07100c);
-  box-shadow:var(--shadow)
+.top .inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font-size:11px;font-weight:900;letter-spacing:.14em}
+.top .month{font-size:10px;color:#748078;letter-spacing:.12em}
+
+.hero{
+  min-height:calc(100vh - 58px);position:relative;display:grid;align-items:center;
+  overflow:hidden;padding:72px 0 86px
 }
-.hero-card .pitch{position:absolute;inset:12% 10% 10%;border:1px solid rgba(255,255,255,.11);border-radius:18px;transform:perspective(700px) rotateX(58deg);transform-origin:center bottom}
-.pitch:before,.pitch:after{content:"";position:absolute}
-.pitch:before{left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.10)}
-.pitch:after{width:120px;height:120px;border:1px solid rgba(255,255,255,.10);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
-.flood{position:absolute;width:2px;height:420px;top:-150px;background:linear-gradient(to bottom,rgba(255,255,255,.8),rgba(89,241,123,.18),transparent);filter:blur(.2px);opacity:.25;transform-origin:top}
-.f1{left:21%;transform:rotate(31deg)}.f2{right:21%;transform:rotate(-31deg)}
-.float-kpi{position:absolute;border:1px solid rgba(255,255,255,.09);background:rgba(5,8,7,.72);backdrop-filter:blur(12px);border-radius:18px;padding:14px 16px;box-shadow:0 20px 50px rgba(0,0,0,.26)}
-.float-kpi small{display:block;color:#819488;font-size:10px;text-transform:uppercase;letter-spacing:.11em}
-.float-kpi b{display:block;font-size:25px;margin-top:4px;letter-spacing:-.04em}
-.fk1{left:5%;top:8%}.fk2{right:4%;top:26%}.fk3{left:12%;bottom:8%}.fk4{right:10%;bottom:12%}
-.hero-note{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:70%}
-.hero-note strong{font-size:48px;letter-spacing:-.06em;display:block}.hero-note span{font-size:12px;color:#8ea195}
-.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
-.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 38%),rgba(12,18,15,.82);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.card.hover{transition:.25s}.card.hover:hover{transform:translateY(-4px);border-color:rgba(89,241,123,.18)}
-.kpi .label{font-size:10px;text-transform:uppercase;letter-spacing:.13em;color:#83958a;font-weight:900}
-.kpi .value{font-size:clamp(34px,4vw,56px);letter-spacing:-.055em;font-weight:820;margin:9px 0 5px}
-.kpi .meta{font-size:12px;color:#83958a}
-.delta{display:inline-flex;margin-top:12px;font-size:12px;font-weight:900;padding:6px 8px;border-radius:999px;background:rgba(255,124,133,.08);color:var(--red);border:1px solid rgba(255,124,133,.12)}
-.spark{height:42px;margin-top:16px;display:flex;align-items:flex-end;gap:5px}.spark i{flex:1;background:linear-gradient(180deg,var(--green),rgba(89,241,123,.18));border-radius:4px 4px 1px 1px;opacity:.7}
-.storyflow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:stretch;margin-top:32px}
-.node{border:1px solid var(--line);border-radius:22px;padding:22px;background:rgba(255,255,255,.02);position:relative}
-.node:not(:last-child):after{content:"→";position:absolute;right:-17px;top:50%;transform:translateY(-50%);color:#596b60;font-size:22px;z-index:2}
-.node .num{font-size:12px;color:var(--green);font-weight:900;letter-spacing:.1em}.node b{display:block;font-size:24px;margin:10px 0 6px}.node p{color:#90a198;font-size:13px;line-height:1.5;margin:0}
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.blockrow{display:grid;grid-template-columns:74px 1fr 58px;gap:12px;align-items:center;margin:14px 0}
-.blockrow label{font-size:12px;color:#9bad9f}.blocks{display:flex;gap:5px;min-height:22px;align-items:center;flex-wrap:wrap}.blocks i{display:block;height:18px;border-radius:5px;background:linear-gradient(90deg,var(--green),var(--lime));box-shadow:0 0 16px rgba(89,241,123,.08)}
-.blocks .ghost{background:transparent;border:1px dashed rgba(255,255,255,.15);box-shadow:none}
-.blockrow span{font-size:12px;text-align:right;color:#83958a}
-.insight{margin-top:18px;border-left:3px solid var(--lime);padding:15px 17px;background:rgba(221,255,89,.045);border-radius:4px 14px 14px 4px;color:#cbd6cf}
-.heatmap{display:grid;grid-template-columns:repeat(9,1fr);gap:8px;margin-top:26px}
-.heatcell{min-height:116px;border-radius:18px;border:1px solid rgba(255,255,255,.055);padding:14px;display:flex;flex-direction:column;justify-content:space-between}
-.heatcell b{font-size:13px}.heatcell span{font-size:11px;color:#93a49a}
-.h0{background:#0b100d}.h1{background:rgba(89,241,123,.045)}.h2{background:rgba(89,241,123,.09)}.h3{background:rgba(89,241,123,.16)}.h4{background:linear-gradient(180deg,rgba(89,241,123,.28),rgba(89,241,123,.12));box-shadow:inset 0 0 28px rgba(89,241,123,.07)}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;color:#84968b;font-size:11px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
-.revenue-bars{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:end;min-height:280px}
-.revbar{border-radius:22px 22px 10px 10px;border:1px solid rgba(255,255,255,.07);padding:20px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
-.revbar.aug{height:270px;background:linear-gradient(180deg,rgba(89,241,123,.22),rgba(89,241,123,.06))}
-.revbar.sep{height:180px;background:linear-gradient(180deg,rgba(255,124,133,.18),rgba(255,124,133,.045))}
-.revbar strong{font-size:38px;letter-spacing:-.05em}.revbar small{color:#91a398}
-.cluster{min-height:250px}.cluster .icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:rgba(89,241,123,.08);border:1px solid rgba(89,241,123,.12);font-weight:900;color:var(--green);margin-bottom:16px}
-.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.tagmini{font-size:11px;padding:7px 10px;border:1px solid rgba(255,255,255,.07);border-radius:999px;background:rgba(255,255,255,.025);color:#b8c6bd}
-.role{display:inline-flex;margin-top:18px;font-size:11px;color:var(--lime);letter-spacing:.08em;text-transform:uppercase}
-.cause-card .metric{font-size:46px;letter-spacing:-.055em;font-weight:820;margin:12px 0 4px}.cause-card p{color:#91a399;line-height:1.55}
-.quad{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:var(--line)}
-.quad .q{background:#0b120e;padding:28px;min-height:180px}.quad .q small{color:#819388;text-transform:uppercase;letter-spacing:.11em}.quad .q b{display:block;font-size:24px;margin:9px 0}.quad .q p{color:#90a198;font-size:13px;margin:0}
-.plan-card .money{font-size:38px;letter-spacing:-.05em;font-weight:820;color:var(--green)}.plan-card ul{padding-left:18px;color:#91a399;font-size:13px;line-height:1.7}
-.big-uplift{text-align:center;margin-top:20px;border:1px solid rgba(89,241,123,.15);background:rgba(89,241,123,.045);border-radius:24px;padding:28px}.big-uplift small{display:block;color:#8da096;text-transform:uppercase;letter-spacing:.13em}.big-uplift b{font-size:clamp(44px,7vw,90px);letter-spacing:-.065em;color:var(--green)}
-.target{display:grid;grid-template-columns:90px 1fr;gap:18px;align-items:center}.ring{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--green) var(--p),rgba(255,255,255,.06) 0);position:relative}.ring:after{content:"";position:absolute;inset:8px;border-radius:50%;background:#0c1410}.ring b{position:relative;z-index:2;font-size:13px}.target h3{margin:0 0 5px}.target p{margin:0;color:#8da096;font-size:12px}
-.timeline{position:relative;margin-top:34px}.timeline:before{content:"";position:absolute;left:22px;top:0;bottom:0;width:1px;background:linear-gradient(var(--green),rgba(255,255,255,.06))}
-.step{display:grid;grid-template-columns:46px 1fr;gap:18px;margin:0 0 26px;position:relative}.step .badge{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#0b1510;border:1px solid rgba(89,241,123,.18);color:var(--green);font-weight:900;z-index:2}.step .body{padding:8px 0}.step .body b{display:block;margin-bottom:6px}.step .body span{color:#91a399;font-size:13px}
-.closing{min-height:80vh;display:grid;align-items:center;text-align:center}.closing .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}.pillar{border:1px solid var(--line);border-radius:22px;padding:24px;background:rgba(255,255,255,.02)}.pillar b{font-size:24px}.pillar span{display:block;color:#8da096;font-size:12px;margin-top:7px}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s ease,transform .65s ease}.reveal.show{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;transition:none}.card.hover:hover,.btn:hover{transform:none}}
-@media(max-width:980px){
-  .hero-grid,.g4,.storyflow{grid-template-columns:1fr 1fr}.heatmap{grid-template-columns:repeat(3,1fr)}.hero-card{min-height:430px}.navlinks{display:none}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.64;pointer-events:none}
+.hero:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(10,13,11,.98) 0%,rgba(10,13,11,.84) 50%,rgba(10,13,11,.22) 100%)
+}
+.hero .wrap{position:relative;z-index:2}
+.hero-copy{max-width:1080px}
+.hero .dek{font-size:clamp(20px,2vw,28px);line-height:1.5;color:#c0cbc3;max-width:850px}
+.hero .scrollcue{margin-top:46px;font-size:11px;color:#78857d;letter-spacing:.12em;text-transform:uppercase}
+.hero .scrollcue span{display:inline-block;margin-left:8px;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(5px)}}
+
+.opening{
+  background:var(--paper);color:var(--ink-dark);padding:110px 0 126px
+}
+.opening .wrap{display:grid;grid-template-columns:.72fr 1.28fr;gap:70px}
+.opening .aside{font-size:12px;line-height:1.6;color:#657168;max-width:260px}
+.opening .statement{font-size:clamp(34px,4.5vw,64px);line-height:1.06;letter-spacing:-.045em;max-width:870px}
+.opening .statement strong{font-weight:800}
+
+.scrolly{
+  display:grid;grid-template-columns:1.08fr .92fr;gap:54px;width:min(var(--max),calc(100% - 42px));margin:auto;
+  padding:10vh 0 16vh
+}
+.visual-wrap{min-width:0}
+.visual{
+  position:sticky;top:78px;height:calc(100vh - 100px);min-height:590px;max-height:760px;
+  display:grid;place-items:center;overflow:hidden
+}
+.visual-inner{width:100%;height:100%;position:relative}
+.scene{position:absolute;inset:0;display:grid;align-content:center;opacity:0;transform:translateY(16px);transition:.5s ease}
+.scene.active{opacity:1;transform:none}
+.scene-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#718078;margin-bottom:18px}
+.scene-title{font-size:clamp(62px,9vw,126px);font-weight:830;line-height:.82;letter-spacing:-.075em}
+.scene-copy{font-size:14px;line-height:1.6;color:#99a69e;max-width:470px;margin-top:18px}
+
+.pitch{
+  position:relative;height:330px;margin-top:32px;
+  background:linear-gradient(90deg,transparent 49.9%,rgba(255,255,255,.12) 50%,transparent 50.1%);
+  outline:1px solid rgba(255,255,255,.15)
+}
+.pitch:before{
+  content:"";position:absolute;width:105px;height:105px;border-radius:50%;outline:1px solid rgba(255,255,255,.13);
+  left:50%;top:50%;transform:translate(-50%,-50%)
+}
+.pitch-fill{position:absolute;left:0;top:0;bottom:0;width:58.4%;background:linear-gradient(90deg,rgba(102,223,123,.24),rgba(102,223,123,.05))}
+.pitch-fill:after{content:"59h sold";position:absolute;right:12px;bottom:12px;font:700 10px/1 monospace;color:var(--green);letter-spacing:.1em}
+
+.booking-dots{display:grid;grid-template-columns:repeat(9,1fr);gap:11px;width:min(520px,100%);margin-top:38px}
+.booking-dots i{aspect-ratio:1;border-radius:50%;background:var(--green)}
+.booking-dots i.lost{background:rgba(255,121,127,.08);outline:1px dashed rgba(255,121,127,.5)}
+
+.duration{margin-top:38px;width:min(620px,100%)}
+.duration-row{display:grid;grid-template-columns:74px 1fr 72px;gap:14px;align-items:center;margin:20px 0}
+.duration-row span{font-size:11px;color:#819087;text-transform:uppercase;letter-spacing:.08em}
+.dual{height:26px;position:relative}
+.dual .aug,.dual .sep{position:absolute;left:0;height:9px}
+.dual .aug{top:0;background:#4d5a52;width:var(--a)}
+.dual .sep{bottom:0;background:var(--green);width:var(--s)}
+.duration-row b{font-size:11px;text-align:right;color:#9ba79f}
+
+.hours-map{display:grid;grid-template-columns:repeat(9,1fr);gap:5px;margin-top:38px}
+.hour{height:180px;position:relative;background:rgba(255,255,255,.022);overflow:hidden}
+.hour i{position:absolute;left:0;right:0;bottom:0;height:var(--h);background:rgba(102,223,123,var(--o))}
+.hour b{position:absolute;left:7px;bottom:8px;font-size:9px;z-index:2}
+.hour em{position:absolute;left:7px;top:8px;font-size:9px;font-style:normal;color:#75827a}
+
+.revenue{margin-top:56px}
+.revenue-bar{height:46px;background:rgba(255,255,255,.05);position:relative}
+.revenue-bar .sep{height:100%;width:66.8%;background:linear-gradient(90deg,var(--green),rgba(102,223,123,.22))}
+.revenue-labels{display:flex;justify-content:space-between;margin-top:12px}
+.revenue-labels div{font-size:11px;color:#7f8c84}.revenue-labels b{display:block;font-size:22px;color:#eef3ef;margin-bottom:2px}
+
+.steps{padding-top:12vh}
+.step{min-height:78vh;display:grid;align-content:center;opacity:.3;transition:opacity .25s}
+.step.active{opacity:1}
+.step .n{font:700 10px/1 monospace;color:var(--green);letter-spacing:.14em}
+.step h3{font-size:clamp(28px,3vw,43px);line-height:1.03;margin:12px 0 14px;max-width:460px}
+.step p{font-size:15px;line-height:1.7;color:#9ca9a1;max-width:430px}
+.step .fact{font-size:12px;color:#d0d8d3;margin-top:8px}
+
+.breath{
+  min-height:72vh;display:grid;place-items:center;text-align:center;padding:100px 20px;background:#111712
+}
+.breath blockquote{
+  margin:0;max-width:1000px;font-size:clamp(44px,6vw,86px);line-height:.98;letter-spacing:-.055em;font-weight:760
+}
+.breath p{margin:28px auto 0;max-width:680px;color:#95a299;line-height:1.65}
+
+.customers{background:#151b16;padding:120px 0}
+.customers-intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;margin-bottom:70px}
+.customers-intro p{font-size:18px;line-height:1.65;color:#a5b0a8}
+.customer-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.customer-col .role{font-size:10px;color:var(--green);letter-spacing:.14em;text-transform:uppercase}
+.customer-col h3{font-size:30px;margin:8px 0 22px}
+.customer-col ul{list-style:none;padding:0;margin:0}
+.customer-col li{font-size:14px;padding:8px 0;color:#d6ddd8}
+.customer-col p{font-size:12px;color:#85928a;line-height:1.6;margin-top:20px;max-width:300px}
+
+.playbook{padding:120px 0;background:var(--paper);color:var(--ink-dark)}
+.playbook .kicker{color:#24893b}
+.playbook-head{max-width:900px}
+.field{
+  margin-top:54px;position:relative;height:640px;background:#dfe5da;
+  outline:1px solid rgba(17,21,17,.12)
+}
+.field:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(17,21,17,.16)}
+.field:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;outline:1px solid rgba(17,21,17,.15);left:50%;top:50%;transform:translate(-50%,-50%)}
+.tactic{position:absolute;transform:translate(-50%,-50%);text-align:center;cursor:pointer}
+.tactic .ball{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:var(--ink-dark);color:var(--lime);font-weight:850;transition:.25s}
+.tactic:hover .ball,.tactic.active .ball{transform:scale(1.1);box-shadow:0 0 0 12px rgba(17,21,17,.06)}
+.tactic b{display:block;font-size:17px;margin-top:10px}.tactic span{font-size:11px;color:#657168}
+.t1{left:50%;top:18%}.t2{left:27%;top:49%}.t3{left:73%;top:49%}.t4{left:50%;top:80%}
+.tactic-story{margin-top:34px;display:grid;grid-template-columns:.7fr 1.3fr;gap:60px;align-items:start}
+.tactic-money{font-size:clamp(56px,7vw,96px);line-height:.85;letter-spacing:-.07em;font-weight:820;color:#24893b}
+.tactic-story h3{font-size:34px;margin:0 0 10px}.tactic-story p{font-size:16px;line-height:1.65;color:#566159;max-width:620px}
+
+.targets{padding:120px 0}
+.target-intro{max-width:880px}
+.target-list{margin-top:54px}
+.target{display:grid;grid-template-columns:1fr .8fr 1.5fr;gap:28px;align-items:center;margin:28px 0}
+.target .name{font-size:16px}.target .range{font-size:20px}
+.track{height:6px;background:rgba(255,255,255,.07);position:relative}
+.track i{display:block;height:100%;width:var(--w);background:var(--green)}
+.track b{position:absolute;left:var(--t);top:50%;width:12px;height:12px;border-radius:50%;background:var(--lime);transform:translate(-50%,-50%)}
+
+.close{
+  min-height:85vh;display:grid;align-items:center;padding:100px 0;background:#0d110e
+}
+.close h2{font-size:clamp(62px,9vw,132px);max-width:1160px}
+.close p{font-size:20px;line-height:1.6;color:#a1ada5;max-width:760px}
+.close .final{margin-top:36px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:#cbd3ce}
+
+.reveal{opacity:0;transform:translateY(14px);transition:.6s ease}.reveal.show{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scene,.reveal,.step{transition:none}.reveal{opacity:1;transform:none}}
+@media(max-width:960px){
+  .opening .wrap,.scrolly,.customers-intro,.tactic-story{grid-template-columns:1fr}
+  .visual{height:58vh;min-height:430px;top:58px}.steps{padding-top:0}.step{min-height:55vh}
+  .customer-flow{grid-template-columns:1fr}.customer-col{margin-bottom:28px}
 }
 @media(max-width:720px){
-  .wrap{width:min(100% - 28px,1180px)}.section{padding:72px 0}.hero{padding-top:48px}.hero-grid,.g4,.g3,.g2,.storyflow,.compare,.closing .pillars{grid-template-columns:1fr}.hero-card{min-height:420px}.node:not(:last-child):after{content:"↓";right:auto;left:50%;top:auto;bottom:-24px;transform:translateX(-50%)}.heatmap{display:flex;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}.heatcell{min-width:126px;scroll-snap-align:start}.revenue-bars{min-height:220px}.revbar.aug{height:220px}.revbar.sep{height:150px}.topnav .inner{height:62px}.brand{font-size:11px}.float-kpi{transform:scale(.88)}.fk1{left:2%}.fk2{right:1%}.fk3{left:5%}.fk4{right:4%}
+  .wrap,.scrolly{width:min(var(--max),calc(100% - 26px))}
+  .hero{padding-top:42px}.opening{padding:80px 0}
+  .visual{height:54vh;min-height:410px}.pitch{height:250px}
+  .hours-map{overflow-x:auto;grid-template-columns:repeat(9,68px);padding-bottom:8px}.hour{height:138px}
+  .field{height:540px}.tactic .ball{width:60px;height:60px;font-size:12px}
+  .target{grid-template-columns:1fr;gap:10px}
 }
+
+.october-now{padding:128px 0 138px;background:#edf0e8;color:#111511}
+.october-now .kicker{color:#278c3e}
+.october-intro{display:grid;grid-template-columns:.72fr 1.28fr;gap:72px;align-items:start}
+.october-question{font-size:13px;line-height:1.65;color:#667168;max-width:290px}
+.october-answer h2{font-size:clamp(48px,7vw,96px);margin-bottom:24px;max-width:920px}
+.october-answer p{font-size:18px;line-height:1.65;color:#566159;max-width:760px}
+.october-score{margin-top:78px;display:grid;grid-template-columns:.74fr 1.26fr;gap:70px;align-items:start}
+.october-big .hours{font-size:clamp(110px,17vw,220px);line-height:.72;letter-spacing:-.085em;font-weight:830;color:#111511}
+.october-big .hours span{font-size:.28em;letter-spacing:-.03em;margin-left:5px}
+.october-big .caption{margin-top:24px;font-size:14px;line-height:1.6;color:#657168;max-width:320px}
+.booking-composition{display:grid;gap:28px;padding-top:6px}
+.mixrow{display:grid;grid-template-columns:90px 1fr 80px;gap:18px;align-items:center}
+.mixrow .dur{font-size:12px;text-transform:uppercase;letter-spacing:.11em;color:#667168}
+.mixbar{height:30px;background:rgba(17,21,17,.06);position:relative;overflow:hidden}
+.mixbar i{display:block;height:100%;width:var(--w);background:#111511;transform-origin:left;transition:width .5s ease}
+.mixrow b{font-size:16px;text-align:right}
+.mixrow b small{font-size:10px;font-weight:500;color:#6c776f;display:block;margin-top:3px}
+.october-pulse{margin-top:88px;display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.repeat-story .repeat-num{font-size:clamp(72px,9vw,126px);line-height:.8;letter-spacing:-.075em;font-weight:820;color:#278c3e}
+.repeat-story h3{font-size:28px;margin:18px 0 10px}
+.repeat-story p,.forward-story p{font-size:14px;line-height:1.65;color:#5f6a62;max-width:470px}
+.forward-story{padding-top:8px}
+.forward-story .forward-num{font-size:clamp(62px,8vw,108px);line-height:.82;letter-spacing:-.07em;font-weight:820;color:#111511}
+.forward-list{margin-top:22px;display:grid;gap:12px}
+.forward-list div{font-size:13px;color:#303a33;display:flex;justify-content:space-between;gap:20px}
+.forward-list span:last-child{color:#6d786f}
+.october-verdict{margin-top:96px;max-width:1040px}
+.october-verdict blockquote{margin:0;font-size:clamp(38px,5vw,68px);line-height:1.05;letter-spacing:-.045em;font-weight:760}
+.october-verdict p{margin-top:22px;font-size:15px;line-height:1.7;color:#5e6961;max-width:760px}
+@media(max-width:960px){.october-intro,.october-score,.october-pulse{grid-template-columns:1fr}.october-score,.october-pulse{gap:48px}}
+@media(max-width:620px){.mixrow{grid-template-columns:70px 1fr 64px}.october-now{padding:92px 0}}
+
+.action-plan{padding:128px 0 140px;background:#101511;color:var(--ink)}
+.action-plan .intro{display:grid;grid-template-columns:.72fr 1.28fr;gap:72px;align-items:start}
+.action-plan .intro p{font-size:18px;line-height:1.65;color:#a4afa7;max-width:760px}
+.action-stack{margin-top:78px;display:grid;gap:56px}
+.action-item{display:grid;grid-template-columns:.62fr 1.38fr;gap:54px;align-items:start}
+.action-problem{font-size:clamp(36px,4.5vw,64px);line-height:.96;letter-spacing:-.045em;font-weight:780}
+.action-problem small{display:block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#718078;margin-bottom:14px}
+.action-body h3{font-size:30px;margin:0 0 12px}
+.action-body p{font-size:15px;line-height:1.65;color:#9aa69f;max-width:700px}
+.action-meta{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:24px}
+.action-meta div{padding-top:8px}
+.action-meta span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#6f7c74}
+.action-meta b{display:block;font-size:18px;margin-top:6px;color:#eef3ef}
+.success-board{margin-top:110px;background:#e9ede5;color:#111511;padding:70px}
+.success-board .kicker{color:#278c3e}
+.success-board h2{max-width:900px}
+.success-grid{margin-top:54px;display:grid;grid-template-columns:repeat(3,1fr);gap:38px}
+.success-metric .num{font-size:clamp(44px,6vw,74px);line-height:.9;letter-spacing:-.06em;font-weight:820}
+.success-metric .label{font-size:12px;line-height:1.5;color:#667168;margin-top:10px}
+.success-note{margin-top:54px;font-size:16px;line-height:1.65;color:#4f5a52;max-width:860px}
+@media(max-width:960px){.action-plan .intro,.action-item{grid-template-columns:1fr}.success-grid{grid-template-columns:1fr 1fr}.success-board{padding:48px}}
+@media(max-width:620px){.action-plan{padding:92px 0}.action-meta,.success-grid{grid-template-columns:1fr}.success-board{padding:34px 24px}}
+
+/* Editorial proportion pass
+   References: Open Props content widths, Tailwind Typography rhythm,
+   The Pudding editorial hierarchy. */
+:root{
+  --copy-narrow:45ch;
+  --copy:60ch;
+  --heading-short:12ch;
+  --heading:20ch;
+  --space-section:clamp(5.5rem,9vw,8.5rem);
+  --space-block:clamp(2rem,4vw,4rem);
+}
+body{font-size:16px;line-height:1.72}
+h1,h2,h3{overflow-wrap:normal;word-break:normal}
+h1{
+  font-size:clamp(3.7rem,8.1vw,8.8rem);
+  line-height:.88;
+  max-width:var(--heading-short);
+  letter-spacing:-.068em
+}
+h2{
+  font-size:clamp(2.7rem,5vw,5.2rem);
+  line-height:.98;
+  max-width:16ch;
+  letter-spacing:-.052em
+}
+h3{line-height:1.15}
+.lead{font-size:clamp(1.12rem,1.55vw,1.38rem);line-height:1.62;max-width:var(--copy)}
+.small{max-width:var(--copy);line-height:1.7}
+
+.hero{padding-block:clamp(4rem,8vh,7rem)}
+.hero-copy{max-width:1080px}
+.hero .dek{font-size:clamp(1.18rem,1.75vw,1.55rem);line-height:1.58;max-width:54ch}
+.hero .scrollcue{margin-top:clamp(2rem,4vh,3.5rem)}
+
+.opening{padding-block:var(--space-section)}
+.opening .wrap{grid-template-columns:minmax(180px,.52fr) minmax(0,1.48fr);gap:clamp(2.5rem,6vw,6rem)}
+.opening .aside{max-width:28ch;font-size:.82rem;line-height:1.7}
+.opening .statement{font-size:clamp(2.1rem,4vw,4rem);line-height:1.08;max-width:21ch}
+
+.scrolly{grid-template-columns:minmax(0,1.16fr) minmax(300px,.84fr);gap:clamp(2.5rem,5vw,5rem)}
+.scene-title{font-size:clamp(3.6rem,7.6vw,7.8rem);max-width:9.5ch;line-height:.86}
+.scene-copy{font-size:.95rem;line-height:1.7;max-width:var(--copy-narrow)}
+.step h3{font-size:clamp(1.85rem,2.7vw,2.7rem);line-height:1.08;max-width:16ch}
+.step p{font-size:1rem;line-height:1.72;max-width:39ch}
+.step .fact{max-width:38ch;line-height:1.55}
+
+.breath{padding-block:var(--space-section)}
+.breath blockquote{font-size:clamp(2.8rem,5.4vw,5.7rem);max-width:17ch;line-height:1.02;margin-inline:auto}
+.breath p{max-width:52ch;font-size:1rem}
+
+.customers,.playbook,.targets,.october-now,.action-plan{padding-block:var(--space-section)}
+.customers-intro,.october-intro,.action-plan .intro{grid-template-columns:minmax(230px,.62fr) minmax(0,1.38fr);gap:clamp(2.5rem,6vw,6rem)}
+.customers-intro h2,.october-answer h2,.action-plan .intro h2{max-width:14ch}
+.customers-intro p,.october-answer p,.action-plan .intro p{max-width:52ch;line-height:1.68}
+.customer-flow{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(2rem,4vw,4.25rem)}
+.customer-col h3{font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.1}
+.customer-col p{max-width:34ch;font-size:.83rem;line-height:1.7}
+
+.playbook-head{max-width:900px}
+.playbook-head h2{max-width:15ch}
+.playbook-head .lead{max-width:54ch}
+.tactic-story{grid-template-columns:minmax(190px,.55fr) minmax(0,1.45fr);gap:clamp(2.5rem,6vw,6rem)}
+.tactic-story p{max-width:48ch}
+
+.target-intro{max-width:860px}
+.target-intro h2{max-width:15ch}
+.target{grid-template-columns:minmax(170px,.8fr) minmax(180px,.72fr) minmax(280px,1.48fr);gap:clamp(1.5rem,3vw,3rem)}
+.target .name{font-size:.95rem}
+.target .range{font-size:clamp(1.05rem,1.6vw,1.25rem)}
+
+.october-question{max-width:31ch;line-height:1.72}
+.october-answer p{font-size:1.05rem}
+.october-score{grid-template-columns:minmax(230px,.58fr) minmax(0,1.42fr);gap:clamp(3rem,7vw,7rem)}
+.october-big .caption{max-width:34ch;line-height:1.7}
+.october-pulse{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(3rem,7vw,7rem)}
+.repeat-story p,.forward-story p{max-width:46ch;line-height:1.72}
+.october-verdict{max-width:980px}
+.october-verdict blockquote{max-width:18ch;font-size:clamp(2.35rem,4.5vw,4.5rem);line-height:1.06}
+.october-verdict p{max-width:54ch}
+
+.action-stack{gap:clamp(4rem,7vw,7rem)}
+.action-item{grid-template-columns:minmax(220px,.52fr) minmax(0,1.48fr);gap:clamp(3rem,7vw,7rem)}
+.action-problem{font-size:clamp(2rem,3.6vw,3.8rem);line-height:1.02;max-width:12ch}
+.action-body{max-width:760px}
+.action-body h3{font-size:clamp(1.65rem,2.4vw,2.2rem);line-height:1.12;max-width:22ch}
+.action-body p{font-size:.98rem;line-height:1.72;max-width:55ch}
+.action-meta{grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1.5rem,4vw,4rem);max-width:720px}
+.action-meta b{font-size:1.05rem;line-height:1.4;max-width:28ch}
+
+.success-board{padding:clamp(2.5rem,6vw,5.5rem)}
+.success-board h2{max-width:15ch}
+.success-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(2.5rem,5vw,5rem)}
+.success-metric .num{font-size:clamp(2.6rem,5vw,4.8rem)}
+.success-metric .label{max-width:25ch;line-height:1.55}
+.success-note{max-width:55ch;line-height:1.72}
+
+.close h2{max-width:11ch}
+.close p{font-size:clamp(1.1rem,1.5vw,1.3rem);max-width:52ch;line-height:1.65}
+.close .final{max-width:760px}
+
+@media(max-width:960px){
+  h1{max-width:11ch}
+  h2{max-width:18ch}
+  .opening .wrap,.customers-intro,.october-intro,.action-plan .intro,.action-item,.october-score,.october-pulse,.tactic-story{grid-template-columns:1fr}
+  .opening .aside,.october-question{max-width:45ch}
+  .scrolly{grid-template-columns:1fr}
+  .step h3{max-width:20ch}
+  .step p{max-width:52ch}
+  .customer-flow{grid-template-columns:1fr;max-width:680px}
+  .customer-col p{max-width:48ch}
+  .target{grid-template-columns:1fr 1fr;gap:12px 24px}
+  .target .track{grid-column:1/-1}
+}
+@media(max-width:620px){
+  body{font-size:15px}
+  h1{font-size:clamp(3.25rem,16vw,5.3rem);max-width:10ch}
+  h2{font-size:clamp(2.35rem,11vw,3.7rem);max-width:14ch}
+  .hero .dek{max-width:32ch}
+  .opening .statement{font-size:clamp(1.9rem,9vw,2.8rem);max-width:16ch}
+  .scene-title{font-size:clamp(3rem,15vw,5rem);max-width:9ch}
+  .step h3{font-size:clamp(1.75rem,8vw,2.35rem);max-width:16ch}
+  .step p{max-width:34ch}
+  .breath blockquote{max-width:12ch}
+  .action-problem{max-width:11ch}
+  .action-body h3{max-width:17ch}
+  .action-meta,.success-grid,.target{grid-template-columns:1fr}
+  .target .track{grid-column:auto}
+}
+
+/* Corporate landing-page system pass */
+:root{
+  --corp-max:1280px;
+  --corp-gutter:clamp(18px,3vw,42px);
+  --corp-radius:2px;
+  --corp-border:rgba(255,255,255,.11);
+  --corp-border-dark:rgba(17,21,17,.13);
+}
+.wrap{width:min(var(--corp-max),calc(100% - (var(--corp-gutter)*2)))}
+.top{
+  height:68px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(10,13,11,.88)
+}
+.top .inner{height:100%}
+.brand-group{display:flex;align-items:center;gap:18px;min-width:0}
+.brand-mark{width:28px;height:28px;border:1px solid rgba(255,255,255,.22);display:grid;place-items:center;font-size:9px;font-weight:900;letter-spacing:-.03em}
+.brand-copy{display:flex;flex-direction:column;gap:2px}
+.brand-copy strong{font-size:11px;letter-spacing:.12em}
+.brand-copy span{font-size:9px;color:#6f7b73;letter-spacing:.08em}
+.corp-nav{display:flex;align-items:center;gap:24px}
+.corp-nav a{font-size:11px;color:#8f9b93;transition:.2s;white-space:nowrap}
+.corp-nav a:hover,.corp-nav a.active{color:#f5f7f4}
+.report-pill{
+  border:1px solid rgba(255,255,255,.15);
+  padding:9px 12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#b9c4bd
+}
+.hero{min-height:calc(92vh - 68px)}
+.hero:after{
+  background:
+    linear-gradient(90deg,rgba(10,13,11,.99) 0%,rgba(10,13,11,.89) 48%,rgba(10,13,11,.46) 74%,rgba(10,13,11,.2) 100%),
+    linear-gradient(180deg,transparent 72%,rgba(10,13,11,.6) 100%)
+}
+.hero canvas{opacity:.38}
+.hero .kicker{color:#8bf299}
+.hero .dek{color:#b8c3bc}
+.hero-meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px}
+.hero-meta div{display:flex;flex-direction:column;gap:5px}
+.hero-meta span{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#66736b}
+.hero-meta b{font-size:12px;font-weight:650;color:#dce4df}
+
+.executive-strip{background:#e9ede5;color:#111511;padding:0}
+.executive-grid{display:grid;grid-template-columns:1.1fr repeat(4,1fr);min-height:152px}
+.executive-intro{padding:34px 34px 34px 0;display:flex;flex-direction:column;justify-content:center}
+.executive-intro .eyebrow{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#68746c;margin-bottom:8px}
+.executive-intro strong{font-size:18px;line-height:1.3;max-width:18ch}
+.executive-metric{padding:30px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid rgba(17,21,17,.11)}
+.executive-metric .value{font-size:clamp(30px,3.5vw,52px);line-height:.9;letter-spacing:-.05em;font-weight:780}
+.executive-metric .label{font-size:11px;color:#657168;margin-top:10px;line-height:1.45}
+.executive-metric .delta{font-size:10px;margin-top:7px;font-weight:750}
+.delta.neg{color:#a93339}.delta.pos{color:#247c37}
+
+.section-head{
+  display:grid;grid-template-columns:160px minmax(0,1fr);gap:44px;align-items:start;
+  margin-bottom:clamp(2.75rem,5vw,5rem)
+}
+.section-index{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#6f7b73;padding-top:10px}
+.section-head h2{margin-bottom:16px}
+.section-head p{max-width:52ch;color:#98a59d;line-height:1.68}
+
+.customers,.targets,.action-plan{position:relative}
+.customers:before,.targets:before,.action-plan:before{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(255,255,255,.05)
+}
+.playbook:before,.october-now:before{
+  content:"";position:absolute;left:0;right:0;top:0;height:1px;background:rgba(17,21,17,.08)
+}
+.playbook,.october-now{position:relative}
+
+.customer-flow{gap:0}
+.customer-col{padding:30px 34px 34px 0}
+.customer-col + .customer-col{padding-left:34px;border-left:1px solid rgba(255,255,255,.08)}
+.customer-col .role{color:#849087}
+.customer-col h3{margin-top:12px}
+.customer-col li{padding:7px 0}
+
+.field{background:#dfe4da;border:1px solid rgba(17,21,17,.11);outline:0}
+.tactic .ball{box-shadow:none}
+.tactic:hover .ball,.tactic.active .ball{box-shadow:0 0 0 10px rgba(17,21,17,.055)}
+
+.october-score{align-items:stretch}
+.october-big{display:flex;flex-direction:column;justify-content:center}
+.booking-composition{padding:22px 0}
+.mixbar{height:18px}
+.forward-list div{padding:8px 0;border-bottom:1px solid rgba(17,21,17,.08)}
+
+.action-item{padding:10px 0 28px}
+.action-problem small{color:#77847b}
+.action-body h3{font-weight:720}
+.action-meta div{border-top:1px solid rgba(255,255,255,.1);padding-top:16px}
+.success-board{border-radius:0;border:1px solid rgba(17,21,17,.1)}
+
+.close{min-height:72vh}
+.corp-footer{background:#080b09;padding:52px 0 34px;border-top:1px solid rgba(255,255,255,.08)}
+.footer-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:60px}
+.footer-title{font-size:13px;font-weight:750;letter-spacing:.08em}
+.footer-copy{font-size:11px;color:#758178;line-height:1.65;max-width:52ch;margin-top:12px}
+.footer-meta{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.footer-meta div span{display:block;font-size:9px;color:#647168;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
+.footer-meta div b{font-size:11px;font-weight:600;color:#aeb9b2}
+.footer-bottom{margin-top:36px;padding-top:22px;border-top:1px solid rgba(255,255,255,.06);font-size:9px;color:#59655e;letter-spacing:.09em;text-transform:uppercase}
+
+@media(max-width:1080px){
+  .corp-nav{display:none}
+  .executive-grid{grid-template-columns:1fr 1fr 1fr}
+  .executive-intro{grid-column:1/-1;padding:30px 0 22px}
+  .executive-metric{border-left:0;border-top:1px solid rgba(17,21,17,.1);padding-left:0}
+  .section-head{grid-template-columns:110px 1fr}
+}
+@media(max-width:720px){
+  .top{height:62px}.report-pill{display:none}
+  .executive-grid{grid-template-columns:1fr 1fr}
+  .executive-intro{grid-column:1/-1}
+  .executive-metric:nth-of-type(even){padding-left:18px;border-left:1px solid rgba(17,21,17,.1)}
+  .section-head{grid-template-columns:1fr;gap:8px}
+  .section-index{padding-top:0}
+  .customer-col,.customer-col + .customer-col{padding:26px 0;border-left:0;border-top:1px solid rgba(255,255,255,.08)}
+  .footer-grid{grid-template-columns:1fr}.footer-meta{grid-template-columns:1fr 1fr}
+}
+
+.loyalty{padding-block:var(--space-section);background:#0d120e;color:var(--ink);position:relative}
+.loyalty:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:rgba(255,255,255,.06)}
+.loyalty-summary{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(3rem,7vw,7rem);align-items:start}
+.loyalty-big{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.loyalty-big .monthbox{padding-top:18px;border-top:1px solid rgba(255,255,255,.13)}
+.monthbox span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#748078}
+.monthbox b{display:block;font-size:clamp(52px,7vw,88px);line-height:.85;letter-spacing:-.065em;margin-top:10px}
+.monthbox small{display:block;font-size:12px;color:#89958d;margin-top:10px;line-height:1.55}
+.loyalty-copy h2{max-width:14ch}
+.loyalty-copy p{max-width:55ch;color:#99a69e;line-height:1.72}
+.loyalty-definition{margin-top:28px;padding:20px 0;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);font-size:12px;line-height:1.65;color:#a9b4ad;max-width:58ch}
+.loyalty-core{margin-top:76px}
+.loyalty-core h3{font-size:clamp(1.8rem,2.8vw,2.8rem);max-width:18ch}
+.loyalty-ranking{margin-top:32px}
+.loyal-row{display:grid;grid-template-columns:42px minmax(180px,1.1fr) .7fr .7fr .8fr;gap:22px;align-items:center;padding:18px 0;border-top:1px solid rgba(255,255,255,.08)}
+.loyal-row .rank{font:700 11px/1 monospace;color:#6f7b73}
+.loyal-row .team{font-size:17px;font-weight:680}
+.loyal-row .metric span{display:block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#647168}
+.loyal-row .metric b{display:block;font-size:16px;margin-top:4px}
+.loyal-row.core .team{color:var(--lime)}
+.loyalty-months{margin-top:88px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,7vw,7rem)}
+.month-list h3{font-size:28px;margin-bottom:8px}
+.month-list .sub{font-size:12px;color:#748078;margin-bottom:26px;max-width:44ch;line-height:1.6}
+.team-list{display:grid;grid-template-columns:1fr 1fr;column-gap:26px}
+.team-line{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:12px}
+.team-line span:last-child{color:#7f8b83;white-space:nowrap}
+.team-line.repeat span:first-child{color:#e5ebE7;font-weight:700}
+.cross-month{margin-top:88px;background:#e7ebe3;color:#111511;padding:clamp(2rem,5vw,4.5rem)}
+.cross-month h3{font-size:clamp(2rem,3.5vw,3.5rem);max-width:16ch;margin-bottom:18px}
+.cross-month p{max-width:55ch;color:#5e6961;line-height:1.68}
+.returning-grid{margin-top:34px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.returning-team{padding:18px 0;border-top:1px solid rgba(17,21,17,.12)}
+.returning-team b{display:block;font-size:15px}
+.returning-team span{display:block;font-size:11px;color:#657168;margin-top:6px}
+@media(max-width:900px){.loyalty-summary,.loyalty-months{grid-template-columns:1fr}.returning-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.loyalty-big{grid-template-columns:1fr 1fr}.loyal-row{grid-template-columns:30px 1fr}.loyal-row .metric{grid-column:2}.team-list{grid-template-columns:1fr}.returning-grid{grid-template-columns:1fr}}
+
+.management-watch{background:#e9ede5;color:#111511;padding-block:var(--space-section);position:relative}
+.management-watch:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:rgba(17,21,17,.1)}
+.watch-intro{display:grid;grid-template-columns:.62fr 1.38fr;gap:clamp(3rem,7vw,7rem)}
+.watch-intro p{max-width:52ch;color:#5d685f;line-height:1.72}
+.watch-list{margin-top:64px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(3rem,7vw,7rem)}
+.watch-item{padding:22px 0;border-top:1px solid rgba(17,21,17,.12);display:grid;grid-template-columns:42px 1fr;gap:20px}
+.watch-item .n{font:700 11px/1 monospace;color:#879188;padding-top:5px}
+.watch-item b{display:block;font-size:18px;line-height:1.3}
+.watch-item p{font-size:12px;line-height:1.62;color:#69746c;margin-top:7px;max-width:42ch}
+@media(max-width:760px){.watch-intro,.watch-list{grid-template-columns:1fr}}
+
+.executive-grid{grid-template-columns:1.1fr repeat(5,1fr)}
+@media(max-width:1080px){.executive-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.executive-grid{grid-template-columns:1fr 1fr}}
+.exact-hours{grid-template-columns:1.45fr repeat(5,1fr)}
+.hour.qualitative i{height:8%;opacity:.08}
+.hour.qualitative em{color:#829087}
+@media(max-width:720px){.exact-hours{grid-template-columns:110px repeat(5,78px)}}
+
+/* Report accessibility and layout: readable without script or motion. */
+:root{--muted:#a6b1a9}
+.reveal,.step{opacity:1;transform:none}
+section[id],main[id]{scroll-margin-top:132px}
+.skip-link{position:fixed;top:8px;left:16px;z-index:100;background:var(--paper);color:var(--ink-dark);padding:12px 18px;transform:translateY(-150%)}
+.skip-link:focus{transform:none}
+:focus-visible{outline:3px solid #24893b;outline-offset:5px}
+.top :focus-visible,.hero :focus-visible{outline-color:var(--lime)}
+.report-links{display:flex;flex-wrap:wrap;gap:16px 28px;margin-top:36px}
+.report-links a{padding:10px 0;border-bottom:1px solid #748078;font-size:14px}
+.section-index,.scene-label,.step .n,.action-problem small,.action-meta span{color:#a6b1a9}
+.playbook .section-index,.october-now .section-index,.management-watch .section-index{color:#566159}
+.section-head h2{max-width:22ch;font-size:clamp(2rem,4.4vw,4.4rem)}
+.playbook .section-head p,.october-now .section-head p{color:#566159}
+.tactic{border:0;background:transparent;color:inherit;font:inherit;padding:12px}
+.tactic:focus-visible .ball{box-shadow:0 0 0 8px rgba(17,21,17,.12)}
+.tactic-story:before{content:"Arah penawaran dan estimasi";font-size:12px;color:#566159;grid-column:1/-1}
+.duration:before{content:"Jumlah sesi · skala sama, maksimum 20 · Abu-abu: Agustus / Hijau: September";font-size:12px;color:#a6b1a9}
+.pitch:after{content:"Perbandingan terhadap 101 jam Agustus, bukan utilization";position:absolute;top:12px;left:12px;right:12px;font-size:12px;color:#a6b1a9}
+.scene-title{font-size:clamp(2.8rem,5.5vw,5.5rem);line-height:1.03;max-width:12ch}
+.exact-hours{overflow-x:auto}
+.hero{min-height:auto;padding-block:clamp(64px,9vw,120px)}
+.hero:after{display:none}
+.hero h1{line-height:1.02;font-size:clamp(2.8rem,7vw,6.5rem)}
+@media(max-width:1080px){
+ .top{height:auto;padding:14px 0}
+ .top .inner{flex-wrap:wrap}
+ .corp-nav{display:flex;order:3;flex-basis:100%;overflow-x:auto;gap:22px;padding:6px 0}
+ .corp-nav a{min-height:44px;display:flex;align-items:center;color:#b8c3bb}
+}
+@media(max-width:960px){
+ .scrolly{display:block;padding-block:48px}
+ .visual{position:static;height:auto;min-height:0;max-height:none;overflow:visible}
+ .visual-inner{height:auto;min-width:0}.scene{min-width:0;grid-template-columns:minmax(0,1fr)}
+ .scene,.scene.active{position:static;opacity:1;transform:none;margin-bottom:48px}
+ .steps{padding:0}
+ .step{min-height:0;padding:24px 0;border-top:1px solid #344039}
+ .scene[aria-hidden]{visibility:visible}
+ .field{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px}
+ .field:before,.field:after{display:none}
+ .tactic{position:static;transform:none;text-align:left}
+ .tactic .ball{margin-bottom:12px}
+ .tactic-story{gap:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+ html{scroll-behavior:auto}
+}
+.field{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:32px}.field:before,.field:after{display:none}.tactic{position:static;transform:none;text-align:left}.tactic .ball{margin-bottom:16px}.slot-detail{margin-top:24px}.slot-detail summary{cursor:pointer;font-size:14px;color:var(--ink);padding:10px 0}.slot-detail .scene-title{display:none}.slot-detail .hours-map{margin-top:16px}.slot-detail .hour{height:120px}.scene .scene-copy{margin-top:18px}.success-metric .label{font-size:14px;line-height:1.8}.scene-title{font-size:clamp(2.5rem,5vw,4.8rem)}@media(max-width:720px){.field{grid-template-columns:1fr;padding:24px}.tactic{display:grid;grid-template-columns:64px 1fr;gap:4px 18px}.tactic .ball{grid-row:1/3;margin:0}.tactic b{margin:0}}
+.source-details{margin-top:36px;border-top:1px solid #b7c2b8;padding-top:20px;color:#566159}.source-details summary{cursor:pointer;font-weight:700;padding:12px 0}.source-details p{font-size:14px;max-width:72ch}.source-details a{text-decoration:underline}.source-note{font-size:13px;line-height:1.75;padding:24px 0;max-width:92ch}.source-note a{text-decoration:underline}.forward-num{overflow-wrap:anywhere}.team-line{display:flex;justify-content:space-between;gap:18px;font-size:13px;padding:7px 0}.returning-grid>div{display:grid;gap:5px}.returning-grid span{font-size:12px;color:#a6b1a9}
 </style>
+<noscript><style>.visual{position:static;height:auto;min-height:0}.visual-inner{height:auto}.scene{position:static;opacity:1;transform:none;margin-block:36px}.scrolly{display:block}.tactic-story{display:none}.tactic{cursor:default}</style></noscript>
 </head>
 <body>
-<header class="topnav">
+<a class="skip-link" href="#main">Lewati navigasi</a>
+
+<header class="top">
   <div class="wrap inner">
-    <div class="brand"><span class="brandmark">V3</span><span>V3BKS MINI SOCCER</span></div>
-    <nav class="navlinks">
-      <a href="#overview">Overview</a><a href="#operations">Operations</a><a href="#revenue">Revenue</a><a href="#customers">Customers</a><a href="#strategy">Strategy</a><a href="#targets">Targets</a>
+    <div class="brand-group">
+      <div class="brand-mark">V3</div>
+      <div class="brand-copy"><strong>V3BKS</strong><span>Monthly Performance Report</span></div>
+    </div>
+    <nav class="corp-nav" aria-label="Report navigation">
+      <a href="#story">Performance</a>
+      <a href="#loyalty">Loyalty</a><a href="#customers">Customers</a>
+      <a href="#octoberNow">October status</a>
+      <a href="#playbook">Commercial plan</a>
+      <a href="#managementWatch">Weekly watch</a><a href="#actions">Action plan</a>
     </nav>
-    <div class="muted" style="font-size:10px;letter-spacing:.11em">AUG → SEP 2026</div>
+    <div class="report-pill">Aug / Sep 2026</div>
   </div>
-  <div class="progress"><i id="progressBar"></i></div>
 </header>
 
-<main>
-<section class="hero" id="overview">
-  <div class="wrap hero-grid">
-    <div class="reveal">
-      <span class="tag">MONTHLY PERFORMANCE REPORT</span>
-      <h1>September turun karena <span class="accent">booking berkurang</span> dan <span class="lime">durasi bermain memendek.</span></h1>
-      <p class="lead">Masalahnya bukan hanya jumlah customer. Setiap booking September juga membeli jam lebih sedikit, sementara long-block bernilai tinggi menghilang.</p>
-      <div class="hero-actions"><a class="btn primary" href="#snapshot">Lihat ringkasan ↓</a><a class="btn" href="#strategy">Langsung ke rekomendasi</a></div>
-    </div>
-    <div class="hero-card reveal">
-      <div class="flood f1"></div><div class="flood f2"></div><div class="pitch"></div>
-      <div class="hero-note"><span class="muted">Main signal</span><strong>59 jam</strong><span>vs 101 jam pada Agustus</span></div>
-      <div class="float-kpi fk1"><small>Booking</small><b>45 → 34</b></div>
-      <div class="float-kpi fk2"><small>Utilization</small><b>19.2 → 11.6%</b></div>
-      <div class="float-kpi fk3"><small>Avg duration</small><b>2.24 → 1.74h</b></div>
-      <div class="float-kpi fk4"><small>Rental gap</small><b class="red">−Rp32.7 jt</b></div>
+<main id="main">
+<section class="hero">
+  
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="kicker reveal">August / September 2026</div>
+      <h1 class="reveal">September kehilangan <span class="red">42 jam.</span></h1>
+      <p class="dek reveal">Tiga prioritas Oktober: pulihkan frekuensi transaksi, perpanjang sesi, dan tingkatkan pendapatan untuk menutup biaya.</p>
+      <div class="hero-meta reveal">
+  <div><span>Reporting period</span><b>August to September 2026</b></div>
+  <div><span>Focus</span><b>Playing hours, bookings, revenue</b></div>
+  <div><span>Data snapshot</span><b>5 October 2026</b></div>
+</div>
+<div class="report-links"><a href="#story">Baca analisis <span aria-hidden="true">↓</span></a><a href="#actions">Lihat prioritas tindakan</a></div>
     </div>
   </div>
 </section>
-
-<section class="section compact" id="snapshot">
-  <div class="wrap">
-    <div class="eyebrow reveal">Executive snapshot</div>
-    <h2 class="reveal">Satu layar untuk memahami kondisi September.</h2>
-    <div class="grid g4">
-      <article class="card hover kpi reveal"><div class="label">Visit / Booking</div><div class="value count" data-to="34">34</div><div class="meta">45 pada Agustus</div><span class="delta">−24.4%</span><div class="spark"><i style="height:62%"></i><i style="height:84%"></i><i style="height:78%"></i><i style="height:52%"></i><i style="height:46%"></i></div></article>
-      <article class="card hover kpi reveal"><div class="label">Playing Hours</div><div class="value">59 jam</div><div class="meta">101 jam pada Agustus</div><span class="delta">−41.6%</span><div class="spark"><i style="height:96%"></i><i style="height:88%"></i><i style="height:75%"></i><i style="height:48%"></i><i style="height:39%"></i></div></article>
-      <article class="card hover kpi reveal"><div class="label">Average Duration</div><div class="value">1.74 jam</div><div class="meta">2.24 jam pada Agustus</div><span class="delta">−22.7%</span><div class="spark"><i style="height:76%"></i><i style="height:82%"></i><i style="height:72%"></i><i style="height:60%"></i><i style="height:54%"></i></div></article>
-      <article class="card hover kpi reveal"><div class="label">Utilization</div><div class="value">11.6%</div><div class="meta">19.2% pada Agustus</div><span class="delta">−7.6 ppt</span><div class="spark"><i style="height:88%"></i><i style="height:74%"></i><i style="height:68%"></i><i style="height:44%"></i><i style="height:37%"></i></div></article>
+<section class="executive-strip" aria-label="Executive summary">
+  <div class="wrap executive-grid">
+    <div class="executive-intro">
+      <div class="eyebrow">Executive summary</div>
+      <strong>September dibanding Agustus.<br><span class="small" style="color:#566159">Utilization: 19,2% → 11,6%</span></strong>
     </div>
+    <div class="executive-metric"><div class="value">59h</div><div class="label">Jam bermain September</div><div class="delta neg">Turun 41,6%</div></div>
+    <div class="executive-metric"><div class="value">34</div><div class="label">Jumlah booking September</div><div class="delta neg">Turun 24,4%</div></div>
+    <div class="executive-metric"><div class="value">1,74h</div><div class="label">Rata-rata durasi booking</div><div class="delta neg">Turun 22,7%</div></div>
+    <div class="executive-metric"><div class="value">Rp59,86jt</div><div class="label">Pendapatan sewa September</div><div class="delta neg">Turun sekitar 33,2%</div></div>
+    <div class="executive-metric"><div class="value">1 → 1</div><div class="label">Event / turnamen tercatat</div><div class="delta">Tidak berubah</div></div>
   </div>
 </section>
-
-<section class="section" id="operations">
-  <div class="wrap">
-    <div class="eyebrow reveal">What actually happened?</div>
-    <h2 class="reveal">Penurunan terjadi sebagai rangkaian, bukan satu angka yang berdiri sendiri.</h2>
-    <div class="storyflow">
-      <div class="node reveal"><span class="num">01</span><b>Fewer bookings</b><p>Visit turun dari 45 menjadi 34. Demand melemah.</p></div>
-      <div class="node reveal"><span class="num">02</span><b>Shorter sessions</b><p>Durasi rata-rata turun dari 2.24 menjadi 1.74 jam.</p></div>
-      <div class="node reveal"><span class="num">03</span><b>Long-block lost</b><p>Dua long-block Agustus tidak tergantikan di September.</p></div>
-      <div class="node reveal"><span class="num">04</span><b>Revenue pressure</b><p>Rental revenue terkoreksi sekitar 36.5%.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section compact">
-  <div class="wrap">
-    <div class="eyebrow reveal">Booking duration mix</div>
-    <h2 class="reveal">Booking 2 jam menyusut dan long-block menghilang.</h2>
-    <div class="compare">
-      <div class="card reveal"><h3>Agustus</h3>
-        <div class="blockrow"><label>1 jam</label><div class="blocks"><i style="width:12%"></i><i style="width:12%"></i><i style="width:12%"></i><i style="width:12%"></i><i style="width:12%"></i></div><span>20</span></div>
-        <div class="blockrow"><label>2 jam</label><div class="blocks"><i style="width:22%"></i><i style="width:22%"></i><i style="width:22%"></i><i style="width:22%"></i></div><span>17</span></div>
-        <div class="blockrow"><label>3 jam</label><div class="blocks"><i style="width:34%"></i><i style="width:34%"></i></div><span>2</span></div>
-        <div class="blockrow"><label>4 jam</label><div class="blocks"><i style="width:46%"></i><i style="width:46%"></i></div><span>4</span></div>
-        <div class="blockrow"><label>Long</label><div class="blocks"><i style="width:76%"></i><i style="width:76%"></i></div><span>2</span></div>
-      </div>
-      <div class="card reveal"><h3>September</h3>
-        <div class="blockrow"><label>1 jam</label><div class="blocks"><i style="width:12%"></i><i style="width:12%"></i><i style="width:12%"></i><i style="width:12%"></i></div><span>18</span></div>
-        <div class="blockrow"><label>2 jam</label><div class="blocks"><i style="width:22%"></i><i style="width:22%"></i><i style="width:22%"></i></div><span>11</span></div>
-        <div class="blockrow"><label>3 jam</label><div class="blocks"><i style="width:34%"></i></div><span>1</span></div>
-        <div class="blockrow"><label>4 jam</label><div class="blocks"><i style="width:46%"></i><i style="width:46%"></i></div><span>4</span></div>
-        <div class="blockrow"><label>Long</label><div class="blocks"><i class="ghost" style="width:76%"></i></div><span class="red">0</span></div>
-      </div>
-    </div>
-    <div class="insight reveal"><b>Management takeaway:</b> target Oktober harus mengejar <b>duration per customer</b>, bukan hanya jumlah customer.</div>
-  </div>
-</section>
-
-<section class="section compact">
-  <div class="wrap">
-    <div class="eyebrow reveal">Time & capacity heatmap</div>
-    <h2 class="reveal">Prime time masih kuat. Off-peak adalah opportunity zone.</h2>
-    <div class="heatmap reveal">
-      <div class="heatcell h0"><b>07–09</b><span>Off-peak</span></div>
-      <div class="heatcell h0"><b>09–12</b><span>Off-peak</span></div>
-      <div class="heatcell h1"><b>12–16</b><span>Opportunity</span></div>
-      <div class="heatcell h2"><b>16–18</b><span>Bridge</span></div>
-      <div class="heatcell h2"><b>18–19</b><span>Build-up</span></div>
-      <div class="heatcell h3"><b>19–20</b><span>32.6%</span></div>
-      <div class="heatcell h4"><b>20–21</b><span>47.8%</span></div>
-      <div class="heatcell h4"><b>21–22</b><span>41.3%</span></div>
-      <div class="heatcell h2"><b>22–23</b><span>19.6%</span></div>
-    </div>
-    <div class="legend"><span><i class="dot" style="background:#0b100d"></i>Opportunity</span><span><i class="dot" style="background:rgba(89,241,123,.15)"></i>Medium</span><span><i class="dot" style="background:var(--green)"></i>Prime</span></div>
-  </div>
-</section>
-
-<section class="section" id="revenue">
-  <div class="wrap">
-    <div class="eyebrow reveal">Revenue quality</div>
-    <h2 class="reveal">Rental revenue September turun ±36.5%.</h2>
-    <div class="grid g2">
-      <div class="card reveal">
-        <div class="revenue-bars">
-          <div class="revbar aug"><small>Agustus</small><strong>Rp89.6 jt</strong><span class="muted">Rental revenue</span></div>
-          <div class="revbar sep"><small>September</small><strong>Rp56.9 jt</strong><span class="muted">Rental revenue</span></div>
-        </div>
-      </div>
-      <div class="grid reveal" style="align-content:start">
-        <div class="card kpi"><div class="label">Rental revenue gap</div><div class="value red">−Rp32.7 jt</div><div class="meta">September vs Agustus</div></div>
-        <div class="card"><div class="grid g2"><div><span class="muted" style="font-size:11px">Total Revenue Sep</span><h3 style="font-size:30px;margin:7px 0">Rp63.0 jt</h3></div><div><span class="muted" style="font-size:11px">Expenses Sep</span><h3 style="font-size:30px;margin:7px 0">Rp66.26 jt</h3></div></div><div class="insight" style="margin-top:10px"><b>Spread: −Rp3.26 jt.</b> Revenue pressure berasal dari lebih sedikit jam terjual dan hilangnya high-value duration.</div></div>
+<div class="wrap source-note">Keuangan memakai rekap terbaru 5 Oktober. Baseline jam Agustus 101h dipertahankan sementara tabel durasi tracker saat ini menjumlahkan 103h; selisih ini perlu rekonsiliasi. Frekuensi tim di bawah memakai kalender terjadwal.</div>
+<section class="scrolly" id="story" aria-label="Tiga masalah utama">
+  <div class="visual-wrap">
+    <div class="visual">
+      <div class="visual-inner">
+        <div class="scene active" data-scene="0">
+          <div class="scene-label">Penyebab pertama · jumlah booking</div>
+          <div class="scene-title">45 <span class="red">→ 34</span></div>
+          <div class="scene-copy">Sebelas booking lebih sedikit dibanding Agustus.</div>
+          <div class="booking-dots" id="bookingDots"></div><div class="scene-copy">Dampak pada waktu terjual: 101h → 59h. Utilization: 19,2% → 11,6%.</div></div>
+        <div class="scene" data-scene="1">
+          <div class="scene-label">Penyebab kedua · durasi booking</div>
+          <div class="scene-title">2,24h <span class="red">→ 1,74h</span></div>
+          <div class="scene-copy">Rata-rata durasi pada ringkasan report sebelumnya menurun.</div>
+          <div class="duration">
+            <div class="duration-row"><span>1 hour</span><div class="dual"><i class="aug" style="--a:100%"></i><i class="sep" style="--s:90%"></i></div><b>20 → 18</b></div>
+            <div class="duration-row"><span>2 hours</span><div class="dual"><i class="aug" style="--a:85%"></i><i class="sep" style="--s:55%"></i></div><b>17 → 11</b></div>
+            <div class="duration-row"><span>3 hours</span><div class="dual"><i class="aug" style="--a:10%"></i><i class="sep" style="--s:5%"></i></div><b>2 → 1</b></div>
+            <div class="duration-row"><span>4 hours</span><div class="dual"><i class="aug" style="--a:20%"></i><i class="sep" style="--s:20%"></i></div><b>4 → 4</b></div>
+            <div class="duration-row"><span>Long block</span><div class="dual"><i class="aug" style="--a:10%"></i><i class="sep" style="--s:0%"></i></div><b>2 → 0</b></div>
+          </div><details class="slot-detail"><summary>Lihat keterisian per kelompok waktu</summary>
+          <div class="scene-label">Jam yang tetap kuat</div>
+          <div class="scene-title"><span class="green">20.00 sampai 22.00</span> tetap kuat.</div>
+          <div class="scene-copy">Permintaan terkuat tetap terkonsentrasi pada malam hari.</div>
+          <div class="hours-map exact-hours">
+            <div class="hour qualitative"><i></i><em>target promo</em><b>07.00 s.d. 16.00</b></div>
+            <div class="hour"><i style="--h:15.2%;--o:.22"></i><em>15,2%</em><b>17.00 s.d. 18.00</b></div>
+            <div class="hour"><i style="--h:32.6%;--o:.48"></i><em>32,6%</em><b>19.00 s.d. 20.00</b></div>
+            <div class="hour"><i style="--h:47.8%;--o:.82"></i><em>47,8%</em><b>20.00 s.d. 21.00</b></div>
+            <div class="hour"><i style="--h:41.3%;--o:.72"></i><em>41,3%</em><b>21.00 s.d. 22.00</b></div>
+            <div class="hour"><i style="--h:19.6%;--o:.3"></i><em>19,6%</em><b>22.00 s.d. 23.00</b></div>
+          </div></details></div>
+        <div class="scene" data-scene="2">
+          <div class="scene-label">Dampak pada pendapatan sewa</div>
+          <div class="scene-title">Rp89,6 <span class="red">→ 59,86 jt</span></div>
+          <div class="scene-copy">Kehilangan jam langsung terlihat pada nilai sewa.</div>
+          <div class="revenue">
+            <div class="revenue-bar"><div class="sep"></div></div>
+            <div class="revenue-labels"><div><b>Rp89,6 jt</b>Agustus</div><div style="text-align:right"><b>Rp59,86 jt</b>September</div></div>
+          </div><div class="scene-copy">Pendapatan total Rp66.748.550 · biaya Rp67.801.118 · selisih minus Rp1.052.568.</div></div>
       </div>
     </div>
   </div>
+
+  <article class="steps">
+<section class="step active" data-step="0"><div class="n">01 / Frekuensi</div><h3>Jumlah transaksi menurun.</h3><p>Booking turun dari 45 menjadi 34. Basis tim yang sudah kembali menjadi titik awal untuk memulihkan frekuensi melalui jadwal tetap.</p><div class="fact">Prioritas: tim kembali dan jadwal berulang.</div></section>
+<section class="step" data-step="1"><div class="n">02 / Durasi</div><h3>Sesi menjadi lebih pendek.</h3><p>Rata-rata durasi turun dari 2,24 menjadi 1,74 jam. Dua long block Agustus tidak memiliki pengganti pada September; snapshot Oktober juga belum memiliki sesi 4 jam atau lebih.</p><div class="fact">Prioritas: paket 2 jam dan penawaran berdurasi panjang pada kapasitas yang masih kosong.</div></section>
+<section class="step" data-step="2"><div class="n">03 / Pendapatan</div><h3>Pendapatan belum menutup biaya.</h3><p>Pendapatan total September Rp66.748.550 berada di bawah biaya Rp67.801.118. Pemulihan waktu terjual perlu disertai harga yang terjaga dan penawaran layanan tambahan yang relevan.</p><div class="fact">Prioritas: nilai transaksi dan perlindungan harga 19.00 sampai 22.00.</div></section>
+</article>
 </section>
 
-<section class="section compact" id="customers">
+<section class="loyalty" id="loyalty"><div class="wrap">
+<div class="section-head reveal"><div class="section-index">03 / Loyalty</div><div><h2>Tim yang kembali ke kalender.</h2><p>Frekuensi di bagian ini dihitung dari nama dan tanggal pada kalender Agustus–September yang dibaca 5 Oktober. Ini mengukur pola jadwal, belum membuktikan kehadiran atau pembayaran.</p></div></div>
+<div class="loyalty-summary reveal"><div class="loyalty-big"><div class="monthbox"><span>Agustus</span><b>45</b><small>total visit resmi tracker</small></div><div class="monthbox"><span>September</span><b>34</b><small>total visit resmi tracker</small></div></div><div class="loyalty-copy"><h2>Jumlah transaksi dan frekuensi kalender dipisahkan.</h2><p>Satu nama pada satu tanggal dihitung satu kemunculan. Sel gabungan, baris PG/wasit, dan jadwal internal V3BKS tidak menambah frekuensi tim.</p><div class="loyalty-definition"><strong>Prioritas follow-up:</strong> mulai dari tim yang muncul berulang di kedua bulan. Tawarkan slot mingguan sesuai pola jadwal mereka.</div></div></div>
+<div class="loyalty-core reveal"><div class="kicker">Calendar repeat signals</div><h3>Basis follow-up paling konsisten.</h3><div class="loyalty-ranking"><div class="loyal-row core"><div class="rank">01</div><div class="team">Dragon FC</div><div class="metric"><span>Agustus</span><b>7x</b></div><div class="metric"><span>September</span><b>7x</b></div><div class="metric"><span>Total kalender</span><b>14x</b></div></div><div class="loyal-row core"><div class="rank">02</div><div class="team">ULJ</div><div class="metric"><span>Agustus</span><b>4x</b></div><div class="metric"><span>September</span><b>4x</b></div><div class="metric"><span>Total kalender</span><b>8x</b></div></div><div class="loyal-row core"><div class="rank">03</div><div class="team">Pertamina EP</div><div class="metric"><span>Agustus</span><b>4x</b></div><div class="metric"><span>September</span><b>4x</b></div><div class="metric"><span>Total kalender</span><b>8x</b></div></div><div class="loyal-row core"><div class="rank">04</div><div class="team">Kawal Team</div><div class="metric"><span>Agustus</span><b>3x</b></div><div class="metric"><span>September</span><b>2x</b></div><div class="metric"><span>Total kalender</span><b>5x</b></div></div><div class="loyal-row core"><div class="rank">05</div><div class="team">Fitness Solution</div><div class="metric"><span>Agustus</span><b>2x</b></div><div class="metric"><span>September</span><b>2x</b></div><div class="metric"><span>Total kalender</span><b>4x</b></div></div></div></div>
+<div class="loyalty-months"><div class="reveal"><div class="kicker">Agustus 2026</div><h3>37 nama di kalender.</h3><div class="team-list"><div class="team-line"><span>Dragon FC</span><b>7x</b></div><div class="team-line"><span>Pertamina EP</span><b>4x</b></div><div class="team-line"><span>ULJ</span><b>4x</b></div><div class="team-line"><span>Kawal Team</span><b>3x</b></div><div class="team-line"><span>MR JNT 06</span><b>3x</b></div><div class="team-line"><span>Fitness Solution</span><b>2x</b></div><div class="team-line"><span>JUNO</span><b>2x</b></div><div class="team-line"><span>RAMDOOR</span><b>2x</b></div><div class="team-line"><span>AHUM FC</span><b>1x</b></div><div class="team-line"><span>ARIESCO</span><b>1x</b></div><div class="team-line"><span>AZIZIYAH UNITED</span><b>1x</b></div><div class="team-line"><span>B’Cool</span><b>1x</b></div><div class="team-line"><span>BORNEO EMPIRE FC</span><b>1x</b></div><div class="team-line"><span>FILAN</span><b>1x</b></div><div class="team-line"><span>GENZ RT 23 SQUAD</span><b>1x</b></div><div class="team-line"><span>GS 20</span><b>1x</b></div><div class="team-line"><span>HARMONIKA</span><b>1x</b></div><div class="team-line"><span>ICE FISHING</span><b>1x</b></div><div class="team-line"><span>ICT Soccer</span><b>1x</b></div><div class="team-line"><span>IMIGRASI</span><b>1x</b></div><div class="team-line"><span>IMIPAA</span><b>1x</b></div><div class="team-line"><span>INDOFAMS FC</span><b>1x</b></div><div class="team-line"><span>JCI SMR</span><b>1x</b></div><div class="team-line"><span>KEGOCEK FC</span><b>1x</b></div><div class="team-line"><span>KEJARI</span><b>1x</b></div><div class="team-line"><span>KITA KITA AJA</span><b>1x</b></div><div class="team-line"><span>KPS</span><b>1x</b></div><div class="team-line"><span>LAMBUNG 09</span><b>1x</b></div><div class="team-line"><span>ONE FIRE</span><b>1x</b></div><div class="team-line"><span>PERTAMINA GAS</span><b>1x</b></div><div class="team-line"><span>PRIMA FC</span><b>1x</b></div><div class="team-line"><span>RSP</span><b>1x</b></div><div class="team-line"><span>SAGALIGA</span><b>1x</b></div><div class="team-line"><span>SAHABAT SPORT</span><b>1x</b></div><div class="team-line"><span>SELEMBUR</span><b>1x</b></div><div class="team-line"><span>SRI01</span><b>1x</b></div><div class="team-line"><span>TARKAM BOY</span><b>1x</b></div></div></div><div class="reveal"><div class="kicker">September 2026</div><h3>29 nama di kalender.</h3><div class="team-list"><div class="team-line"><span>Dragon FC</span><b>7x</b></div><div class="team-line"><span>Pertamina EP</span><b>4x</b></div><div class="team-line"><span>ULJ</span><b>4x</b></div><div class="team-line"><span>Fitness Solution</span><b>2x</b></div><div class="team-line"><span>IKHLAS BERAMAL</span><b>2x</b></div><div class="team-line"><span>Kawal Team</span><b>2x</b></div><div class="team-line"><span>AMAN</span><b>1x</b></div><div class="team-line"><span>B’Cool</span><b>1x</b></div><div class="team-line"><span>BAKOEL FC</span><b>1x</b></div><div class="team-line"><span>CHECK IN</span><b>1x</b></div><div class="team-line"><span>ELNUSA X PHSS</span><b>1x</b></div><div class="team-line"><span>FC BULUST</span><b>1x</b></div><div class="team-line"><span>FM</span><b>1x</b></div><div class="team-line"><span>FRANKY</span><b>1x</b></div><div class="team-line"><span>G.G 3 REBORN</span><b>1x</b></div><div class="team-line"><span>HIDDEN HYBIRD RACE VOL II</span><b>1x</b></div><div class="team-line"><span>ICE FISHING</span><b>1x</b></div><div class="team-line"><span>ICT Soccer</span><b>1x</b></div><div class="team-line"><span>JCI SMR</span><b>1x</b></div><div class="team-line"><span>MANDALA JAYA</span><b>1x</b></div><div class="team-line"><span>MERANYAU FC</span><b>1x</b></div><div class="team-line"><span>PCC</span><b>1x</b></div><div class="team-line"><span>POLSEK PINANG</span><b>1x</b></div><div class="team-line"><span>PRIMA FC</span><b>1x</b></div><div class="team-line"><span>RAMDOOR</span><b>1x</b></div><div class="team-line"><span>SAHABAT SPORT</span><b>1x</b></div><div class="team-line"><span>SECURITY PHSS</span><b>1x</b></div><div class="team-line"><span>SSB PRIVATE TEAM</span><b>1x</b></div><div class="team-line"><span>TAMU OM HAJI</span><b>1x</b></div></div></div></div>
+<div class="returning reveal"><div class="kicker">Returned in both months</div><h3>12 nama muncul pada kedua bulan.</h3><div class="returning-grid"><div><strong>Dragon FC</strong><span>7x Agustus · 7x September</span></div><div><strong>ULJ</strong><span>4x Agustus · 4x September</span></div><div><strong>Pertamina EP</strong><span>4x Agustus · 4x September</span></div><div><strong>Kawal Team</strong><span>3x Agustus · 2x September</span></div><div><strong>Fitness Solution</strong><span>2x Agustus · 2x September</span></div><div><strong>RAMDOOR</strong><span>2x Agustus · 1x September</span></div><div><strong>ICE FISHING</strong><span>1x Agustus · 1x September</span></div><div><strong>SAHABAT SPORT</strong><span>1x Agustus · 1x September</span></div><div><strong>JCI SMR</strong><span>1x Agustus · 1x September</span></div><div><strong>ICT Soccer</strong><span>1x Agustus · 1x September</span></div><div><strong>PRIMA FC</strong><span>1x Agustus · 1x September</span></div><div><strong>B’Cool</strong><span>1x Agustus · 1x September</span></div></div><p class="small">Nama dinormalisasi untuk variasi kapitalisasi, spasi, dan penulisan seperti ICTSOCCER/ICT Soccer. Kalender memuat nama yang tidak tercatat sebagai rental pada tracker, sementara transaksi tracker seperti IMIPAS tidak muncul pada kalender Agustus. Karena basisnya berbeda, daftar ini tidak direkonsiliasi paksa ke 45 atau 34 visit.</p></div>
+</div></section>
+<section class="customers" id="customers">
   <div class="wrap">
-    <div class="eyebrow reveal">Customer intelligence</div>
-    <h2 class="reveal">Tiga segmen, tiga fungsi bisnis yang berbeda.</h2>
-    <div class="grid g3">
-      <article class="card cluster hover reveal"><div class="icon">CT</div><h3>Community / Team</h3><p class="muted">Sumber volume dan pipeline untuk repeat booking.</p><div class="tags"><span class="tagmini">Dragon FC</span><span class="tagmini">Fitness Solution</span><span class="tagmini">Sahabat Sport</span><span class="tagmini">ICT Soccer</span><span class="tagmini">Ikhlas Beramal</span><span class="tagmini">B'Cool</span></div><span class="role">Role: Volume</span></article>
-      <article class="card cluster hover reveal"><div class="icon">RM</div><h3>Recurring / Membership</h3><p class="muted">Menjaga stabilitas demand dan slot berulang.</p><div class="tags"><span class="tagmini">ULJ</span><span class="tagmini">Kawal Team</span><span class="tagmini">Dragon FC</span></div><span class="role">Role: Stability</span></article>
-      <article class="card cluster hover reveal"><div class="icon">CO</div><h3>Corporate / Institutional</h3><p class="muted">Potensi durasi lebih panjang dan bundled services.</p><div class="tags"><span class="tagmini">Pertamina EP</span><span class="tagmini">IMIPAS</span><span class="tagmini">PHSS</span><span class="tagmini">Imigrasi</span><span class="tagmini">Polsek</span></div><span class="role">Role: Duration & Value</span></article>
+    <div class="section-head reveal"><div class="section-index">04 / Customer roles</div><div><h2>Penawaran yang sesuai untuk setiap kelompok.</h2><p>Kelompok ini dapat tumpang tindih: satu tim bisa menjadi komunitas sekaligus memiliki jadwal berulang.</p></div></div>
+    <div class="customers-intro reveal">
+      <div><div class="kicker">Commercial roles</div><h2>Tiga kelompok, tiga fungsi.</h2></div>
+      <p>Community untuk volume. Recurring untuk kestabilan. Corporate untuk durasi dan nilai transaksi.</p>
+    </div>
+
+    <div class="customer-flow reveal">
+      <div class="customer-col">
+        <div class="role">Jumlah booking</div>
+        <h3>Tim komunitas</h3>
+        <ul><li>Dragon FC</li><li>Fitness Solution</li><li>Sahabat Sport</li><li>ICT Soccer</li><li>Ikhlas Beramal</li><li>B'Cool</li></ul>
+        <p>Kelompok ini berpotensi menambah jumlah booking dan dapat diarahkan menjadi pelanggan dengan jadwal berulang.</p>
+      </div>
+      <div class="customer-col">
+        <div class="role">Kepastian jadwal</div>
+        <h3>Tim dengan jadwal berulang</h3>
+        <ul><li>ULJ</li><li>Kawal Team</li><li>Dragon FC</li></ul>
+        <p>Kelompok ini membantu mengisi jadwal secara rutin karena memiliki pola booking berulang.</p>
+      </div>
+      <div class="customer-col">
+        <div class="role">Durasi dan nilai transaksi</div>
+        <h3>Perusahaan dan instansi</h3>
+        <ul><li>Pertamina EP</li><li>IMIPAS</li><li>PHSS</li><li>Imigrasi</li><li>Polsek</li></ul>
+        <p>Kelompok ini paling berpotensi untuk booking beberapa jam, jadwal berulang, dan penggunaan layanan tambahan.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section compact">
-  <div class="wrap">
-    <div class="eyebrow reveal">Root causes</div>
-    <h2 class="reveal">Tiga masalah utama yang saling memperkuat.</h2>
-    <div class="grid g3">
-      <article class="card cause-card reveal"><span class="muted">01 • Frequency</span><div class="metric">45 → 34</div><b class="red">11 booking hilang</b><p>Demand melemah dibanding Agustus.</p></article>
-      <article class="card cause-card reveal"><span class="muted">02 • Duration</span><div class="metric">2.24 → 1.74</div><b class="red">−22.7%</b><p>Customer membeli lebih sedikit jam per visit.</p></article>
-      <article class="card cause-card reveal"><span class="muted">03 • Mix</span><div class="metric">2 → 0</div><b class="red">Long-block hilang</b><p>High-value hours belum tergantikan.</p></article>
-    </div>
-    <div class="insight reveal"><b>The issue is not only fewer customers.</b> Each customer also buys less time.</div>
-  </div>
-</section>
 
-<section class="section compact">
-  <div class="wrap">
-    <div class="eyebrow reveal">Opportunity map</div>
-    <h2 class="reveal">Di mana pertumbuhan Oktober paling mungkin datang?</h2>
-    <div class="quad reveal">
-      <div class="q"><small>High potential / easy execution</small><b>Recurring Teams</b><p>Fixed slot, prepaid sessions, dan follow-up tim yang sudah pernah main.</p></div>
-      <div class="q"><small>High potential / longer cycle</small><b>Corporate Blocks</b><p>Monthly prepaid block, event use, dan bundled service.</p></div>
-      <div class="q"><small>Quick demand creation</small><b>2H Off-Peak</b><p>Fokus 07.00–16.00 dan bridge time 17.00–18.00.</p></div>
-      <div class="q"><small>Quick upsell</small><b>Add-ons</b><p>Photographer, referee, mineral, dan event service.</p></div>
-    </div>
-  </div>
-</section>
 
-<section class="section" id="strategy">
-  <div class="wrap">
-    <div class="eyebrow reveal">October commercial plan</div>
-    <h2 class="reveal">Empat revenue engine untuk memulihkan jam dan kualitas pendapatan.</h2>
-    <div class="grid g4">
-      <article class="card plan-card hover reveal"><span class="muted">Recurring Teams</span><div class="money">+Rp10 jt</div><ul><li>4 sesi prepaid</li><li>Fixed slot</li><li>No ad-hoc discount</li></ul></article>
-      <article class="card plan-card hover reveal"><span class="muted">2H Off-Peak</span><div class="money">+Rp6 jt</div><ul><li>07.00–16.00</li><li>Push durasi 2 jam</li><li>Isi kapasitas kosong</li></ul></article>
-      <article class="card plan-card hover reveal"><span class="muted">Corporate Account</span><div class="money">+Rp7 jt</div><ul><li>Monthly prepaid block</li><li>Bundled services</li><li>Long-duration sales</li></ul></article>
-      <article class="card plan-card hover reveal"><span class="muted">Add-ons</span><div class="money">+Rp3 jt</div><ul><li>Photographer</li><li>Referee / mineral</li><li>Event service</li></ul></article>
-    </div>
-    <div class="big-uplift reveal"><small>Estimated additional potential</small><b>≈ Rp30 jt / bulan</b></div>
-  </div>
-</section>
+<section class="october-now" id="octoberNow"><div class="wrap">
+<div class="section-head reveal"><div class="section-index" style="color:#667168">05 / October status</div><div><h2>Oktober per 5 Oktober 2026.</h2><p>Snapshot kalender seluruh Oktober. Jadwal yang sudah melewati tanggal main tetap termasuk; angka ini bukan jumlah sesi yang masih akan datang.</p></div></div>
+<div class="october-intro reveal"><div><div class="kicker">External mini soccer schedule</div><p class="october-question">Yoga 3 jam dan V3BKS internal 8 jam dipisahkan dari total mini soccer eksternal.</p></div><div class="october-answer"><h2>19 nama mengisi 22 sesi.</h2><p>Nama dan batas sel gabungan kalender diperiksa langsung. Durasi dihitung dari rentang kolom jam, bukan dari banyaknya sel yang berisi teks.</p></div></div>
+<div class="october-score reveal"><div class="october-big"><div class="hours">35<span>h</span></div><div class="caption">jam mini soccer eksternal terjadwal; 17 jam bertanggal 1–4 Oktober dan 18 jam bertanggal 5 Oktober atau sesudahnya.</div></div><div class="booking-composition">
+<div class="mixrow"><div class="dur">1 hour</div><div class="mixbar"><i style="--w:100%"></i></div><b>13<small>13 jam</small></b></div>
+<div class="mixrow"><div class="dur">2 hours</div><div class="mixbar"><i style="--w:38.46%"></i></div><b>5<small>10 jam</small></b></div>
+<div class="mixrow"><div class="dur">3 hours</div><div class="mixbar"><i style="--w:30.77%"></i></div><b>4<small>12 jam</small></b></div>
+<div class="mixrow"><div class="dur">4+ hours</div><div class="mixbar"><i style="--w:0%"></i></div><b>0<small>0 jam</small></b></div></div></div>
+<div class="october-pulse"><div class="repeat-story reveal"><div class="repeat-num">10</div><h3>nama kembali di kalender.</h3><p>Pertamina EP, Dragon FC, Check In, JCI SMR, Kita Kita Aja, ULJ, Polsek Pinang, Fitness Solution, MANDALA JAYA, dan Kawal Team juga muncul pada kalender Agustus atau September.</p></div><div class="forward-story reveal"><div class="forward-num">9</div><h3>sesi dibeli atau diberi DP sebelum Oktober.</h3><p>Tracker September masih mencatat sembilan sesi Oktober untuk tujuh nama. Status ini berbeda dari jumlah kalender terbaru.</p><div class="forward-list"><div><span>Dragon FC</span><span>1 sesi · 1 jam</span></div><div><span>ULJ</span><span>3 sesi · 3 jam</span></div><div><span>JCI SMR</span><span>1 sesi · 3 jam</span></div><div><span>HBBU VS LHI</span><span>1 sesi · 2 jam</span></div><div><span>MHA</span><span>1 sesi · 2 jam</span></div><div><span>Kruing 53 FC</span><span>1 sesi · 1 jam</span></div><div><span>Kita Kita Aja</span><span>1 sesi · 2 jam</span></div></div></div></div>
+<div class="october-pulse"><div class="repeat-story reveal"><div class="repeat-num">1</div><h3>paket prabayar memiliki tanggal mendatang.</h3><p>ULJ memiliki sesi pada 5, 12, dan 19 Oktober. Per 5 Oktober, dua sesi masih bertanggal mendatang, total 2 jam. Sesi hari ini belum dianggap selesai. Sesi Dragon FC pada 2 Oktober sudah melewati tanggal main; jadwal baru pada 5 Oktober belum terbukti bagian dari paket lama.</p></div><div class="forward-story reveal"><div class="forward-num">Rp12,19jt</div><h3>pendapatan bersih tracker Oktober.</h3><p>Rp12.194.050 tercatat pada kategori pendapatan sampai pembacaan 5 Oktober: sewa Rp10.624.050 dan layanan Rp1.570.000. Belum ada transaksi tanggal 5 Oktober yang terisi saat dibaca. Basisnya tanggal transaksi, termasuk DP untuk sesi mendatang; angka ini bukan pendapatan hanya dari sesi yang sudah dimainkan.</p></div></div>
+<details class="source-details"><summary>Daftar sesi kalender dan selisih sumber</summary><div class="forward-list"><div><span>1 Okt · HBBU VS LHI</span><span>2 jam</span></div><div><span>2 Okt · Pertamina EP</span><span>1 jam</span></div><div><span>2 Okt · Dragon FC</span><span>1 jam</span></div><div><span>2 Okt · PAPADAAN FC</span><span>3 jam</span></div><div><span>3 Okt · MHA</span><span>2 jam</span></div><div><span>3 Okt · Kruing 53 FC</span><span>1 jam</span></div><div><span>3 Okt · Check In</span><span>1 jam</span></div><div><span>3 Okt · PANSER</span><span>1 jam</span></div><div><span>4 Okt · JCI SMR</span><span>3 jam</span></div><div><span>4 Okt · Kita Kita Aja</span><span>2 jam</span></div><div><span>5 Okt · Dragon FC</span><span>1 jam</span></div><div><span>5 Okt · PT ATQ</span><span>1 jam</span></div><div><span>5 Okt · ULJ</span><span>1 jam</span></div><div><span>6 Okt · INDRA</span><span>2 jam</span></div><div><span>7 Okt · PGTK Fastabiqul Khairat</span><span>3 jam</span></div><div><span>7 Okt · Polsek Pinang</span><span>2 jam</span></div><div><span>8 Okt · Fitness Solution</span><span>3 jam</span></div><div><span>8 Okt · MANDALA JAYA</span><span>1 jam</span></div><div><span>9 Okt · Kaltim Post</span><span>1 jam</span></div><div><span>9 Okt · Kawal Team</span><span>1 jam</span></div><div><span>12 Okt · ULJ</span><span>1 jam</span></div><div><span>19 Okt · ULJ</span><span>1 jam</span></div></div><p>PAPADAAN FC tercatat 2 Oktober pada kalender, tetapi 6 Oktober pada tracker. PGTK Fastabiqul Khairat menempati 08.00–11.00 di kalender, sedangkan tracker mencatat 08.30–10.30. MANDALA JAYA pada kalender tertulis MANDAYA JAYA pada tracker. Snapshot kalender dipertahankan sesuai sumbernya sambil menunggu rekonsiliasi.</p></details>
+<div class="october-verdict reveal"><blockquote>Sesi pendek masih mendominasi. <span style="color:#278c3e">Belum ada sesi 4 jam atau lebih di kalender.</span></blockquote></div>
+</div></section>
 
-<section class="section compact" id="targets">
-  <div class="wrap">
-    <div class="eyebrow reveal">October target board</div>
-    <h2 class="reveal">Target harus menutup gap tanpa merusak prime-time pricing.</h2>
-    <div class="grid g3">
-      <article class="card target reveal"><div class="ring" style="--p:65%"><b>15–18%</b></div><div><h3>Utilization</h3><p>Current: 11.6%</p></div></article>
-      <article class="card target reveal"><div class="ring" style="--p:70%"><b>77–93h</b></div><div><h3>Playing Hours</h3><p>Current: 59 jam</p></div></article>
-      <article class="card target reveal"><div class="ring" style="--p:62%"><b>5–8</b></div><div><h3>Recurring Teams</h3><p>Locked slot / subscription</p></div></article>
-      <article class="card target reveal"><div class="ring" style="--p:55%"><b>2–4</b></div><div><h3>Corporate Blocks</h3><p>4–12+ jam per block</p></div></article>
-      <article class="card target reveal"><div class="ring" style="--p:50%"><b>1</b></div><div><h3>Owned Event</h3><p>Acquisition + database</p></div></article>
-      <article class="card target reveal"><div class="ring" style="--p:100%"><b>Protect</b></div><div><h3>Prime Pricing</h3><p>19.00–22.00</p></div></article>
-    </div>
-  </div>
-</section>
 
-<section class="section compact">
+<section class="playbook" id="playbook"><div class="wrap">
+<div class="section-head reveal"><div class="section-index" style="color:#667168">06 / Commercial plan</div><div><h2>Tiga prioritas, tiga arah penawaran.</h2><p>Pilih prioritas untuk melihat respons komersialnya. Estimasi pendapatan ditampilkan sebagai skenario terpisah; asumsi perhitungannya belum dirinci dan angka ini bukan hasil aktual.</p></div></div>
+<div class="field reveal">
+<button type="button" class="tactic t1 active" data-name="Pulihkan frekuensi transaksi" data-money="+Rp10 jt" data-copy="Tawarkan jadwal tetap prabayar kepada tim yang sudah kembali. Estimasi skenario jadwal berulang: +Rp10 juta." aria-pressed="true"><div class="ball">01</div><b>Frekuensi</b><span>Jadwal berulang</span></button>
+<button type="button" class="tactic t2" data-name="Perpanjang sesi" data-money="2h / 4h+" data-copy="Tawarkan paket 2 jam pada jam rendah dan block perusahaan untuk sesi panjang. Estimasi skenario paket 2 jam: +Rp6 juta; perusahaan: +Rp7 juta. Keduanya tetap skenario terpisah." aria-pressed="false"><div class="ball">02</div><b>Durasi</b><span>Paket 2 jam dan sesi panjang</span></button>
+<button type="button" class="tactic t3" data-name="Tingkatkan nilai transaksi" data-money="+Rp3 jt" data-copy="Tawarkan photographer, referee, dan mineral pada sesi yang relevan. Estimasi skenario layanan tambahan: +Rp3 juta. Pertahankan harga normal pada 19.00 sampai 22.00." aria-pressed="false"><div class="ball">03</div><b>Pendapatan</b><span>Layanan tambahan dan harga</span></button>
+</div>
+<div class="tactic-story reveal" aria-live="polite" aria-atomic="true"><div class="tactic-money" id="tacticMoney">+Rp10 jt</div><div><h3 id="tacticName">Pulihkan frekuensi transaksi</h3><p id="tacticCopy">Tawarkan jadwal tetap prabayar kepada tim yang sudah kembali. Estimasi skenario jadwal berulang: +Rp10 juta.</p></div></div>
+</div></section>
+
+<section class="management-watch" id="managementWatch">
   <div class="wrap">
-    <div class="eyebrow reveal">Action plan timeline</div>
-    <h2 class="reveal">Insight harus berakhir menjadi pekerjaan mingguan.</h2>
-    <div class="timeline">
-      <div class="step reveal"><div class="badge">W1</div><div class="body"><b>Recurring outreach + corporate prospecting</b><span>Follow-up tim existing dan buka pipeline institusi.</span></div></div>
-      <div class="step reveal"><div class="badge">W2</div><div class="body"><b>Off-peak activation</b><span>Push paket 2H untuk jam 07.00–16.00 dan 17.00–18.00.</span></div></div>
-      <div class="step reveal"><div class="badge">W3</div><div class="body"><b>Event push + bundled services</b><span>Jual photographer, referee, mineral, dan kebutuhan event.</span></div></div>
-      <div class="step reveal"><div class="badge">W4</div><div class="body"><b>Evaluate utilization + pricing</b><span>Bandingkan target dengan actual dan lindungi prime time.</span></div></div>
+    <div class="section-head reveal">
+      <div class="section-index" style="color:#68746c">07 / Weekly watch</div>
+      <div>
+        <h2>Tiga pemeriksaan setiap minggu.</h2>
+        <p>Gunakan indikator ini untuk menentukan penawaran mana yang diteruskan atau disesuaikan sebelum akhir bulan.</p>
+      </div>
+    </div>
+    <div class="watch-list">
+<div class="watch-item reveal"><div class="n">01</div><div><b>Frekuensi transaksi</b><p>Pantau jumlah booking, tim yang kembali, dan jadwal berulang yang sudah dikunci.</p></div></div>
+<div class="watch-item reveal"><div class="n">02</div><div><b>Durasi dan waktu terjual</b><p>Pantau rata-rata durasi, jam per kelompok waktu, serta prospek perusahaan yang berkembang menjadi jadwal panjang.</p></div></div>
+<div class="watch-item reveal"><div class="n">03</div><div><b>Pendapatan dan kualitas harga</b><p>Pantau pendapatan dibanding biaya, pendapatan sewa per jam terisi, layanan tambahan, dan keterisian 19.00 sampai 22.00 sebagai penjaga harga.</p></div></div>
+</div></div></section>
+<section class="action-plan" id="actions">
+  <div class="wrap">
+    <div class="section-head reveal"><div class="section-index">08 / Execution</div><div><h2>What happens next.</h2><p>Tiga prioritas yang sama, diterjemahkan menjadi tindakan dan ukuran hasil.</p></div></div>
+    <div class="action-stack">
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 01</small>Pulihkan frekuensi transaksi</div><div class="action-body"><h3>Hubungi tim yang sudah kembali untuk mengunci jadwal tetap.</h3><p>Mulai dari Dragon FC, ULJ, Pertamina EP, Kawal Team, dan Fitness Solution. Gunakan daftar lintas bulan untuk follow-up berikutnya; sesuaikan penawaran dengan pola kunjungan masing-masing.</p><div class="action-meta"><div><span>Tindakan</span><b>Follow-up dan tawarkan slot mingguan prabayar</b></div><div><span>Target Oktober</span><b>5 sampai 8 tim dengan jadwal berulang</b></div></div></div></div>
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 02</small>Perpanjang sesi</div><div class="action-body"><h3>Jual paket 2 jam dan penawaran perusahaan berdurasi panjang.</h3><p>Arahkan paket 2 jam ke 07.00 sampai 16.00 serta 17.00 sampai 18.00. Untuk perusahaan dan instansi, tawarkan block 4 jam atau lebih atau paket beberapa sesi.</p><div class="action-meta"><div><span>Tindakan</span><b>Penawaran sesuai durasi dan kapasitas kosong</b></div><div><span>Target Oktober</span><b>6 sampai 10 tambahan sesi 2 jam; 2 sampai 4 booking perusahaan atau sesi 4 jam+</b></div></div></div></div>
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 03</small>Tingkatkan pendapatan</div><div class="action-body"><h3>Jaga harga malam dan tambah nilai kunjungan.</h3><p>Pertahankan harga normal pada 19.00 sampai 22.00. Tawarkan photographer, referee, dan mineral yang sudah tersedia; evaluasi pendapatan terhadap biaya agar pertumbuhan volume juga memperbaiki hasil bulan berjalan.</p><div class="action-meta"><div><span>Tindakan</span><b>Bundling layanan relevan; promosi hanya pada jam rendah</b></div><div><span>Target skenario layanan</span><b>Tambahan pendapatan sekitar Rp3 juta</b></div></div></div></div>
+</div>
+
+    <div class="success-board reveal">
+      <div class="kicker">What we need to see by 31 October</div>
+      <h2>Kalau angka ini tercapai, berarti Oktober bergerak ke arah yang benar.</h2>
+      <div class="success-grid">
+<div class="success-metric"><div class="num">01</div><div class="label"><strong>Frekuensi</strong><br>5 sampai 8 tim dengan jadwal berulang.</div></div>
+<div class="success-metric"><div class="num">02</div><div class="label"><strong>Durasi dan kapasitas</strong><br>6 sampai 10 tambahan sesi 2 jam; 2 sampai 4 booking perusahaan atau sesi 4 jam+.<br>Hasil gabungan: 77 sampai 93 jam dan utilization 15 sampai 18%.</div></div>
+<div class="success-metric"><div class="num">03</div><div class="label"><strong>Pendapatan</strong><br>Skenario layanan tambahan sekitar Rp3 juta; harga normal 19.00 sampai 22.00 tetap dijaga.<br>Bandingkan pendapatan dan biaya saat evaluasi; target laba belum ditetapkan.</div></div>
+</div>
+      <p class="success-note">Target tersebut adalah rencana Oktober, bukan realisasi atau jaminan hasil. Nilai skenario antarpenawaran tidak dijumlahkan menjadi proyeksi pendapatan.</p>
     </div>
   </div>
 </section>
-
-<section class="section closing">
+<section class="close" lang="en">
   <div class="wrap reveal">
-    <div class="eyebrow" style="justify-content:center">Management recommendation</div>
-    <h2 style="font-size:clamp(44px,6.8vw,92px)">More Hours. <span class="accent">More Repeat.</span> <span class="lime">More Long-Block.</span></h2>
-    <p class="lead" style="margin-left:auto;margin-right:auto">Jangan hanya mengejar lebih banyak booking. Kejar lebih banyak jam, lebih banyak repeat, dan lebih banyak booking berdurasi tinggi.</p>
-    <div class="pillars">
-      <div class="pillar"><b>More Hours</b><span>Naikkan average duration per visit.</span></div>
-      <div class="pillar"><b>More Repeat</b><span>Ubah tim aktif menjadi recurring demand.</span></div>
-      <div class="pillar"><b>More Long-Block</b><span>Bangun kembali corporate & event blocks.</span></div>
-    </div>
-    <div class="insight" style="max-width:840px;margin:28px auto 0"><b>Success =</b> utilization naik, rental revenue pulih, dan prime-time value tetap terlindungi.</div>
+    <div class="kicker">Final whistle</div>
+    <h2>More repeat.<br><span class="green">Longer sessions.</span><br><span class="lime">Better revenue.</span></h2>
+    <p>Bring teams back, extend their sessions, and grow revenue while protecting standard pricing.</p>
+    <div class="final"><span>Improve utilization</span><span>Grow rental revenue</span><span>Protect standard pricing from 19.00 to 22.00</span></div>
   </div>
 </section>
 </main>
+<footer class="corp-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">V3BKS Monthly Performance Report</div>
+        <div class="footer-copy">Performance review Agustus dan September 2026, dengan snapshot awal Oktober dan execution plan.</div>
+      </div>
+      <div class="footer-meta">
+        <div><span>Period</span><b>Aug / Sep 2026</b></div>
+        <div><span>Data snapshot</span><b>5 Oct 2026</b></div>
+        <div><span>Business unit</span><b>V3BKS Mini Soccer</b></div>
+        <div><span>Format</span><b>Executive monthly report</b></div>
+      </div>
+    </div>
+    <div class="footer-bottom">Internal management use · V3BKS</div>
+  </div>
+</footer>
+
 
 <script>
-const revealObserver=new IntersectionObserver((entries)=>{
-  entries.forEach((entry)=>{if(entry.isIntersecting){entry.target.classList.add('show');revealObserver.unobserve(entry.target)}})
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach((el)=>revealObserver.observe(el));
+const dots=document.getElementById('bookingDots');
+for(let i=0;i<45;i++){const d=document.createElement('i');if(i>=34)d.className='lost';dots.appendChild(d)}
 
-const links=[...document.querySelectorAll('.navlinks a')];
-const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-const sectionObserver=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));
-    }
-  })
-},{rootMargin:'-35% 0px -55% 0px',threshold:0});
-sections.forEach(s=>sectionObserver.observe(s));
+const scenes=[...document.querySelectorAll('.scene')];
+const steps=[...document.querySelectorAll('.step')];
+function setScene(i){
+  scenes.forEach((s,n)=>{s.classList.toggle('active',n===i);s.setAttribute('aria-hidden',String(n!==i && !matchMedia('(max-width:960px)').matches));});
+  steps.forEach((s,n)=>s.classList.toggle('active',n===i));
+}
+setScene(0);
+matchMedia('(max-width:960px)').addEventListener('change',()=>setScene(Math.max(0,scenes.findIndex(s=>s.classList.contains('active')))));
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setScene(Number(e.target.dataset.step))}),{rootMargin:'-38% 0px -42% 0px'});
+steps.forEach(s=>so.observe(s));
 
-addEventListener('scroll',()=>{
-  const d=document.documentElement;
-  const max=d.scrollHeight-d.clientHeight;
-  document.getElementById('progressBar').style.width=(max?scrollY/max*100:0)+'%';
-},{passive:true});
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');ro.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(e=>ro.observe(e));
 
-document.addEventListener('pointermove',(e)=>{
-  document.documentElement.style.setProperty('--mx',(e.clientX/innerWidth*100).toFixed(1)+'%');
-  document.documentElement.style.setProperty('--my',(e.clientY/innerHeight*100).toFixed(1)+'%');
-},{passive:true});
+document.querySelectorAll('.tactic').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tactic').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});t.classList.add('active');t.setAttribute('aria-pressed','true');
+  document.getElementById('tacticMoney').textContent=t.dataset.money;
+  document.getElementById('tacticName').textContent=t.dataset.name;
+  document.getElementById('tacticCopy').textContent=t.dataset.copy;
+}));
+
+
+
+const navLinks=[...document.querySelectorAll('.corp-nav a')];
+const navSections=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+if(navSections.length){
+  const navObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-38% 0px -55% 0px'});
+  navSections.forEach(s=>navObs.observe(s));
+}
 </script>
 </body>
 </html>
