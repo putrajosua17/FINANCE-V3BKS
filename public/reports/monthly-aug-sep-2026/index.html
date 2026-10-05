@@ -610,8 +610,27 @@ section[id],main[id]{scroll-margin-top:132px}
 }
 .field{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:32px}.field:before,.field:after{display:none}.tactic{position:static;transform:none;text-align:left}.tactic .ball{margin-bottom:16px}.slot-detail{margin-top:24px}.slot-detail summary{cursor:pointer;font-size:14px;color:var(--ink);padding:10px 0}.slot-detail .scene-title{display:none}.slot-detail .hours-map{margin-top:16px}.slot-detail .hour{height:120px}.scene .scene-copy{margin-top:18px}.success-metric .label{font-size:14px;line-height:1.8}.scene-title{font-size:clamp(2.5rem,5vw,4.8rem)}@media(max-width:720px){.field{grid-template-columns:1fr;padding:24px}.tactic{display:grid;grid-template-columns:64px 1fr;gap:4px 18px}.tactic .ball{grid-row:1/3;margin:0}.tactic b{margin:0}}
 .source-details{margin-top:36px;border-top:1px solid #b7c2b8;padding-top:20px;color:#566159}.source-details summary{cursor:pointer;font-weight:700;padding:12px 0}.source-details p{font-size:14px;max-width:72ch}.source-details a{text-decoration:underline}.source-note{font-size:13px;line-height:1.75;padding:24px 0;max-width:92ch}.source-note a{text-decoration:underline}.forward-num{overflow-wrap:anywhere}.forward-story .forward-num,.repeat-story .repeat-num{line-height:1.12;margin-bottom:20px}.forward-story h3,.repeat-story h3{margin-top:0}.team-line{display:flex;justify-content:space-between;gap:18px;font-size:13px;padding:7px 0}.returning-grid>div{display:grid;gap:5px}.returning-grid span{font-size:12px;color:#a6b1a9}
+
+/* Consistent space for display numerals and their captions. */
+.executive-metric .value,.monthbox b,.october-big .hours,.tactic-money,.success-metric .num{line-height:1.12}
+.monthbox small{display:block;margin-top:12px}
+.october-big .hours{margin-bottom:20px}
+.success-metric .num{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.04em;white-space:nowrap}
+.tactic-money{overflow-wrap:anywhere}
+.scene{visibility:hidden;pointer-events:none}
+.scene.active{visibility:visible;pointer-events:auto}
+@media(min-width:961px){.scene{overflow-y:auto;align-content:start;padding:24px 8px 24px 0;scrollbar-width:thin}}
+@media(max-width:960px){.scene{visibility:visible;pointer-events:auto}}
+@media print{
+ .top,.report-links,.skip-link{display:none}
+ .scrolly{display:block}.visual{position:static;height:auto;max-height:none;overflow:visible}
+ .visual-inner{height:auto}.scene{position:static;visibility:visible;opacity:1;transform:none;margin-bottom:28px}
+ .step{min-height:0;padding:20px 0}.steps{padding:0}
+ .reveal{opacity:1;transform:none}.tactic-story{display:none}
+ .wrap{width:100%;max-width:none}.hero,.loyalty,.customers,.october-now,.playbook,.action-plan,.close{padding-block:32px}
+}
 </style>
-<noscript><style>.visual{position:static;height:auto;min-height:0}.visual-inner{height:auto}.scene{position:static;opacity:1;transform:none;margin-block:36px}.scrolly{display:block}.tactic-story{display:none}.tactic{cursor:default}</style></noscript>
+<noscript><style>.scene{visibility:visible;pointer-events:auto}.visual{position:static;height:auto;min-height:0}.visual-inner{height:auto}.scene{position:static;opacity:1;transform:none;margin-block:36px}.scrolly{display:block}.tactic-story{display:none}.tactic{cursor:default}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Lewati navigasi</a>
@@ -708,7 +727,7 @@ section[id],main[id]{scroll-margin-top:132px}
   </div>
 
   <article class="steps">
-<section class="step active" data-step="0"><div class="n">01 / Frekuensi</div><h3>Jumlah transaksi menurun.</h3><p>Booking turun dari 45 menjadi 34. Basis tim yang sudah kembali menjadi titik awal untuk memulihkan frekuensi melalui jadwal tetap.</p><div class="fact">Prioritas: tim kembali dan jadwal berulang.</div></section>
+<section class="step active" data-step="0"><div class="n">01 / Frekuensi</div><h3>Jumlah transaksi menurun.</h3><p>Booking turun dari 45 menjadi 34. Hubungi kembali tim yang sudah rutin bermain untuk mengisi slot mingguan.</p><div class="fact">Prioritas: tim kembali dan jadwal berulang.</div></section>
 <section class="step" data-step="1"><div class="n">02 / Durasi</div><h3>Sesi menjadi lebih pendek.</h3><p>Rata-rata durasi turun dari 2,24 menjadi 1,74 jam. Dua long block Agustus tidak memiliki pengganti pada September; snapshot Oktober juga belum memiliki sesi 4 jam atau lebih.</p><div class="fact">Prioritas: paket 2 jam dan penawaran berdurasi panjang pada kapasitas yang masih kosong.</div></section>
 <section class="step" data-step="2"><div class="n">03 / Pendapatan</div><h3>Pendapatan belum menutup biaya.</h3><p>Pendapatan total September Rp66.748.550 berada di bawah biaya Rp67.801.118. Pemulihan waktu terjual perlu disertai harga yang terjaga dan penawaran layanan tambahan yang relevan.</p><div class="fact">Prioritas: nilai transaksi dan perlindungan harga 19.00 sampai 22.00.</div></section>
 </article>
@@ -762,8 +781,8 @@ section[id],main[id]{scroll-margin-top:132px}
 <div class="mixrow"><div class="dur">2 hours</div><div class="mixbar"><i style="--w:38.46%"></i></div><b>5<small>10 jam</small></b></div>
 <div class="mixrow"><div class="dur">3 hours</div><div class="mixbar"><i style="--w:30.77%"></i></div><b>4<small>12 jam</small></b></div>
 <div class="mixrow"><div class="dur">4+ hours</div><div class="mixbar"><i style="--w:0%"></i></div><b>0<small>0 jam</small></b></div></div></div>
-<div class="october-pulse"><div class="repeat-story reveal"><div class="repeat-num">10</div><h3>nama kembali di kalender.</h3><p>Pertamina EP, Dragon FC, Check In, JCI SMR, Kita Kita Aja, ULJ, Polsek Pinang, Fitness Solution, MANDALA JAYA, dan Kawal Team juga muncul pada kalender Agustus atau September.</p></div><div class="forward-story reveal"><div class="forward-num">9</div><h3>sesi dibeli atau diberi DP sebelum Oktober.</h3><p>Tracker September masih mencatat sembilan sesi Oktober untuk tujuh nama. Status ini berbeda dari jumlah kalender terbaru.</p><div class="forward-list"><div><span>Dragon FC</span><span>1 sesi · 1 jam</span></div><div><span>ULJ</span><span>3 sesi · 3 jam</span></div><div><span>JCI SMR</span><span>1 sesi · 3 jam</span></div><div><span>HBBU VS LHI</span><span>1 sesi · 2 jam</span></div><div><span>MHA</span><span>1 sesi · 2 jam</span></div><div><span>Kruing 53 FC</span><span>1 sesi · 1 jam</span></div><div><span>Kita Kita Aja</span><span>1 sesi · 2 jam</span></div></div></div></div>
-<div class="october-pulse"><div class="repeat-story reveal"><div class="repeat-num">1</div><h3>paket prabayar memiliki tanggal mendatang.</h3><p>ULJ memiliki sesi pada 5, 12, dan 19 Oktober. Per 5 Oktober, dua sesi masih bertanggal mendatang, total 2 jam. Sesi hari ini belum dianggap selesai. Sesi Dragon FC pada 2 Oktober sudah melewati tanggal main; jadwal baru pada 5 Oktober belum terbukti bagian dari paket lama.</p></div><div class="forward-story reveal"><div class="forward-num">Rp12,19jt</div><h3>pendapatan bersih tracker Oktober.</h3><p>Total Rp12.194.050 berasal dari pendapatan sewa Rp10.624.050 dan layanan tambahan Rp1.570.000, berdasarkan rekap per 5 Oktober 2026.</p></div></div>
+<div class="october-pulse"><div class="repeat-story reveal"><div class="repeat-num">10</div><h3>nama kembali di kalender.</h3><p>Pertamina EP, Dragon FC, Check In, JCI SMR, Kita Kita Aja, ULJ, Polsek Pinang, Fitness Solution, MANDALA JAYA, dan Kawal Team juga muncul pada kalender Agustus atau September.</p></div><div class="forward-story reveal"><div class="forward-num">9</div><h3>sesi dibeli atau diberi DP sebelum Oktober.</h3><p>Tujuh tim telah membayar atau memberi DP untuk sembilan sesi Oktober.</p><div class="forward-list"><div><span>Dragon FC</span><span>1 sesi · 1 jam</span></div><div><span>ULJ</span><span>3 sesi · 3 jam</span></div><div><span>JCI SMR</span><span>1 sesi · 3 jam</span></div><div><span>HBBU VS LHI</span><span>1 sesi · 2 jam</span></div><div><span>MHA</span><span>1 sesi · 2 jam</span></div><div><span>Kruing 53 FC</span><span>1 sesi · 1 jam</span></div><div><span>Kita Kita Aja</span><span>1 sesi · 2 jam</span></div></div></div></div>
+<div class="october-pulse"><div class="repeat-story reveal"><div class="repeat-num">1</div><h3>paket prabayar memiliki tanggal mendatang.</h3><p>Paket ULJ mencakup sesi 5, 12, dan 19 Oktober. Setelah jadwal 5 Oktober, tersisa dua sesi masing-masing 1 jam.</p></div><div class="forward-story reveal"><div class="forward-num">Rp12,19jt</div><h3>pendapatan sewa dan layanan Oktober.</h3><p>Total Rp12.194.050 berasal dari pendapatan sewa Rp10.624.050 dan layanan tambahan Rp1.570.000, berdasarkan rekap per 5 Oktober 2026.</p></div></div>
 <details class="source-details"><summary>Daftar jadwal Oktober</summary><div class="forward-list"><div><span>1 Okt · HBBU VS LHI</span><span>2 jam</span></div><div><span>2 Okt · Pertamina EP</span><span>1 jam</span></div><div><span>2 Okt · Dragon FC</span><span>1 jam</span></div><div><span>2 Okt · PAPADAAN FC</span><span>3 jam</span></div><div><span>3 Okt · MHA</span><span>2 jam</span></div><div><span>3 Okt · Kruing 53 FC</span><span>1 jam</span></div><div><span>3 Okt · Check In</span><span>1 jam</span></div><div><span>3 Okt · PANSER</span><span>1 jam</span></div><div><span>4 Okt · JCI SMR</span><span>3 jam</span></div><div><span>4 Okt · Kita Kita Aja</span><span>2 jam</span></div><div><span>5 Okt · Dragon FC</span><span>1 jam</span></div><div><span>5 Okt · PT ATQ</span><span>1 jam</span></div><div><span>5 Okt · ULJ</span><span>1 jam</span></div><div><span>6 Okt · INDRA</span><span>2 jam</span></div><div><span>7 Okt · PGTK Fastabiqul Khairat</span><span>3 jam</span></div><div><span>7 Okt · Polsek Pinang</span><span>2 jam</span></div><div><span>8 Okt · Fitness Solution</span><span>3 jam</span></div><div><span>8 Okt · MANDALA JAYA</span><span>1 jam</span></div><div><span>9 Okt · Kaltim Post</span><span>1 jam</span></div><div><span>9 Okt · Kawal Team</span><span>1 jam</span></div><div><span>12 Okt · ULJ</span><span>1 jam</span></div><div><span>19 Okt · ULJ</span><span>1 jam</span></div></div></details>
 <div class="october-verdict reveal"><blockquote>Sesi pendek masih mendominasi. <span style="color:#278c3e">Belum ada sesi 4 jam atau lebih di kalender.</span></blockquote></div>
 </div></section>
@@ -774,7 +793,7 @@ section[id],main[id]{scroll-margin-top:132px}
 <div class="field reveal">
 <button type="button" class="tactic t1 active" data-name="Pulihkan frekuensi transaksi" data-money="+Rp10 jt" data-copy="Tawarkan jadwal tetap prabayar kepada tim yang sudah kembali. Estimasi skenario jadwal berulang: +Rp10 juta." aria-pressed="true"><div class="ball">01</div><b>Frekuensi</b><span>Jadwal berulang</span></button>
 <button type="button" class="tactic t2" data-name="Perpanjang sesi" data-money="2h / 4h+" data-copy="Tawarkan paket 2 jam pada jam rendah dan block perusahaan untuk sesi panjang. Estimasi skenario paket 2 jam: +Rp6 juta; perusahaan: +Rp7 juta. Keduanya tetap skenario terpisah." aria-pressed="false"><div class="ball">02</div><b>Durasi</b><span>Paket 2 jam dan sesi panjang</span></button>
-<button type="button" class="tactic t3" data-name="Tingkatkan nilai transaksi" data-money="+Rp3 jt" data-copy="Tawarkan photographer, referee, dan mineral pada sesi yang relevan. Estimasi skenario layanan tambahan: +Rp3 juta. Pertahankan harga normal pada 19.00 sampai 22.00." aria-pressed="false"><div class="ball">03</div><b>Pendapatan</b><span>Layanan tambahan dan harga</span></button>
+<button type="button" class="tactic t3" data-name="Tingkatkan nilai transaksi" data-money="+Rp3 jt" data-copy="Tawarkan fotografer, wasit, dan air mineral pada sesi yang relevan. Estimasi skenario layanan tambahan: +Rp3 juta. Pertahankan harga normal pada 19.00 sampai 22.00." aria-pressed="false"><div class="ball">03</div><b>Pendapatan</b><span>Layanan tambahan dan harga</span></button>
 </div>
 <div class="tactic-story reveal" aria-live="polite" aria-atomic="true"><div class="tactic-money" id="tacticMoney">+Rp10 jt</div><div><h3 id="tacticName">Pulihkan frekuensi transaksi</h3><p id="tacticCopy">Tawarkan jadwal tetap prabayar kepada tim yang sudah kembali. Estimasi skenario jadwal berulang: +Rp10 juta.</p></div></div>
 </div></section>
@@ -795,29 +814,26 @@ section[id],main[id]{scroll-margin-top:132px}
 </div></div></section>
 <section class="action-plan" id="actions">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index">08 / Execution</div><div><h2>What happens next.</h2><p>Tiga prioritas yang sama, diterjemahkan menjadi tindakan dan ukuran hasil.</p></div></div>
+    <div class="section-head reveal"><div class="section-index">08 / Execution</div><div><h2>Prioritas pelaksanaan Oktober.</h2><p>Tiga prioritas yang sama, diterjemahkan menjadi tindakan dan ukuran hasil.</p></div></div>
     <div class="action-stack">
 <div class="action-item reveal"><div class="action-problem"><small>Prioritas 01</small>Pulihkan frekuensi transaksi</div><div class="action-body"><h3>Hubungi tim yang sudah kembali untuk mengunci jadwal tetap.</h3><p>Mulai dari Dragon FC, ULJ, Pertamina EP, Kawal Team, dan Fitness Solution. Gunakan daftar lintas bulan untuk follow-up berikutnya; sesuaikan penawaran dengan pola kunjungan masing-masing.</p><div class="action-meta"><div><span>Tindakan</span><b>Follow-up dan tawarkan slot mingguan prabayar</b></div><div><span>Target Oktober</span><b>5 sampai 8 tim dengan jadwal berulang</b></div></div></div></div>
 <div class="action-item reveal"><div class="action-problem"><small>Prioritas 02</small>Perpanjang sesi</div><div class="action-body"><h3>Jual paket 2 jam dan penawaran perusahaan berdurasi panjang.</h3><p>Arahkan paket 2 jam ke 07.00 sampai 16.00 serta 17.00 sampai 18.00. Untuk perusahaan dan instansi, tawarkan block 4 jam atau lebih atau paket beberapa sesi.</p><div class="action-meta"><div><span>Tindakan</span><b>Penawaran sesuai durasi dan kapasitas kosong</b></div><div><span>Target Oktober</span><b>6 sampai 10 tambahan sesi 2 jam; 2 sampai 4 booking perusahaan atau sesi 4 jam+</b></div></div></div></div>
-<div class="action-item reveal"><div class="action-problem"><small>Prioritas 03</small>Tingkatkan pendapatan</div><div class="action-body"><h3>Jaga harga malam dan tambah nilai kunjungan.</h3><p>Pertahankan harga normal pada 19.00 sampai 22.00. Tawarkan photographer, referee, dan mineral yang sudah tersedia; evaluasi pendapatan terhadap biaya agar pertumbuhan volume juga memperbaiki hasil bulan berjalan.</p><div class="action-meta"><div><span>Tindakan</span><b>Bundling layanan relevan; promosi hanya pada jam rendah</b></div><div><span>Target skenario layanan</span><b>Tambahan pendapatan sekitar Rp3 juta</b></div></div></div></div>
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 03</small>Tingkatkan pendapatan</div><div class="action-body"><h3>Jaga harga malam dan tambah nilai kunjungan.</h3><p>Pertahankan harga normal pada 19.00 sampai 22.00. Tawarkan fotografer, wasit, dan air mineral yang sudah tersedia; evaluasi pendapatan terhadap biaya agar pertumbuhan volume juga memperbaiki hasil bulan berjalan.</p><div class="action-meta"><div><span>Tindakan</span><b>Bundling layanan relevan; promosi hanya pada jam rendah</b></div><div><span>Target skenario layanan</span><b>Tambahan pendapatan sekitar Rp3 juta</b></div></div></div></div>
 </div>
 
     <div class="success-board reveal">
       <div class="kicker">What we need to see by 31 October</div>
-      <h2>Kalau angka ini tercapai, berarti Oktober bergerak ke arah yang benar.</h2>
+      <h2>Sasaran kapasitas akhir Oktober.</h2>
       <div class="success-grid">
-<div class="success-metric"><div class="num">01</div><div class="label"><strong>Frekuensi</strong><br>5 sampai 8 tim dengan jadwal berulang.</div></div>
-<div class="success-metric"><div class="num">02</div><div class="label"><strong>Durasi dan kapasitas</strong><br>6 sampai 10 tambahan sesi 2 jam; 2 sampai 4 booking perusahaan atau sesi 4 jam+.<br>Hasil gabungan: 77 sampai 93 jam dan utilization 15 sampai 18%.</div></div>
-<div class="success-metric"><div class="num">03</div><div class="label"><strong>Pendapatan</strong><br>Skenario layanan tambahan sekitar Rp3 juta; harga normal 19.00 sampai 22.00 tetap dijaga.<br>Bandingkan pendapatan dan biaya saat evaluasi; target laba belum ditetapkan.</div></div>
+<div class="success-metric"><div class="num">77–93h</div><div class="label">Target waktu terjual</div></div>
+<div class="success-metric"><div class="num">15–18%</div><div class="label">Target keterisian</div></div>
+<div class="success-metric"><div class="num">19–22</div><div class="label">Jam dengan harga normal yang dipertahankan</div></div>
 </div>
-      
-    </div>
-  </div>
-</section>
+</div></div></section>
 <section class="close" lang="en">
   <div class="wrap reveal">
     <div class="kicker">Final whistle</div>
-    <h2>More repeat.<br><span class="green">Longer sessions.</span><br><span class="lime">Better revenue.</span></h2>
+    <h2>More returning teams.<br><span class="green">Longer sessions.</span><br><span class="lime">Better revenue.</span></h2>
     <p>Bring teams back, extend their sessions, and grow revenue while protecting standard pricing.</p>
     <div class="final"><span>Improve utilization</span><span>Grow rental revenue</span><span>Protect standard pricing from 19.00 to 22.00</span></div>
   </div>
