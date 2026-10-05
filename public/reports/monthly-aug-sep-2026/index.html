@@ -559,9 +559,59 @@ h3{line-height:1.15}
 .hour.qualitative i{height:8%;opacity:.08}
 .hour.qualitative em{color:#829087}
 @media(max-width:720px){.exact-hours{grid-template-columns:110px repeat(5,78px)}}
+
+/* Report accessibility and layout: readable without script or motion. */
+:root{--muted:#a6b1a9}
+.reveal,.step{opacity:1;transform:none}
+section[id],main[id]{scroll-margin-top:132px}
+.skip-link{position:fixed;top:8px;left:16px;z-index:100;background:var(--paper);color:var(--ink-dark);padding:12px 18px;transform:translateY(-150%)}
+.skip-link:focus{transform:none}
+:focus-visible{outline:3px solid #24893b;outline-offset:5px}
+.top :focus-visible,.hero :focus-visible{outline-color:var(--lime)}
+.report-links{display:flex;flex-wrap:wrap;gap:16px 28px;margin-top:36px}
+.report-links a{padding:10px 0;border-bottom:1px solid #748078;font-size:14px}
+.section-index,.scene-label,.step .n,.action-problem small,.action-meta span{color:#a6b1a9}
+.playbook .section-index,.october-now .section-index,.management-watch .section-index{color:#566159}
+.section-head h2{max-width:22ch;font-size:clamp(2rem,4.4vw,4.4rem)}
+.playbook .section-head p,.october-now .section-head p{color:#566159}
+.tactic{border:0;background:transparent;color:inherit;font:inherit;padding:12px}
+.tactic:focus-visible .ball{box-shadow:0 0 0 8px rgba(17,21,17,.12)}
+.tactic-story:before{content:"Estimasi skenario";font-size:12px;color:#566159;grid-column:1/-1}
+.duration:before{content:"Jumlah sesi · Abu-abu: Agustus / Hijau: September";font-size:12px;color:#a6b1a9}
+.pitch:after{content:"Perbandingan terhadap 101 jam Agustus, bukan utilization";position:absolute;top:12px;left:12px;right:12px;font-size:12px;color:#a6b1a9}
+.scene-title{font-size:clamp(2.8rem,5.5vw,5.5rem);line-height:1.03;max-width:12ch}
+.exact-hours{overflow-x:auto}
+.hero{min-height:auto;padding-block:clamp(64px,9vw,120px)}
+.hero:after{display:none}
+.hero h1{line-height:1.02;font-size:clamp(2.8rem,7vw,6.5rem)}
+@media(max-width:1080px){
+ .top{height:auto;padding:14px 0}
+ .top .inner{flex-wrap:wrap}
+ .corp-nav{display:flex;order:3;flex-basis:100%;overflow-x:auto;gap:22px;padding:6px 0}
+ .corp-nav a{min-height:44px;display:flex;align-items:center;color:#b8c3bb}
+}
+@media(max-width:960px){
+ .scrolly{display:block;padding-block:48px}
+ .visual{position:static;height:auto;min-height:0;overflow:visible}
+ .visual-inner{height:auto}
+ .scene,.scene.active{position:static;opacity:1;transform:none;margin-bottom:48px}
+ .steps{padding:0}
+ .step{min-height:0;padding:24px 0;border-top:1px solid #344039}
+ .scene[aria-hidden]{visibility:visible}
+ .field{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px}
+ .field:before,.field:after{display:none}
+ .tactic{position:static;transform:none;text-align:left}
+ .tactic .ball{margin-bottom:12px}
+ .tactic-story{gap:20px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important}
+ html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Lewati navigasi</a>
 
 <header class="top">
   <div class="wrap inner">
@@ -572,28 +622,28 @@ h3{line-height:1.15}
     <nav class="corp-nav" aria-label="Report navigation">
       <a href="#story">Performance</a>
       <a href="#loyalty">Loyalty</a><a href="#customers">Customers</a>
-      <a href="#playbook">October plan</a>
       <a href="#octoberNow">October status</a>
+      <a href="#playbook">Commercial plan</a>
       <a href="#managementWatch">Weekly watch</a><a href="#actions">Action plan</a>
     </nav>
     <div class="report-pill">Aug / Sep 2026</div>
   </div>
 </header>
 
-<main>
+<main id="main">
 <section class="hero">
-  <canvas id="stadiumCanvas" aria-hidden="true"></canvas>
+  
   <div class="wrap">
     <div class="hero-copy">
       <div class="kicker reveal">August / September 2026</div>
       <h1 class="reveal">September kehilangan <span class="red">42 jam.</span></h1>
-      <p class="dek reveal">Penurunan ini bukan datang dari satu sumber. Frekuensi bermain melemah, sesi menjadi lebih singkat, dan booking panjang menghilang.</p>
+      <p class="dek reveal">Frekuensi dan durasi sesi melemah. Prioritas Oktober: pulihkan waktu terjual melalui tim yang kembali dan sesi lebih panjang.</p>
       <div class="hero-meta reveal">
   <div><span>Reporting period</span><b>August to September 2026</b></div>
   <div><span>Focus</span><b>Playing hours, bookings, revenue</b></div>
-  <div><span>Updated</span><b>4 October 2026</b></div>
+  <div><span>Data snapshot</span><b>4 October 2026</b></div>
 </div>
-<div class="scrollcue reveal">Ikuti apa yang berubah <span>↓</span></div>
+<div class="report-links"><a href="#story">Baca analisis <span aria-hidden="true">↓</span></a><a href="#actions">Lihat prioritas tindakan</a></div>
     </div>
   </div>
 </section>
@@ -601,7 +651,7 @@ h3{line-height:1.15}
   <div class="wrap executive-grid">
     <div class="executive-intro">
       <div class="eyebrow">Executive summary</div>
-      <strong>September turun pada tiga indikator utama.</strong>
+      <strong>September dibanding Agustus.</strong>
     </div>
     <div class="executive-metric"><div class="value">59h</div><div class="label">Jam bermain September</div><div class="delta neg">Turun 41,6%</div></div>
     <div class="executive-metric"><div class="value">34</div><div class="label">Jumlah booking September</div><div class="delta neg">Turun 24,4%</div></div>
@@ -610,13 +660,6 @@ h3{line-height:1.15}
     <div class="executive-metric"><div class="value">1 → 1</div><div class="label">Event / turnamen tercatat</div><div class="delta">Tidak berubah</div></div>
   </div>
 </section>
-<section class="opening">
-  <div class="wrap">
-    <div class="aside">Agustus menjadi baseline. September menunjukkan perubahan pada volume, durasi, dan nilai sewa.</div>
-    <div class="statement"><strong>42 jam yang hilang tidak bisa dijelaskan hanya oleh berkurangnya jumlah booking.</strong> Kedalaman penurunan berasal dari kombinasi frekuensi yang lebih rendah dan durasi sesi yang lebih pendek.</div>
-  </div>
-</section>
-
 <section class="scrolly" id="story">
   <div class="visual-wrap">
     <div class="visual">
@@ -637,7 +680,7 @@ h3{line-height:1.15}
 
         <div class="scene" data-scene="2">
           <div class="scene-label">Penyebab kedua · durasi booking</div>
-          <div class="scene-title">2.24h <span class="red">→ 1.74h</span></div>
+          <div class="scene-title">2,24h <span class="red">→ 1,74h</span></div>
           <div class="scene-copy">Setiap kunjungan rata-rata membeli waktu lebih sedikit.</div>
           <div class="duration">
             <div class="duration-row"><span>1 hour</span><div class="dual"><i class="aug" style="--a:100%"></i><i class="sep" style="--s:90%"></i></div><b>20 → 18</b></div>
@@ -654,21 +697,21 @@ h3{line-height:1.15}
           <div class="scene-copy">Permintaan terkuat tetap terkonsentrasi pada malam hari.</div>
           <div class="hours-map exact-hours">
             <div class="hour qualitative"><i></i><em>target promo</em><b>07.00 s.d. 16.00</b></div>
-            <div class="hour"><i style="--h:30%;--o:.22"></i><em>15,2%</em><b>17.00 s.d. 18.00</b></div>
-            <div class="hour"><i style="--h:62%;--o:.48"></i><em>32,6%</em><b>19.00 s.d. 20.00</b></div>
-            <div class="hour"><i style="--h:92%;--o:.82"></i><em>47,8%</em><b>20.00 s.d. 21.00</b></div>
-            <div class="hour"><i style="--h:80%;--o:.72"></i><em>41,3%</em><b>21.00 s.d. 22.00</b></div>
-            <div class="hour"><i style="--h:39%;--o:.3"></i><em>19,6%</em><b>22.00 s.d. 23.00</b></div>
+            <div class="hour"><i style="--h:15.2%;--o:.22"></i><em>15,2%</em><b>17.00 s.d. 18.00</b></div>
+            <div class="hour"><i style="--h:32.6%;--o:.48"></i><em>32,6%</em><b>19.00 s.d. 20.00</b></div>
+            <div class="hour"><i style="--h:47.8%;--o:.82"></i><em>47,8%</em><b>20.00 s.d. 21.00</b></div>
+            <div class="hour"><i style="--h:41.3%;--o:.72"></i><em>41,3%</em><b>21.00 s.d. 22.00</b></div>
+            <div class="hour"><i style="--h:19.6%;--o:.3"></i><em>19,6%</em><b>22.00 s.d. 23.00</b></div>
           </div>
         </div>
 
         <div class="scene" data-scene="4">
           <div class="scene-label">Dampak pada pendapatan sewa</div>
-          <div class="scene-title">Rp89.6 <span class="red">→ 56.9 jt</span></div>
+          <div class="scene-title">Rp89,6 <span class="red">→ 56,9 jt</span></div>
           <div class="scene-copy">Kehilangan jam langsung terlihat pada nilai sewa.</div>
           <div class="revenue">
             <div class="revenue-bar"><div class="sep"></div></div>
-            <div class="revenue-labels"><div><b>Rp89.6 jt</b>Agustus</div><div style="text-align:right"><b>Rp56.9 jt</b>September</div></div>
+            <div class="revenue-labels"><div><b>Rp89,6 jt</b>Agustus</div><div style="text-align:right"><b>Rp56,9 jt</b>September</div></div>
           </div>
         </div>
       </div>
@@ -685,7 +728,7 @@ h3{line-height:1.15}
 
     <section class="step" data-step="1">
       <div class="n">02</div>
-      <h3>Volume customer memang melemah, tetapi bukan satu-satunya penyebab.</h3>
+      <h3>Frekuensi transaksi ikut melemah.</h3>
       <p>Sebelas booking yang hilang mengurangi traffic. Namun, dampaknya diperbesar karena customer yang datang juga mengambil durasi lebih pendek.</p>
       <div class="fact">45 → 34 bookings</div>
     </section>
@@ -694,7 +737,7 @@ h3{line-height:1.15}
       <div class="n">03</div>
       <h3>Durasi menjadi titik lemah kedua.</h3>
       <p>Rata-rata sesi turun 22,7%. Penurunan paling terasa pada booking 2 jam, sementara dua long block Agustus tidak memiliki pengganti pada September.</p>
-      <div class="fact">2.24h → 1.74h</div>
+      <div class="fact">2,24h → 1,74h</div>
     </section>
 
     <section class="step" data-step="3">
@@ -706,20 +749,12 @@ h3{line-height:1.15}
 
     <section class="step" data-step="4">
       <div class="n">05</div>
-      <h3>Dampak akhirnya terlihat pada margin bulan berjalan.</h3>
+      <h3>Pendapatan belum menutup biaya September.</h3>
       <p>Rental revenue berhenti di Rp56,9 juta. Dengan total revenue Rp63,0 juta dan expenses Rp66,26 juta, September ditutup dengan spread minus Rp3,26 juta.</p>
-      <div class="fact">Rental gap ≈ Rp32.7 jt</div>
+      <div class="fact">Selisih pendapatan sewa ≈ Rp32,7 jt</div>
     </section>
   </article>
 </section>
-
-<section class="breath">
-  <div>
-    <blockquote>September mencatat <span class="red">lebih sedikit booking</span><br>dan <span class="lime">durasi booking yang lebih pendek.</span></blockquote>
-    <p>Artinya, Oktober harus memulihkan volume tanpa mengorbankan durasi dan kualitas harga.</p>
-  </div>
-</section>
-
 
 <section class="loyalty" id="loyalty">
   <div class="wrap">
@@ -857,7 +892,7 @@ h3{line-height:1.15}
 </section>
 <section class="customers" id="customers">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index">04 / Customer roles</div><div><h2>Setelah tahu siapa yang loyal, berikutnya adalah tahu peran komersialnya.</h2><p>Segmentasi ini dipakai untuk menentukan jenis penawaran, bukan untuk mengulang ranking loyalitas.</p></div></div>
+    <div class="section-head reveal"><div class="section-index">04 / Customer roles</div><div><h2>Penawaran yang sesuai untuk setiap kelompok.</h2><p>Kelompok ini dapat tumpang tindih: satu tim bisa menjadi komunitas sekaligus memiliki jadwal berulang.</p></div></div>
     <div class="customers-intro reveal">
       <div><div class="kicker">Commercial roles</div><h2>Tiga kelompok, tiga fungsi.</h2></div>
       <p>Community untuk volume. Recurring untuk kestabilan. Corporate untuk durasi dan nilai transaksi.</p>
@@ -886,31 +921,11 @@ h3{line-height:1.15}
   </div>
 </section>
 
-<section class="playbook" id="playbook">
-  <div class="wrap">
-    <div class="section-head reveal"><div class="section-index" style="color:#667168">05 / October plan</div><div><h2>Empat jalur pendapatan yang bisa langsung dikerjakan.</h2><p>Semua fokus pada penjualan jam dan nilai per transaksi, tanpa menambah beban event management.</p></div></div>
-    <div class="playbook-head reveal">
-      <div class="kicker">Commercial playbook</div>
-      <h2>Sell more time, then increase value per visit.</h2>
-    </div>
 
-    <div class="field reveal">
-      <div class="tactic t1 active" data-name="Booking perusahaan" data-money="+Rp7 jt" data-copy="Bangun monthly prepaid block untuk perusahaan, instansi, dan booking berdurasi panjang."><div class="ball">CO</div><b>Perusahaan</b><span>+Rp7 jt</span></div>
-      <div class="tactic t2" data-name="Tim dengan jadwal berulang" data-money="+Rp10 jt" data-copy="Ubah tim yang sudah aktif menjadi fixed-slot prepaid agar demand kembali setiap minggu."><div class="ball">RT</div><b>Berulang</b><span>+Rp10 jt</span></div>
-      <div class="tactic t3" data-name="Layanan tambahan" data-money="+Rp3 jt" data-copy="Naikkan pendapatan per booking melalui photographer, referee, dan mineral yang memang sudah tersedia."><div class="ball">AD</div><b>Tambahan</b><span>+Rp3 jt</span></div>
-      <div class="tactic t4" data-name="Paket 2 jam di jam sepi" data-money="+Rp6 jt" data-copy="Dorong paket 2 jam pada 07.00 sampai 16.00 dan 17.00 sampai 18.00 tanpa menurunkan harga pada 19.00 sampai 22.00."><div class="ball">2H</div><b>Jam sepi</b><span>+Rp6 jt</span></div>
-    </div>
-
-    <div class="tactic-story reveal">
-      <div class="tactic-money" id="tacticMoney">+Rp7 jt</div>
-      <div><h3 id="tacticName">Booking perusahaan</h3><p id="tacticCopy">Bangun monthly prepaid block untuk perusahaan, instansi, dan booking berdurasi panjang.</p></div>
-    </div>
-  </div>
-</section>
 
 <section class="october-now" id="octoberNow">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index" style="color:#667168">06 / October status</div><div><h2>Seberapa jauh Oktober sudah terisi?</h2><p>Snapshot ini memakai tanggal main Oktober, termasuk jadwal yang transaksinya masuk lebih awal pada September.</p></div></div>
+    <div class="section-head reveal"><div class="section-index" style="color:#667168">05 / October status</div><div><h2>Seberapa jauh Oktober sudah terisi?</h2><p>Snapshot ini memakai tanggal main Oktober, termasuk jadwal yang transaksinya masuk lebih awal pada September.</p></div></div>
     <div class="october-intro reveal">
       <div>
         <div class="kicker">October · forward bookings</div>
@@ -957,12 +972,32 @@ h3{line-height:1.15}
     </div>
   </div>
   <div class="october-verdict reveal">
-      <blockquote>Dari total 24 jam yang sudah terjadwal, <span style="color:#278c3e">16 jam berasal dari booking berdurasi 2 atau 3 jam. Empat jam lainnya berasal dari jadwal Dragon FC dan ULJ yang sudah dibeli sebagai paket berulang.</span></blockquote>
-      <p>Sinyal positifnya datang dari sesi 2 dan 3 jam. Gap yang tersisa adalah belum adanya booking 4 jam atau lebih.</p>
+      <blockquote><span style="color:#278c3e">Sesi 2 dan 3 jam memberi dasar awal.</span> Prioritas berikutnya adalah mengisi gap sesi 4 jam atau lebih.</blockquote>
+      
     </div>
   </div>
 </section>
 
+
+<section class="playbook" id="playbook">
+  <div class="wrap">
+    <div class="section-head reveal"><div class="section-index" style="color:#667168">06 / Commercial plan</div><div><h2>Empat jalur pendapatan yang bisa langsung dikerjakan.</h2><p>Prioritaskan waktu terjual dan nilai per kunjungan. Estimasi tambahan pendapatan di bawah adalah skenario rencana, bukan hasil aktual; asumsi perhitungannya belum dirinci dalam laporan ini.</p></div></div>
+    
+
+
+    <div class="field reveal">
+      <button type="button" class="tactic t1 active" data-name="Booking perusahaan" data-money="+Rp7 jt" data-copy="Bangun monthly prepaid block untuk perusahaan, instansi, dan booking berdurasi panjang." aria-pressed="true" ><div class="ball">CO</div><b>Perusahaan</b><span>+Rp7 jt</span></button>
+      <button type="button" class="tactic t2" data-name="Tim dengan jadwal berulang" data-money="+Rp10 jt" data-copy="Ubah tim yang sudah aktif menjadi fixed-slot prepaid agar demand kembali setiap minggu." aria-pressed="false" ><div class="ball">RT</div><b>Berulang</b><span>+Rp10 jt</span></button>
+      <button type="button" class="tactic t3" data-name="Layanan tambahan" data-money="+Rp3 jt" data-copy="Naikkan pendapatan per booking melalui photographer, referee, dan mineral yang memang sudah tersedia." aria-pressed="false" ><div class="ball">AD</div><b>Tambahan</b><span>+Rp3 jt</span></button>
+      <button type="button" class="tactic t4" data-name="Paket 2 jam di jam sepi" data-money="+Rp6 jt" data-copy="Dorong paket 2 jam pada 07.00 sampai 16.00 dan 17.00 sampai 18.00 tanpa menurunkan harga pada 19.00 sampai 22.00." aria-pressed="false" ><div class="ball">2H</div><b>Jam sepi</b><span>+Rp6 jt</span></button>
+    </div>
+
+    <div class="tactic-story reveal" aria-live="polite" aria-atomic="true">
+      <div class="tactic-money" id="tacticMoney">+Rp7 jt</div>
+      <div><h3 id="tacticName">Booking perusahaan</h3><p id="tacticCopy">Bangun monthly prepaid block untuk perusahaan, instansi, dan booking berdurasi panjang.</p></div>
+    </div>
+  </div>
+</section>
 
 <section class="management-watch" id="managementWatch">
   <div class="wrap">
@@ -970,7 +1005,7 @@ h3{line-height:1.15}
       <div class="section-index" style="color:#68746c">07 / Weekly watch</div>
       <div>
         <h2>Enam angka yang perlu dilihat management setiap minggu.</h2>
-        <p>Bagian ini bukan target tambahan. Ini adalah indikator yang dipakai untuk mengetahui apakah action plan Oktober benar-benar bekerja sebelum bulan berakhir.</p>
+        <p>Gunakan indikator ini untuk menentukan penawaran mana yang diteruskan atau disesuaikan sebelum akhir bulan.</p>
       </div>
     </div>
     <div class="watch-list">
@@ -1018,7 +1053,7 @@ h3{line-height:1.15}
           <p>Gunakan penawaran block booking 4 jam atau lebih, paket beberapa sesi, atau jadwal tetap bulanan. Jika diperlukan, tambahkan referee, photographer, dan mineral sebagai layanan tambahan tanpa membuat kegiatan baru yang membutuhkan pengelolaan khusus.</p>
           <div class="action-meta">
             <div><span>Tindakan</span><b>Buat penawaran corporate block dan paket beberapa sesi</b></div>
-            <div><span>Target Oktober</span><b>2 sampai 4 booking berdurasi 4 jam atau lebih</b></div>
+            <div><span>Target Oktober</span><b>2 sampai 4 booking perusahaan atau berdurasi 4 jam atau lebih</b></div>
           </div>
         </div>
       </div>
@@ -1063,12 +1098,12 @@ h3{line-height:1.15}
     </div>
   </div>
 </section>
-<section class="close">
+<section class="close" lang="en">
   <div class="wrap reveal">
     <div class="kicker">Final whistle</div>
-    <h2>More hours.<br><span class="green">More repeat.</span><br><span class="lime">More long-block.</span></h2>
-    <p>Fokus akhirnya sederhana: isi lebih banyak jam, pertahankan customer yang kembali, dan dorong transaksi berdurasi lebih panjang.</p>
-    <div class="final"><span>Naikkan tingkat keterisian</span><span>Naikkan pendapatan sewa</span><span>Pertahankan harga normal pada 19.00 sampai 22.00</span></div>
+    <h2>More hours.<br><span class="green">More repeat.</span><br><span class="lime">Longer sessions.</span></h2>
+    <p>Fill available hours, retain returning teams, and build demand for longer sessions.</p>
+    <div class="final"><span>Improve utilization</span><span>Grow rental revenue</span><span>Protect standard pricing from 19.00 to 22.00</span></div>
   </div>
 </section>
 </main>
@@ -1081,7 +1116,7 @@ h3{line-height:1.15}
       </div>
       <div class="footer-meta">
         <div><span>Period</span><b>Aug / Sep 2026</b></div>
-        <div><span>Updated</span><b>4 Oct 2026</b></div>
+        <div><span>Data snapshot</span><b>4 Oct 2026</b></div>
         <div><span>Business unit</span><b>V3BKS Mini Soccer</b></div>
         <div><span>Format</span><b>Executive monthly report</b></div>
       </div>
@@ -1090,7 +1125,7 @@ h3{line-height:1.15}
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.min.js"></script>
+
 <script>
 const dots=document.getElementById('bookingDots');
 for(let i=0;i<45;i++){const d=document.createElement('i');if(i>=34)d.className='lost';dots.appendChild(d)}
@@ -1098,9 +1133,11 @@ for(let i=0;i<45;i++){const d=document.createElement('i');if(i>=34)d.className='
 const scenes=[...document.querySelectorAll('.scene')];
 const steps=[...document.querySelectorAll('.step')];
 function setScene(i){
-  scenes.forEach((s,n)=>s.classList.toggle('active',n===i));
+  scenes.forEach((s,n)=>{s.classList.toggle('active',n===i);s.setAttribute('aria-hidden',String(n!==i && !matchMedia('(max-width:960px)').matches));});
   steps.forEach((s,n)=>s.classList.toggle('active',n===i));
 }
+setScene(0);
+matchMedia('(max-width:960px)').addEventListener('change',()=>setScene(Math.max(0,scenes.findIndex(s=>s.classList.contains('active')))));
 const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setScene(Number(e.target.dataset.step))}),{rootMargin:'-38% 0px -42% 0px'});
 steps.forEach(s=>so.observe(s));
 
@@ -1108,33 +1145,13 @@ const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.reveal').forEach(e=>ro.observe(e));
 
 document.querySelectorAll('.tactic').forEach(t=>t.addEventListener('click',()=>{
-  document.querySelectorAll('.tactic').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  document.querySelectorAll('.tactic').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});t.classList.add('active');t.setAttribute('aria-pressed','true');
   document.getElementById('tacticMoney').textContent=t.dataset.money;
   document.getElementById('tacticName').textContent=t.dataset.name;
   document.getElementById('tacticCopy').textContent=t.dataset.copy;
 }));
 
-(function(){
-  const canvas=document.getElementById('stadiumCanvas');if(!canvas||!window.THREE)return;
-  const scene=new THREE.Scene();
-  const camera=new THREE.PerspectiveCamera(50,1,.1,100);
-  camera.position.set(0,5.4,8.6);camera.lookAt(0,0,0);
-  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  const field=new THREE.Mesh(new THREE.PlaneGeometry(10.6,6.8),new THREE.MeshBasicMaterial({color:0x12381c,transparent:true,opacity:.65,side:THREE.DoubleSide}));
-  field.rotation.x=-Math.PI/2;scene.add(field);
-  const mat=new THREE.LineBasicMaterial({color:0x8bff9c,transparent:true,opacity:.33});
-  const addLine=pts=>{const g=new THREE.BufferGeometry().setFromPoints(pts.map(p=>new THREE.Vector3(p[0],.015,p[1])));scene.add(new THREE.Line(g,mat))};
-  addLine([[-5.3,-3.4],[5.3,-3.4],[5.3,3.4],[-5.3,3.4],[-5.3,-3.4]]);addLine([[0,-3.4],[0,3.4]]);
-  const cp=[];for(let i=0;i<=64;i++){const a=i/64*Math.PI*2;cp.push([Math.cos(a)*1.05,Math.sin(a)*1.05])}addLine(cp);
-  const pg=new THREE.BufferGeometry(),arr=new Float32Array(240*3);
-  for(let i=0;i<240;i++){arr[i*3]=(Math.random()-.5)*18;arr[i*3+1]=Math.random()*9+1;arr[i*3+2]=(Math.random()-.5)*14}
-  pg.setAttribute('position',new THREE.BufferAttribute(arr,3));const pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0xe4ff59,size:.032,transparent:true,opacity:.35}));scene.add(pts);
-  function resize(){const r=canvas.getBoundingClientRect();renderer.setSize(r.width,r.height,false);camera.aspect=r.width/r.height;camera.updateProjectionMatrix()}
-  resize();addEventListener('resize',resize,{passive:true});
-  let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
-  function tick(){requestAnimationFrame(tick);pts.rotation.y+=.0004;camera.position.x+=(mx*.9-camera.position.x)*.02;camera.position.y+=(5.4+my*.35-camera.position.y)*.02;camera.lookAt(0,0,0);renderer.render(scene,camera)}tick();
-})();
+
 
 const navLinks=[...document.querySelectorAll('.corp-nav a')];
 const navSections=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
