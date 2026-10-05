@@ -577,7 +577,7 @@ section[id],main[id]{scroll-margin-top:132px}
 .tactic{border:0;background:transparent;color:inherit;font:inherit;padding:12px}
 .tactic:focus-visible .ball{box-shadow:0 0 0 8px rgba(17,21,17,.12)}
 .tactic-story:before{content:"Estimasi skenario";font-size:12px;color:#566159;grid-column:1/-1}
-.duration:before{content:"Jumlah sesi · Abu-abu: Agustus / Hijau: September";font-size:12px;color:#a6b1a9}
+.duration:before{content:"Jumlah sesi · skala sama, maksimum 20 · Abu-abu: Agustus / Hijau: September";font-size:12px;color:#a6b1a9}
 .pitch:after{content:"Perbandingan terhadap 101 jam Agustus, bukan utilization";position:absolute;top:12px;left:12px;right:12px;font-size:12px;color:#a6b1a9}
 .scene-title{font-size:clamp(2.8rem,5.5vw,5.5rem);line-height:1.03;max-width:12ch}
 .exact-hours{overflow-x:auto}
@@ -609,6 +609,7 @@ section[id],main[id]{scroll-margin-top:132px}
  html{scroll-behavior:auto}
 }
 </style>
+<noscript><style>.visual{position:static;height:auto;min-height:0}.visual-inner{height:auto}.scene{position:static;opacity:1;transform:none;margin-block:36px}.scrolly{display:block}.tactic-story{display:none}.tactic{cursor:default}</style></noscript>
 </head>
 <body>
 <a class="skip-link" href="#main">Lewati navigasi</a>
@@ -651,7 +652,7 @@ section[id],main[id]{scroll-margin-top:132px}
   <div class="wrap executive-grid">
     <div class="executive-intro">
       <div class="eyebrow">Executive summary</div>
-      <strong>September dibanding Agustus.</strong>
+      <strong>September dibanding Agustus.<br><span class="small" style="color:#566159">Utilization: 19,2% → 11,6%</span></strong>
     </div>
     <div class="executive-metric"><div class="value">59h</div><div class="label">Jam bermain September</div><div class="delta neg">Turun 41,6%</div></div>
     <div class="executive-metric"><div class="value">34</div><div class="label">Jumlah booking September</div><div class="delta neg">Turun 24,4%</div></div>
@@ -685,9 +686,9 @@ section[id],main[id]{scroll-margin-top:132px}
           <div class="duration">
             <div class="duration-row"><span>1 hour</span><div class="dual"><i class="aug" style="--a:100%"></i><i class="sep" style="--s:90%"></i></div><b>20 → 18</b></div>
             <div class="duration-row"><span>2 hours</span><div class="dual"><i class="aug" style="--a:85%"></i><i class="sep" style="--s:55%"></i></div><b>17 → 11</b></div>
-            <div class="duration-row"><span>3 hours</span><div class="dual"><i class="aug" style="--a:32%"></i><i class="sep" style="--s:16%"></i></div><b>2 → 1</b></div>
-            <div class="duration-row"><span>4 hours</span><div class="dual"><i class="aug" style="--a:42%"></i><i class="sep" style="--s:42%"></i></div><b>4 → 4</b></div>
-            <div class="duration-row"><span>Long block</span><div class="dual"><i class="aug" style="--a:68%"></i><i class="sep" style="--s:0%"></i></div><b>2 → 0</b></div>
+            <div class="duration-row"><span>3 hours</span><div class="dual"><i class="aug" style="--a:10%"></i><i class="sep" style="--s:5%"></i></div><b>2 → 1</b></div>
+            <div class="duration-row"><span>4 hours</span><div class="dual"><i class="aug" style="--a:20%"></i><i class="sep" style="--s:20%"></i></div><b>4 → 4</b></div>
+            <div class="duration-row"><span>Long block</span><div class="dual"><i class="aug" style="--a:10%"></i><i class="sep" style="--s:0%"></i></div><b>2 → 0</b></div>
           </div>
         </div>
 
