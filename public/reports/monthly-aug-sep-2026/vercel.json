@@ -1,0 +1,6 @@
+{
+  "framework": null,
+  "buildCommand": "echo Static monthly report",
+  "installCommand": "echo No dependencies required",
+  "outputDirectory": "."
+}
