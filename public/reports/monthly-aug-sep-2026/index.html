@@ -576,7 +576,7 @@ section[id],main[id]{scroll-margin-top:132px}
 .playbook .section-head p,.october-now .section-head p{color:#566159}
 .tactic{border:0;background:transparent;color:inherit;font:inherit;padding:12px}
 .tactic:focus-visible .ball{box-shadow:0 0 0 8px rgba(17,21,17,.12)}
-.tactic-story:before{content:"Estimasi skenario";font-size:12px;color:#566159;grid-column:1/-1}
+.tactic-story:before{content:"Arah penawaran dan estimasi";font-size:12px;color:#566159;grid-column:1/-1}
 .duration:before{content:"Jumlah sesi · skala sama, maksimum 20 · Abu-abu: Agustus / Hijau: September";font-size:12px;color:#a6b1a9}
 .pitch:after{content:"Perbandingan terhadap 101 jam Agustus, bukan utilization";position:absolute;top:12px;left:12px;right:12px;font-size:12px;color:#a6b1a9}
 .scene-title{font-size:clamp(2.8rem,5.5vw,5.5rem);line-height:1.03;max-width:12ch}
@@ -608,6 +608,7 @@ section[id],main[id]{scroll-margin-top:132px}
  *,*:before,*:after{animation:none!important;transition:none!important}
  html{scroll-behavior:auto}
 }
+.field{height:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;padding:32px}.field:before,.field:after{display:none}.tactic{position:static;transform:none;text-align:left}.tactic .ball{margin-bottom:16px}.slot-detail{margin-top:24px}.slot-detail summary{cursor:pointer;font-size:14px;color:var(--ink);padding:10px 0}.slot-detail .scene-title{display:none}.slot-detail .hours-map{margin-top:16px}.slot-detail .hour{height:120px}.scene .scene-copy{margin-top:18px}.success-metric .label{font-size:14px;line-height:1.8}.scene-title{font-size:clamp(2.5rem,5vw,4.8rem)}@media(max-width:720px){.field{grid-template-columns:1fr;padding:24px}.tactic{display:grid;grid-template-columns:64px 1fr;gap:4px 18px}.tactic .ball{grid-row:1/3;margin:0}.tactic b{margin:0}}
 </style>
 <noscript><style>.visual{position:static;height:auto;min-height:0}.visual-inner{height:auto}.scene{position:static;opacity:1;transform:none;margin-block:36px}.scrolly{display:block}.tactic-story{display:none}.tactic{cursor:default}</style></noscript>
 </head>
@@ -638,7 +639,7 @@ section[id],main[id]{scroll-margin-top:132px}
     <div class="hero-copy">
       <div class="kicker reveal">August / September 2026</div>
       <h1 class="reveal">September kehilangan <span class="red">42 jam.</span></h1>
-      <p class="dek reveal">Frekuensi dan durasi sesi melemah. Prioritas Oktober: pulihkan waktu terjual melalui tim yang kembali dan sesi lebih panjang.</p>
+      <p class="dek reveal">Tiga prioritas Oktober: pulihkan frekuensi transaksi, perpanjang sesi, dan tingkatkan pendapatan untuk menutup biaya.</p>
       <div class="hero-meta reveal">
   <div><span>Reporting period</span><b>August to September 2026</b></div>
   <div><span>Focus</span><b>Playing hours, bookings, revenue</b></div>
@@ -661,25 +662,16 @@ section[id],main[id]{scroll-margin-top:132px}
     <div class="executive-metric"><div class="value">1 → 1</div><div class="label">Event / turnamen tercatat</div><div class="delta">Tidak berubah</div></div>
   </div>
 </section>
-<section class="scrolly" id="story">
+<section class="scrolly" id="story" aria-label="Tiga masalah utama">
   <div class="visual-wrap">
     <div class="visual">
       <div class="visual-inner">
         <div class="scene active" data-scene="0">
-          <div class="scene-label">Perubahan utama</div>
-          <div class="scene-title">101h <span class="red">→ 59h</span></div>
-          <div class="scene-copy">42 jam tidak terjual kembali pada September.</div>
-          <div class="pitch"><div class="pitch-fill"></div></div>
-        </div>
-
-        <div class="scene" data-scene="1">
           <div class="scene-label">Penyebab pertama · jumlah booking</div>
           <div class="scene-title">45 <span class="red">→ 34</span></div>
           <div class="scene-copy">Sebelas booking lebih sedikit dibanding Agustus.</div>
-          <div class="booking-dots" id="bookingDots"></div>
-        </div>
-
-        <div class="scene" data-scene="2">
+          <div class="booking-dots" id="bookingDots"></div><div class="scene-copy">Dampak pada waktu terjual: 101h → 59h. Utilization: 19,2% → 11,6%.</div></div>
+        <div class="scene" data-scene="1">
           <div class="scene-label">Penyebab kedua · durasi booking</div>
           <div class="scene-title">2,24h <span class="red">→ 1,74h</span></div>
           <div class="scene-copy">Setiap kunjungan rata-rata membeli waktu lebih sedikit.</div>
@@ -689,10 +681,7 @@ section[id],main[id]{scroll-margin-top:132px}
             <div class="duration-row"><span>3 hours</span><div class="dual"><i class="aug" style="--a:10%"></i><i class="sep" style="--s:5%"></i></div><b>2 → 1</b></div>
             <div class="duration-row"><span>4 hours</span><div class="dual"><i class="aug" style="--a:20%"></i><i class="sep" style="--s:20%"></i></div><b>4 → 4</b></div>
             <div class="duration-row"><span>Long block</span><div class="dual"><i class="aug" style="--a:10%"></i><i class="sep" style="--s:0%"></i></div><b>2 → 0</b></div>
-          </div>
-        </div>
-
-        <div class="scene" data-scene="3">
+          </div><details class="slot-detail"><summary>Lihat keterisian per kelompok waktu</summary>
           <div class="scene-label">Jam yang tetap kuat</div>
           <div class="scene-title"><span class="green">20.00 sampai 22.00</span> tetap kuat.</div>
           <div class="scene-copy">Permintaan terkuat tetap terkonsentrasi pada malam hari.</div>
@@ -703,58 +692,24 @@ section[id],main[id]{scroll-margin-top:132px}
             <div class="hour"><i style="--h:47.8%;--o:.82"></i><em>47,8%</em><b>20.00 s.d. 21.00</b></div>
             <div class="hour"><i style="--h:41.3%;--o:.72"></i><em>41,3%</em><b>21.00 s.d. 22.00</b></div>
             <div class="hour"><i style="--h:19.6%;--o:.3"></i><em>19,6%</em><b>22.00 s.d. 23.00</b></div>
-          </div>
-        </div>
-
-        <div class="scene" data-scene="4">
+          </div></details></div>
+        <div class="scene" data-scene="2">
           <div class="scene-label">Dampak pada pendapatan sewa</div>
           <div class="scene-title">Rp89,6 <span class="red">→ 56,9 jt</span></div>
           <div class="scene-copy">Kehilangan jam langsung terlihat pada nilai sewa.</div>
           <div class="revenue">
             <div class="revenue-bar"><div class="sep"></div></div>
             <div class="revenue-labels"><div><b>Rp89,6 jt</b>Agustus</div><div style="text-align:right"><b>Rp56,9 jt</b>September</div></div>
-          </div>
-        </div>
+          </div><div class="scene-copy">Pendapatan total Rp63,0 juta · biaya Rp66,26 juta · selisih minus Rp3,26 juta.</div></div>
       </div>
     </div>
   </div>
 
   <article class="steps">
-    <section class="step active" data-step="0">
-      <div class="n">01</div>
-      <h3>Penurunan jam jauh lebih dalam daripada penurunan transaksi.</h3>
-      <p>Playing hours berkurang 41,6%, sementara jumlah booking turun 24,4%. Selisih keduanya menjadi petunjuk bahwa masalah tidak berhenti pada frekuensi kunjungan.</p>
-      <div class="fact">101h → 59h</div>
-    </section>
-
-    <section class="step" data-step="1">
-      <div class="n">02</div>
-      <h3>Frekuensi transaksi ikut melemah.</h3>
-      <p>Sebelas booking yang hilang mengurangi traffic. Namun, dampaknya diperbesar karena customer yang datang juga mengambil durasi lebih pendek.</p>
-      <div class="fact">45 → 34 bookings</div>
-    </section>
-
-    <section class="step" data-step="2">
-      <div class="n">03</div>
-      <h3>Durasi menjadi titik lemah kedua.</h3>
-      <p>Rata-rata sesi turun 22,7%. Penurunan paling terasa pada booking 2 jam, sementara dua long block Agustus tidak memiliki pengganti pada September.</p>
-      <div class="fact">2,24h → 1,74h</div>
-    </section>
-
-    <section class="step" data-step="3">
-      <div class="n">04</div>
-      <h3>Prime time bukan area yang perlu didiskon.</h3>
-      <p>20.00 sampai 21.00 tetap menjadi slot terkuat di 47,8%. Sebaliknya, 17.00 sampai 18.00 baru 15,2%, sehingga insentif lebih tepat diarahkan sebelum jam malam utama.</p>
-      <div class="fact">Pertahankan harga normal pada 19.00 sampai 22.00</div>
-    </section>
-
-    <section class="step" data-step="4">
-      <div class="n">05</div>
-      <h3>Pendapatan belum menutup biaya September.</h3>
-      <p>Rental revenue berhenti di Rp56,9 juta. Dengan total revenue Rp63,0 juta dan expenses Rp66,26 juta, September ditutup dengan spread minus Rp3,26 juta.</p>
-      <div class="fact">Selisih pendapatan sewa ≈ Rp32,7 jt</div>
-    </section>
-  </article>
+<section class="step active" data-step="0"><div class="n">01 / Frekuensi</div><h3>Jumlah transaksi menurun.</h3><p>Booking turun dari 45 menjadi 34. Basis tim yang sudah kembali menjadi titik awal untuk memulihkan frekuensi melalui jadwal tetap.</p><div class="fact">Prioritas: tim kembali dan jadwal berulang.</div></section>
+<section class="step" data-step="1"><div class="n">02 / Durasi</div><h3>Sesi menjadi lebih pendek.</h3><p>Rata-rata durasi turun dari 2,24 menjadi 1,74 jam. Dua long block Agustus tidak memiliki pengganti pada September; snapshot Oktober juga belum memiliki sesi 4 jam atau lebih.</p><div class="fact">Prioritas: paket 2 jam dan penawaran berdurasi panjang pada kapasitas yang masih kosong.</div></section>
+<section class="step" data-step="2"><div class="n">03 / Pendapatan</div><h3>Pendapatan belum menutup biaya.</h3><p>Pendapatan total September Rp63,0 juta berada di bawah biaya Rp66,26 juta. Pemulihan waktu terjual perlu disertai harga yang terjaga dan penawaran layanan tambahan yang relevan.</p><div class="fact">Prioritas: nilai transaksi dan perlindungan harga 19.00 sampai 22.00.</div></section>
+</article>
 </section>
 
 <section class="loyalty" id="loyalty">
@@ -980,130 +935,56 @@ section[id],main[id]{scroll-margin-top:132px}
 </section>
 
 
-<section class="playbook" id="playbook">
-  <div class="wrap">
-    <div class="section-head reveal"><div class="section-index" style="color:#667168">06 / Commercial plan</div><div><h2>Empat jalur pendapatan yang bisa langsung dikerjakan.</h2><p>Prioritaskan waktu terjual dan nilai per kunjungan. Estimasi tambahan pendapatan di bawah adalah skenario rencana, bukan hasil aktual; asumsi perhitungannya belum dirinci dalam laporan ini.</p></div></div>
-    
-
-
-    <div class="field reveal">
-      <button type="button" class="tactic t1 active" data-name="Booking perusahaan" data-money="+Rp7 jt" data-copy="Bangun monthly prepaid block untuk perusahaan, instansi, dan booking berdurasi panjang." aria-pressed="true" ><div class="ball">CO</div><b>Perusahaan</b><span>+Rp7 jt</span></button>
-      <button type="button" class="tactic t2" data-name="Tim dengan jadwal berulang" data-money="+Rp10 jt" data-copy="Ubah tim yang sudah aktif menjadi fixed-slot prepaid agar demand kembali setiap minggu." aria-pressed="false" ><div class="ball">RT</div><b>Berulang</b><span>+Rp10 jt</span></button>
-      <button type="button" class="tactic t3" data-name="Layanan tambahan" data-money="+Rp3 jt" data-copy="Naikkan pendapatan per booking melalui photographer, referee, dan mineral yang memang sudah tersedia." aria-pressed="false" ><div class="ball">AD</div><b>Tambahan</b><span>+Rp3 jt</span></button>
-      <button type="button" class="tactic t4" data-name="Paket 2 jam di jam sepi" data-money="+Rp6 jt" data-copy="Dorong paket 2 jam pada 07.00 sampai 16.00 dan 17.00 sampai 18.00 tanpa menurunkan harga pada 19.00 sampai 22.00." aria-pressed="false" ><div class="ball">2H</div><b>Jam sepi</b><span>+Rp6 jt</span></button>
-    </div>
-
-    <div class="tactic-story reveal" aria-live="polite" aria-atomic="true">
-      <div class="tactic-money" id="tacticMoney">+Rp7 jt</div>
-      <div><h3 id="tacticName">Booking perusahaan</h3><p id="tacticCopy">Bangun monthly prepaid block untuk perusahaan, instansi, dan booking berdurasi panjang.</p></div>
-    </div>
-  </div>
-</section>
+<section class="playbook" id="playbook"><div class="wrap">
+<div class="section-head reveal"><div class="section-index" style="color:#667168">06 / Commercial plan</div><div><h2>Tiga prioritas, tiga arah penawaran.</h2><p>Pilih prioritas untuk melihat respons komersialnya. Estimasi pendapatan ditampilkan sebagai skenario terpisah; asumsi perhitungannya belum dirinci dan angka ini bukan hasil aktual.</p></div></div>
+<div class="field reveal">
+<button type="button" class="tactic t1 active" data-name="Pulihkan frekuensi transaksi" data-money="+Rp10 jt" data-copy="Tawarkan jadwal tetap prabayar kepada tim yang sudah kembali. Estimasi skenario jadwal berulang: +Rp10 juta." aria-pressed="true"><div class="ball">01</div><b>Frekuensi</b><span>Jadwal berulang</span></button>
+<button type="button" class="tactic t2" data-name="Perpanjang sesi" data-money="2h / 4h+" data-copy="Tawarkan paket 2 jam pada jam rendah dan block perusahaan untuk sesi panjang. Estimasi skenario paket 2 jam: +Rp6 juta; perusahaan: +Rp7 juta. Keduanya tetap skenario terpisah." aria-pressed="false"><div class="ball">02</div><b>Durasi</b><span>Paket 2 jam dan sesi panjang</span></button>
+<button type="button" class="tactic t3" data-name="Tingkatkan nilai transaksi" data-money="+Rp3 jt" data-copy="Tawarkan photographer, referee, dan mineral pada sesi yang relevan. Estimasi skenario layanan tambahan: +Rp3 juta. Pertahankan harga normal pada 19.00 sampai 22.00." aria-pressed="false"><div class="ball">03</div><b>Pendapatan</b><span>Layanan tambahan dan harga</span></button>
+</div>
+<div class="tactic-story reveal" aria-live="polite" aria-atomic="true"><div class="tactic-money" id="tacticMoney">+Rp10 jt</div><div><h3 id="tacticName">Pulihkan frekuensi transaksi</h3><p id="tacticCopy">Tawarkan jadwal tetap prabayar kepada tim yang sudah kembali. Estimasi skenario jadwal berulang: +Rp10 juta.</p></div></div>
+</div></section>
 
 <section class="management-watch" id="managementWatch">
   <div class="wrap">
     <div class="section-head reveal">
       <div class="section-index" style="color:#68746c">07 / Weekly watch</div>
       <div>
-        <h2>Enam angka yang perlu dilihat management setiap minggu.</h2>
+        <h2>Tiga pemeriksaan setiap minggu.</h2>
         <p>Gunakan indikator ini untuk menentukan penawaran mana yang diteruskan atau disesuaikan sebelum akhir bulan.</p>
       </div>
     </div>
     <div class="watch-list">
-      <div class="watch-item reveal"><div class="n">01</div><div><b>Jam bermain per kelompok waktu</b><p>Pantau pergeseran demand dari jam kosong ke slot terjual.</p></div></div>
-      <div class="watch-item reveal"><div class="n">02</div><div><b>Rata-rata durasi per booking</b><p>Ukuran utama keberhasilan paket 2 jam.</p></div></div>
-      <div class="watch-item reveal"><div class="n">03</div><div><b>Pendapatan sewa per jam terisi</b><p>Menjaga pertumbuhan volume tetap sehat secara nilai.</p></div></div>
-      <div class="watch-item reveal"><div class="n">04</div><div><b>Jumlah tim yang kembali booking</b><p>Mengukur retensi dari basis customer yang sudah ada.</p></div></div>
-      <div class="watch-item reveal"><div class="n">05</div><div><b>Prospek booking perusahaan</b><p>Pisahkan prospek, respons, dan jadwal potensial.</p></div></div>
-      <div class="watch-item reveal"><div class="n">06</div><div><b>Tingkat keterisian 19.00 sampai 22.00</b><p>Menjadi guardrail agar diskon tidak masuk ke slot terkuat.</p></div></div>
-    </div>
-  </div>
-</section>
+<div class="watch-item reveal"><div class="n">01</div><div><b>Frekuensi transaksi</b><p>Pantau jumlah booking, tim yang kembali, dan jadwal berulang yang sudah dikunci.</p></div></div>
+<div class="watch-item reveal"><div class="n">02</div><div><b>Durasi dan waktu terjual</b><p>Pantau rata-rata durasi, jam per kelompok waktu, serta prospek perusahaan yang berkembang menjadi jadwal panjang.</p></div></div>
+<div class="watch-item reveal"><div class="n">03</div><div><b>Pendapatan dan kualitas harga</b><p>Pantau pendapatan dibanding biaya, pendapatan sewa per jam terisi, layanan tambahan, dan keterisian 19.00 sampai 22.00 sebagai penjaga harga.</p></div></div>
+</div></div></section>
 <section class="action-plan" id="actions">
   <div class="wrap">
-    <div class="section-head reveal"><div class="section-index">08 / Execution</div><div><h2>What happens next.</h2><p>Lima tindakan, masing-masing dengan target yang dapat diperiksa pada akhir bulan.</p></div></div>
+    <div class="section-head reveal"><div class="section-index">08 / Execution</div><div><h2>What happens next.</h2><p>Tiga prioritas yang sama, diterjemahkan menjadi tindakan dan ukuran hasil.</p></div></div>
     <div class="action-stack">
-      <div class="action-item reveal">
-        <div class="action-problem"><small>Masalah 01</small>Booking turun<br>45 menjadi 34</div>
-        <div class="action-body">
-          <h3>Ubah tim yang sudah pernah main menjadi jadwal tetap mingguan.</h3>
-          <p>Prioritaskan tim yang sudah pernah bermain dan memiliki kemungkinan kembali rutin. Mulai dari JCI SMR, Dragon FC, ULJ, lalu lanjutkan ke tim September lain yang sudah pernah booking.</p>
-          <div class="action-meta">
-            <div><span>Tindakan</span><b>Follow-up dan tawarkan fixed weekly slot</b></div>
-            <div><span>Target Oktober</span><b>5 sampai 8 tim dengan jadwal berulang</b></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-item reveal">
-        <div class="action-problem"><small>Masalah 02</small>Durasi turun<br>2,24 menjadi 1,74 jam</div>
-        <div class="action-body">
-          <h3>Dorong booking 2 jam pada jam yang tingkat keterisiannya masih rendah.</h3>
-          <p>Fokus pada 07.00 sampai 16.00 serta 17.00 sampai 18.00. Jangan gunakan potongan harga agresif pada 19.00 sampai 22.00 karena periode tersebut masih menjadi jam dengan tingkat keterisian tertinggi.</p>
-          <div class="action-meta">
-            <div><span>Tindakan</span><b>Push paket 2 jam pada jam sepi</b></div>
-            <div><span>Target Oktober</span><b>6 sampai 10 booking tambahan berdurasi 2 jam</b></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-item reveal">
-        <div class="action-problem"><small>Masalah 03</small>Booking 4 jam atau lebih<br>masih 0 di Oktober</div>
-        <div class="action-body">
-          <h3>Kejar booking berdurasi panjang melalui perusahaan, instansi, dan tim yang sudah bermain rutin.</h3>
-          <p>Gunakan penawaran block booking 4 jam atau lebih, paket beberapa sesi, atau jadwal tetap bulanan. Jika diperlukan, tambahkan referee, photographer, dan mineral sebagai layanan tambahan tanpa membuat kegiatan baru yang membutuhkan pengelolaan khusus.</p>
-          <div class="action-meta">
-            <div><span>Tindakan</span><b>Buat penawaran corporate block dan paket beberapa sesi</b></div>
-            <div><span>Target Oktober</span><b>2 sampai 4 booking perusahaan atau berdurasi 4 jam atau lebih</b></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-item reveal">
-        <div class="action-problem"><small>Masalah 04</small>Jam malam kuat<br>siang masih kosong</div>
-        <div class="action-body">
-          <h3>Pertahankan harga malam, gunakan promosi untuk mengisi jam rendah.</h3>
-          <p>Jam 19.00 sampai 22.00 tetap dipertahankan pada harga normal. Promo diarahkan ke jam yang masih rendah tingkat keterisiannya agar pertumbuhan datang dari kapasitas kosong, bukan dari diskon pada jam yang sudah kuat.</p>
-          <div class="action-meta">
-            <div><span>Tindakan</span><b>Promo hanya pada jam rendah</b></div>
-            <div><span>Target Oktober</span><b>Utilization total naik menjadi 15 sampai 18 persen</b></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="action-item reveal">
-        <div class="action-problem"><small>Masalah 05</small>Pendapatan sewa turun<br>Rp89,6 menjadi Rp56,9 juta</div>
-        <div class="action-body">
-          <h3>Naikkan nilai setiap booking melalui layanan tambahan yang mudah dijalankan.</h3>
-          <p>Pada booking yang relevan, tawarkan photographer, referee, dan mineral. Fokus hanya pada layanan yang sudah tersedia dan tidak membutuhkan pengelolaan kegiatan tambahan.</p>
-          <div class="action-meta">
-            <div><span>Tindakan</span><b>Bundling layanan tambahan yang sudah tersedia</b></div>
-            <div><span>Target Oktober</span><b>Tambahan pendapatan layanan sekitar Rp3 juta</b></div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 01</small>Pulihkan frekuensi transaksi</div><div class="action-body"><h3>Hubungi tim yang sudah kembali untuk mengunci jadwal tetap.</h3><p>Mulai dari Dragon FC, Pertamina EP, Fitness Solution, dan ULJ. Gunakan daftar lintas bulan untuk follow-up berikutnya; sesuaikan penawaran dengan pola kunjungan masing-masing.</p><div class="action-meta"><div><span>Tindakan</span><b>Follow-up dan tawarkan slot mingguan prabayar</b></div><div><span>Target Oktober</span><b>5 sampai 8 tim dengan jadwal berulang</b></div></div></div></div>
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 02</small>Perpanjang sesi</div><div class="action-body"><h3>Jual paket 2 jam dan penawaran perusahaan berdurasi panjang.</h3><p>Arahkan paket 2 jam ke 07.00 sampai 16.00 serta 17.00 sampai 18.00. Untuk perusahaan dan instansi, tawarkan block 4 jam atau lebih atau paket beberapa sesi.</p><div class="action-meta"><div><span>Tindakan</span><b>Penawaran sesuai durasi dan kapasitas kosong</b></div><div><span>Target Oktober</span><b>6 sampai 10 tambahan sesi 2 jam; 2 sampai 4 booking perusahaan atau sesi 4 jam+</b></div></div></div></div>
+<div class="action-item reveal"><div class="action-problem"><small>Prioritas 03</small>Tingkatkan pendapatan</div><div class="action-body"><h3>Jaga harga malam dan tambah nilai kunjungan.</h3><p>Pertahankan harga normal pada 19.00 sampai 22.00. Tawarkan photographer, referee, dan mineral yang sudah tersedia; evaluasi pendapatan terhadap biaya agar pertumbuhan volume juga memperbaiki hasil bulan berjalan.</p><div class="action-meta"><div><span>Tindakan</span><b>Bundling layanan relevan; promosi hanya pada jam rendah</b></div><div><span>Target skenario layanan</span><b>Tambahan pendapatan sekitar Rp3 juta</b></div></div></div></div>
+</div>
 
     <div class="success-board reveal">
       <div class="kicker">What we need to see by 31 October</div>
       <h2>Kalau angka ini tercapai, berarti Oktober bergerak ke arah yang benar.</h2>
       <div class="success-grid">
-        <div class="success-metric"><div class="num">77 to 93h</div><div class="label">total jam bermain Oktober</div></div>
-        <div class="success-metric"><div class="num">15 to 18%</div><div class="label">tingkat keterisian lapangan</div></div>
-        <div class="success-metric"><div class="num">5 to 8</div><div class="label">tim dengan jadwal berulang</div></div>
-        <div class="success-metric"><div class="num">2 to 4</div><div class="label">booking perusahaan atau booking berdurasi 4 jam atau lebih</div></div>
-        <div class="success-metric"><div class="num">6 to 10</div><div class="label">booking tambahan berdurasi 2 jam pada jam dengan keterisian rendah</div></div>
-        <div class="success-metric"><div class="num">19.00 to 22.00</div><div class="label">harga normal tetap dipertahankan</div></div>
-      </div>
-      <p class="success-note">Evaluasi akhir Oktober tidak cukup hanya melihat total revenue. Kita juga harus melihat apakah jumlah jam bermain naik, durasi per booking membaik, tim kembali booking, dan jam kosong mulai terisi.</p>
+<div class="success-metric"><div class="num">01</div><div class="label"><strong>Frekuensi</strong><br>5 sampai 8 tim dengan jadwal berulang.</div></div>
+<div class="success-metric"><div class="num">02</div><div class="label"><strong>Durasi dan kapasitas</strong><br>6 sampai 10 tambahan sesi 2 jam; 2 sampai 4 booking perusahaan atau sesi 4 jam+.<br>Hasil gabungan: 77 sampai 93 jam dan utilization 15 sampai 18%.</div></div>
+<div class="success-metric"><div class="num">03</div><div class="label"><strong>Pendapatan</strong><br>Skenario layanan tambahan sekitar Rp3 juta; harga normal 19.00 sampai 22.00 tetap dijaga.<br>Bandingkan pendapatan dan biaya saat evaluasi; target laba belum ditetapkan.</div></div>
+</div>
+      <p class="success-note">Target tersebut adalah rencana Oktober, bukan realisasi atau jaminan hasil. Nilai skenario antarpenawaran tidak dijumlahkan menjadi proyeksi pendapatan.</p>
     </div>
   </div>
 </section>
 <section class="close" lang="en">
   <div class="wrap reveal">
     <div class="kicker">Final whistle</div>
-    <h2>More hours.<br><span class="green">More repeat.</span><br><span class="lime">Longer sessions.</span></h2>
-    <p>Fill available hours, retain returning teams, and build demand for longer sessions.</p>
+    <h2>More repeat.<br><span class="green">Longer sessions.</span><br><span class="lime">Better revenue.</span></h2>
+    <p>Bring teams back, extend their sessions, and grow revenue while protecting standard pricing.</p>
     <div class="final"><span>Improve utilization</span><span>Grow rental revenue</span><span>Protect standard pricing from 19.00 to 22.00</span></div>
   </div>
 </section>
