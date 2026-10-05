@@ -629,10 +629,27 @@ section[id],main[id]{scroll-margin-top:132px}
  .reveal{opacity:1;transform:none}.tactic-story{display:none}
  .wrap{width:100%;max-width:none}.hero,.loyalty,.customers,.october-now,.playbook,.action-plan,.close{padding-block:32px}
 }
+
+/* Editorial motion: reading position, selected state, and restrained transitions. */
+.reading-progress{position:fixed;inset:0 0 auto;height:3px;z-index:100;background:var(--green);transform:scaleX(0);transform-origin:left;pointer-events:none}
+.corp-nav a{position:relative}
+.corp-nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform 180ms ease}
+.corp-nav a.active:after,.corp-nav a:focus-visible:after{transform:scaleX(1)}
+.tactic{border-radius:2px;transition:background-color 180ms ease}
+.tactic.active{background:rgba(36,137,59,.07)}
+.tactic .ball{transition:transform 200ms ease,box-shadow 200ms ease}
+.tactic.active .ball{transform:scale(1.04);box-shadow:0 0 0 6px rgba(36,137,59,.1)}
+@media(hover:hover){.tactic:hover{background:rgba(36,137,59,.05)}.tactic:hover .ball{transform:translateY(-3px);box-shadow:0 6px 0 rgba(36,137,59,.08)}}
+details summary{transition:color 160ms ease}
+details summary:hover{color:#278c3e}
+@media(prefers-reduced-motion:reduce){.corp-nav a:after,.tactic,.tactic .ball,details summary{transition:none}.tactic:hover .ball,.tactic.active .ball{transform:none}}
+@media print{.reading-progress{display:none}}
+
 </style>
 <noscript><style>.scene{visibility:visible;pointer-events:auto}.visual{position:static;height:auto;min-height:0}.visual-inner{height:auto}.scene{position:static;opacity:1;transform:none;margin-block:36px}.scrolly{display:block}.tactic-story{display:none}.tactic{cursor:default}</style></noscript>
 </head>
 <body>
+<div class="reading-progress" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Lewati navigasi</a>
 
 <header class="top">
@@ -881,6 +898,7 @@ document.querySelectorAll('.tactic').forEach(t=>t.addEventListener('click',()=>{
   document.getElementById('tacticMoney').textContent=t.dataset.money;
   document.getElementById('tacticName').textContent=t.dataset.name;
   document.getElementById('tacticCopy').textContent=t.dataset.copy;
+  animateEditorial(document.querySelector('.tactic-story'),8);
 }));
 
 
@@ -891,12 +909,37 @@ if(navSections.length){
   const navObs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));
+        navLinks.forEach(a=>{const active=a.getAttribute('href')==='#'+e.target.id;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
       }
     });
   },{rootMargin:'-38% 0px -55% 0px'});
   navSections.forEach(s=>navObs.observe(s));
 }
+
+const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
+function animateEditorial(element,distance=10){
+ if(motionPreference.matches||!element.animate)return;
+ element.getAnimations().forEach(animation=>animation.cancel());
+ element.animate([{opacity:.65,transform:'translateY('+distance+'px)'},{opacity:1,transform:'translateY(0)'}],{duration:320,easing:'cubic-bezier(.2,.65,.3,1)'});
+}
+const readingProgress=document.querySelector('.reading-progress');
+let progressPending=false;
+function updateReadingProgress(){
+ const available=document.documentElement.scrollHeight-innerHeight;
+ readingProgress.style.transform='scaleX('+Math.max(0,Math.min(1,available>0?scrollY/available:0))+')';
+ progressPending=false;
+}
+function queueReadingProgress(){if(!progressPending){progressPending=true;requestAnimationFrame(updateReadingProgress);}}
+addEventListener('scroll',queueReadingProgress,{passive:true});
+addEventListener('resize',queueReadingProgress);
+document.querySelectorAll('details').forEach(detail=>detail.addEventListener('toggle',queueReadingProgress));
+updateReadingProgress();
+const headingMotion=new IntersectionObserver(entries=>entries.forEach(entry=>{
+ if(entry.isIntersecting){animateEditorial(entry.target);headingMotion.unobserve(entry.target);}
+}),{threshold:.2});
+document.querySelectorAll('.section-head').forEach(heading=>headingMotion.observe(heading));
+motionPreference.addEventListener('change',()=>{if(motionPreference.matches)document.getAnimations().forEach(animation=>animation.cancel());});
+
 </script>
 </body>
 </html>
